@@ -8,17 +8,17 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-//MARK: - props
+    //MARK: - props
     
     private let settingsViewModel: SettingsViewModel
     private let settingsCellID = SettingsTableViewCell.cellId
     private let settingsHeaderID = SettingsHeaderView.cellId
     private let settingsFooterID = SettingsFooterView.cellId
-//MARK: - subviews
+    //MARK: - subviews
     
     private let tableView = UITableView(frame: .zero, style: .grouped)
-
-//MARK: - init
+    
+    //MARK: - init
     init(settingsViewModel: SettingsViewModel) {
         self.settingsViewModel = settingsViewModel
         super.init(nibName: nil, bundle: nil)
@@ -27,14 +27,14 @@ class SettingsViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//MARK: - loading
+    //MARK: - loading
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
     }
-
+    
 }
 //MARK: - setup views
 
@@ -49,8 +49,8 @@ extension SettingsViewController {
         tableView.separatorStyle = .none
         
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: settingsCellID)
-        tableView.register(SettingsHeaderView.self, forCellReuseIdentifier: settingsHeaderID)
-        tableView.register(SettingsFooterView.self, forCellReuseIdentifier: settingsFooterID)
+//        tableView.register(SettingsHeaderView.self, forCellReuseIdentifier: settingsHeaderID)
+//        tableView.register(SettingsFooterView.self, forCellReuseIdentifier: settingsFooterID)
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -66,35 +66,18 @@ extension SettingsViewController {
 
 extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settingsViewModel.settings.count + 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: settingsHeaderID, for: indexPath) as! SettingsHeaderView
-            return cell
-        case settingsViewModel.settings.count + 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: settingsFooterID, for: indexPath) as! SettingsFooterView
-            return cell
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellID, for: indexPath) as! SettingsTableViewCell
-            cell.valueLabel.text = settingsViewModel.settings[indexPath.row - 1]
-            return cell
-        }
-        
-        
-//        cell.separatorInset = UIEdgeInsets
-//        cell.layoutMargins = .zero
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellID, for: indexPath) as! SettingsTableViewCell
+        return cell
     }
-    
-    
 }
 //MARK: - UITableViewDelegate
 
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45
+        return 330
     }
 }
