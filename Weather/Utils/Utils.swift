@@ -27,3 +27,9 @@ extension UIColor {
         )
     }
 }
+
+extension UIFont {
+    static func setAppMainFont(_ fontSize: CGFloat) -> UIFont {
+        return UIFont(name: "Rubik-Regular", size: fontSize) ?? .systemFont(ofSize: fontSize)
+    }
+}

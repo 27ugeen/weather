@@ -17,6 +17,11 @@
 		11E419F528210D19001098D7 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419F428210D19001098D7 /* OnboardingViewController.swift */; };
 		11E419F928211E06001098D7 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11E419F828211E06001098D7 /* Rubik-Regular.ttf */; };
 		11E419FB2821244A001098D7 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419FA2821244A001098D7 /* Utils.swift */; };
+		11E419FE2821413F001098D7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419FD2821413F001098D7 /* SettingsViewController.swift */; };
+		11E41A0128214685001098D7 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A0028214685001098D7 /* SettingsTableViewCell.swift */; };
+		11E41A05282182B0001098D7 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A04282182B0001098D7 /* SettingsViewModel.swift */; };
+		11E41A07282191B5001098D7 /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A06282191B5001098D7 /* SettingsHeaderView.swift */; };
+		11E41A09282191E3001098D7 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A08282191E3001098D7 /* SettingsFooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +37,11 @@
 		11E419F428210D19001098D7 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		11E419F828211E06001098D7 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		11E419FA2821244A001098D7 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		11E419FD2821413F001098D7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		11E41A0028214685001098D7 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		11E41A04282182B0001098D7 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		11E41A06282191B5001098D7 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
+		11E41A08282191E3001098D7 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				11E419F728211DD8001098D7 /* Fonts */,
+				11E419FF2821414F001098D7 /* Settings */,
 				117E3931280600DC00EA160C /* AppDelegate.swift */,
 				11E419F628210D27001098D7 /* Onboarding */,
 				117E396A28083FDA00EA160C /* Carousel */,
@@ -109,6 +120,18 @@
 				11E419FA2821244A001098D7 /* Utils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		11E419FF2821414F001098D7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				11E419FD2821413F001098D7 /* SettingsViewController.swift */,
+				11E41A0028214685001098D7 /* SettingsTableViewCell.swift */,
+				11E41A06282191B5001098D7 /* SettingsHeaderView.swift */,
+				11E41A08282191E3001098D7 /* SettingsFooterView.swift */,
+				11E41A04282182B0001098D7 /* SettingsViewModel.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,10 +208,15 @@
 			files = (
 				117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */,
 				11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */,
+				11E41A07282191B5001098D7 /* SettingsHeaderView.swift in Sources */,
+				11E41A0128214685001098D7 /* SettingsTableViewCell.swift in Sources */,
+				11E419FE2821413F001098D7 /* SettingsViewController.swift in Sources */,
 				11E419F528210D19001098D7 /* OnboardingViewController.swift in Sources */,
 				117E396C280844F600EA160C /* CarouselEmptyCollectionViewCell.swift in Sources */,
 				117E3932280600DC00EA160C /* AppDelegate.swift in Sources */,
 				11E419FB2821244A001098D7 /* Utils.swift in Sources */,
+				11E41A09282191E3001098D7 /* SettingsFooterView.swift in Sources */,
+				11E41A05282182B0001098D7 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
