@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import CustomUISwitch
 
 class SettingsTableViewCell: UITableViewCell {
 //MARK: - props
     
     static let cellId = "SettingsTableViewCell"
+    private var toggleButtonOn = false
+    private let switchOnImageWithTitle = UIImage.textToImage(drawText: "On", inImage: UIImage(named: "switchOn") ?? UIImage(), font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
+    let switchOffImgWithTitle = UIImage.textToImage(drawText: "Off", inImage: UIImage(named: "switchOff") ?? UIImage(), font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
 //MARK: - subviews
     
     lazy var valueLabel: UILabel = {
@@ -18,19 +22,48 @@ class SettingsTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(rgb: 0x898383)
         label.font = UIFont.setAppMainFont(16)
-//        label.text = "test"
         return label
     }()
     
-    private let valueToggle: UISwitch = {
-        let toggle = UISwitch()
-        toggle.translatesAutoresizingMaskIntoConstraints = false
-//        toggle.isOn = UserDefaults.standard.bool(forKey: "toggle")
+    lazy var valueToggle: CustomSwitch = {
+        let customSwitch = CustomSwitch()
+        customSwitch.translatesAutoresizingMaskIntoConstraints = false
         
-        toggle.onTintColor = UIColor(rgb: 0x1F4DC5)
-        return toggle
+        customSwitch.onTintColor = UIColor(rgb: 0xFEEDE9)
+        customSwitch.offTintColor = customSwitch.onTintColor
+        customSwitch.cornerRadius = 0.15
+        customSwitch.thumbCornerRadius = 0.15
+        customSwitch.thumbShadowOffset = CGSize(width: 0, height: 0)
+        customSwitch.thumbImage = switchOffImgWithTitle
+        
+        customSwitch.areLabelsShown = true
+        customSwitch.labelOn.textColor = UIColor(rgb: 0x272722)
+        customSwitch.labelOff.textColor = customSwitch.labelOff.textColor
+        
+        customSwitch.labelOn.font = UIFont.setAppMainFont(16)
+        customSwitch.labelOff.font = customSwitch.labelOn.font
+        
+        customSwitch.thumbSize = CGSize(width: 40, height: 30)
+    
+        customSwitch.animationDuration = 0.5
+        
+//        customSwitch.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        return customSwitch
     }()
     
+    @objc private func buttonClicked(_ sender: Any) {
+        if !toggleButtonOn {
+            toggleButtonOn = true
+            valueToggle.thumbImage = switchOnImageWithTitle
+        } else {
+            toggleButtonOn = false
+            valueToggle.thumbImage = switchOffImgWithTitle
+        }
+    }
+    
+//    func setUnits(_ unit: String, _ image: UIImage) -> UIImage {
+//        return UIImage.textToImage(drawText: unit, inImage: image , font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
+//    }
 //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -60,7 +93,9 @@ extension SettingsTableViewCell {
             
             valueToggle.leadingAnchor.constraint(equalTo: valueLabel.trailingAnchor),
             valueToggle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            valueToggle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30)
+            valueToggle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            valueToggle.widthAnchor.constraint(equalToConstant: 80),
+            valueToggle.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
 }

@@ -16,7 +16,7 @@ class SettingsViewController: UIViewController {
     private let settingsFooterID = SettingsFooterView.cellId
 //MARK: - subviews
     
-    private let tableView = UITableView(frame: .zero, style: .grouped)
+    private let tableView = UITableView(frame: .zero, style: .plain)
 
 //MARK: - init
     init(settingsViewModel: SettingsViewModel) {
@@ -34,6 +34,11 @@ class SettingsViewController: UIViewController {
         
         setupViews()
     }
+//MARK: - methods
+    
+    private func setUnits(_ unit: String, _ image: UIImage) -> UIImage {
+        return UIImage.textToImage(drawText: unit, inImage: image , font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
+    }
 
 }
 //MARK: - setup views
@@ -44,6 +49,8 @@ extension SettingsViewController {
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.isScrollEnabled = false
+//        tableView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         tableView.backgroundColor = UIColor(rgb: 0xE9EEFA)
         tableView.layer.cornerRadius = 8
         tableView.separatorStyle = .none
@@ -55,9 +62,9 @@ extension SettingsViewController {
         tableView.delegate = self
         
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             tableView.heightAnchor.constraint(equalToConstant: 330)
         ])
     }
@@ -79,7 +86,13 @@ extension SettingsViewController: UITableViewDataSource {
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellID, for: indexPath) as! SettingsTableViewCell
-            cell.valueLabel.text = settingsViewModel.settings[indexPath.row - 1]
+            cell.valueLabel.text = settingsViewModel.settings[indexPath.row - 1].settingsName
+            if cell.valueToggle.isOn {
+                cell.valueToggle.thumbImage = setUnits(settingsViewModel.settings[indexPath.row - 1].settingsValueOff, UIImage(named: "switchOff") ?? UIImage())
+            } else {
+                cell.valueToggle.thumbImage = setUnits(settingsViewModel.settings[indexPath.row - 1].settingsValueOn, UIImage(named: "switchOn") ?? UIImage())
+            }
+//            tableView.reloadData()
             return cell
         }
         
@@ -95,6 +108,8 @@ extension SettingsViewController: UITableViewDataSource {
 
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45
+        return 50
+        
     }
+    
 }

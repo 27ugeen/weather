@@ -1,0 +1,16 @@
+PODS:
+  - CustomUISwitch (0.0.1)
+
+DEPENDENCIES:
+  - CustomUISwitch (~> 0.0)
+
+SPEC REPOS:
+  trunk:
+    - CustomUISwitch
+
+SPEC CHECKSUMS:
+  CustomUISwitch: 2076af90de425af11cc7631dda40bc441e707b0f
+
+PODFILE CHECKSUM: f87bdb3c14fae5f3c87f8053531713656e970d72
+
+COCOAPODS: 1.11.3

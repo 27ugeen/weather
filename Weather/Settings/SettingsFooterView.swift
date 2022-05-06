@@ -47,12 +47,12 @@ extension SettingsFooterView {
         addSubview(setButton)
         
         NSLayoutConstraint.activate([
-            setButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 37),
+            setButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
             setButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 35),
-//            setButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -35),
-            setButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,  constant: -16),
+            setButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -35),
+//            setButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
             setButton.heightAnchor.constraint(equalToConstant: 40),
-            setButton.widthAnchor.constraint(equalToConstant: 250)
+            setButton.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -70)
         ])
     }
 }
