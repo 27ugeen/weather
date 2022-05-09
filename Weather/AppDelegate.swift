@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
 //        let navigationController = UINavigationController(rootViewController: CarouselViewController().self)
-        let navigationController = UINavigationController(rootViewController: OnboardingViewController().self)
+        let navigationController = UINavigationController(rootViewController: SettingsViewController(settingsViewModel: SettingsViewModel().self).self)
 //        navigationController.isNavigationBarHidden = true
         navigationController.navigationBar.tintColor = .black
         

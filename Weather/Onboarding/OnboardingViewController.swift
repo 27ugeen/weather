@@ -36,7 +36,7 @@ class OnboardingViewController: UIViewController {
         label.text = "Разрешить приложению  Weather использовать данные о местоположении вашего устройства"
         label.numberOfLines = 0
         label.textColor = UIColor(rgb: 0xF8F5F5)
-        label.font = UIFont(name: "Rubik-Regular", size: 16)
+        label.font = UIFont.setAppMainFont(16)
         return label
     }()
     
@@ -46,7 +46,7 @@ class OnboardingViewController: UIViewController {
         label.text = "Чтобы получить более точные прогнозы погоды во время движения или путешествия"
         label.numberOfLines = 0
         label.textColor = UIColor(rgb: 0xFFFFFF)
-        label.font = UIFont(name: "Rubik-Regular", size: 14)
+        label.font = UIFont.setAppMainFont(14)
         return label
     }()
     
@@ -56,7 +56,7 @@ class OnboardingViewController: UIViewController {
         label.text = "Вы можете изменить свой выбор в любое время из меню приложения"
         label.numberOfLines = 0
         label.textColor = UIColor(rgb: 0xFFFFFF)
-        label.font = UIFont(name: "Rubik-Regular", size: 14)
+        label.font = UIFont.setAppMainFont(14)
         return label
     }()
     
@@ -66,7 +66,7 @@ class OnboardingViewController: UIViewController {
         button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА", for: .normal)
         button.setTitleColor(UIColor(rgb: 0xFFFFFF), for: .normal)
         button.backgroundColor = UIColor(rgb: 0xF26E11)
-        button.titleLabel?.font = UIFont(name: "Rubik", size: 12)
+        button.titleLabel?.font = UIFont.setAppMainFont(12)
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
         
@@ -80,7 +80,7 @@ class OnboardingViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ", for: .normal)
         button.setTitleColor(UIColor(rgb: 0xFDFBF5), for: .normal)
-        button.titleLabel?.font = UIFont(name: "Rubik", size: 16)
+        button.titleLabel?.font = UIFont.setAppMainFont(16)
         
         //        self.addTarget(self, action: #selector(nil), for: .touchUpInside)
         
