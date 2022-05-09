@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1152A98A2829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1152A9892829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift */; };
 		117E3932280600DC00EA160C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E3931280600DC00EA160C /* AppDelegate.swift */; };
 		117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E3935280600DC00EA160C /* CarouselViewController.swift */; };
 		117E3939280600DC00EA160C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 117E3937280600DC00EA160C /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1152A9892829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityMainHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		117E392E280600DC00EA160C /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		117E3931280600DC00EA160C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		117E3935280600DC00EA160C /* CarouselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
@@ -81,9 +83,9 @@
 		117E3930280600DC00EA160C /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				117E3931280600DC00EA160C /* AppDelegate.swift */,
 				11E419F728211DD8001098D7 /* Fonts */,
 				11E419FF2821414F001098D7 /* Settings */,
-				117E3931280600DC00EA160C /* AppDelegate.swift */,
 				11E419F628210D27001098D7 /* Onboarding */,
 				117E396A28083FDA00EA160C /* Carousel */,
 				11E419FC28212451001098D7 /* Utils */,
@@ -100,6 +102,7 @@
 			children = (
 				117E3935280600DC00EA160C /* CarouselViewController.swift */,
 				11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */,
+				1152A9892829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift */,
 				117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */,
 			);
 			path = Carousel;
@@ -147,7 +150,6 @@
 				890283250F091510EEB784C7 /* Pods-Weather.debug.xcconfig */,
 				289968FE07F2BD99E0EC836B /* Pods-Weather.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -277,6 +279,7 @@
 			files = (
 				117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */,
 				11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */,
+				1152A98A2829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift in Sources */,
 				11E41A07282191B5001098D7 /* SettingsHeaderView.swift in Sources */,
 				11E41A0128214685001098D7 /* SettingsTableViewCell.swift in Sources */,
 				11E419FE2821413F001098D7 /* SettingsViewController.swift in Sources */,

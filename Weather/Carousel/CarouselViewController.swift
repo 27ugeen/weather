@@ -10,6 +10,9 @@ import UIKit
 class CarouselViewController: UIViewController {
     //MARK: - Props
     
+    private let emptyCellID = CarouselEmptyCollectionViewCell.cellId
+    private let cityCellId = CarouselCityCollectionViewCell.cellId
+    
     private var currentPage: Int = 0 {
         didSet {
             pageControl.currentPage = currentPage
@@ -29,7 +32,7 @@ class CarouselViewController: UIViewController {
         collection.backgroundColor = .clear
         collection.isPagingEnabled = true
         
-        collection.register(CarouselEmptyCollectionViewCell.self, forCellWithReuseIdentifier: CarouselEmptyCollectionViewCell.cellId)
+        
         
         collection.dataSource = self
         collection.delegate = self
@@ -70,6 +73,10 @@ class CarouselViewController: UIViewController {
 
 extension CarouselViewController {
     func setupViews() {
+        
+        carouselCollectionView.register(CarouselEmptyCollectionViewCell.self, forCellWithReuseIdentifier: emptyCellID)
+        carouselCollectionView.register(CarouselCityCollectionViewCell.self, forCellWithReuseIdentifier: cityCellId)
+        
         view.addSubview(carouselCollectionView)
         view.addSubview(pageControl)
         
@@ -113,7 +120,7 @@ extension CarouselViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselEmptyCollectionViewCell.cellId, for: indexPath) as? CarouselEmptyCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as? CarouselCityCollectionViewCell else { return UICollectionViewCell() }
         
 //        let image = carouselData[indexPath.row].image
 //        let text = carouselData[indexPath.row].text
