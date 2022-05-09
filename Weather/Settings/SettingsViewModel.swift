@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Settings {
     let settingsName: String
@@ -14,12 +15,13 @@ struct Settings {
 }
 
 class SettingsViewModel {
-//MARK: - props
+    //MARK: - props
     
     let settings: [Settings] = [
-    Settings(settingsName: "Температура", settingsValueOn: "C", settingsValueOff: "F"),
-    Settings(settingsName: "Скорость ветра", settingsValueOn: "Mi", settingsValueOff: "Km"),
-    Settings(settingsName: "Формат времени", settingsValueOn: "12", settingsValueOff: "24"),
-    Settings(settingsName: "Уведомления", settingsValueOn: "On", settingsValueOff: "Off")
+        Settings(settingsName: "Temp", settingsValueOn: "C", settingsValueOff: "F"),
+        Settings(settingsName: "wind", settingsValueOn: "Mi", settingsValueOff: "Km"),
+        Settings(settingsName: "time", settingsValueOn: "12", settingsValueOff: "24"),
+        Settings(settingsName: "notific", settingsValueOn: "On", settingsValueOff: "Off")
     ]
+    
 }

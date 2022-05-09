@@ -6,19 +6,20 @@
 //
 
 import UIKit
+import CustomUISwitch
 
 class SettingsViewController: UIViewController {
-//MARK: - props
+    //MARK: - props
     
     private let settingsViewModel: SettingsViewModel
     private let settingsCellID = SettingsTableViewCell.cellId
     private let settingsHeaderID = SettingsHeaderView.cellId
     private let settingsFooterID = SettingsFooterView.cellId
-//MARK: - subviews
+    //MARK: - subviews
     
     private let tableView = UITableView(frame: .zero, style: .plain)
-
-//MARK: - init
+    
+    //MARK: - init
     init(settingsViewModel: SettingsViewModel) {
         self.settingsViewModel = settingsViewModel
         super.init(nibName: nil, bundle: nil)
@@ -27,19 +28,28 @@ class SettingsViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//MARK: - loading
+    //MARK: - loading
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
     }
-//MARK: - methods
+    //MARK: - methods
     
     private func setUnits(_ unit: String, _ image: UIImage) -> UIImage {
-        return UIImage.textToImage(drawText: unit, inImage: image , font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
+        return  UIImage.textToImage(drawText: unit, inImage: image, font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
     }
-
+    
+    @objc func toggleChanged(sender: CustomSwitch) {
+        let btnIdx = sender.tag
+        
+        if UserDefaults.standard.bool(forKey: settingsViewModel.settings[btnIdx].settingsName) {
+            UserDefaults.standard.set(false, forKey: settingsViewModel.settings[btnIdx].settingsName)
+        } else {
+            UserDefaults.standard.set(true, forKey: settingsViewModel.settings[btnIdx].settingsName)
+        }
+    }
 }
 //MARK: - setup views
 
@@ -50,7 +60,6 @@ extension SettingsViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.isScrollEnabled = false
-//        tableView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         tableView.backgroundColor = UIColor(rgb: 0xE9EEFA)
         tableView.layer.cornerRadius = 8
         tableView.separatorStyle = .none
@@ -86,30 +95,30 @@ extension SettingsViewController: UITableViewDataSource {
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: settingsCellID, for: indexPath) as! SettingsTableViewCell
-            cell.valueLabel.text = settingsViewModel.settings[indexPath.row - 1].settingsName
+            let cellIdxPath = indexPath.row - 1
+            
+            cell.valueLabel.text = settingsViewModel.settings[cellIdxPath].settingsName
+            
+            cell.valueToggle.isOn = UserDefaults.standard.bool(forKey: settingsViewModel.settings[cellIdxPath].settingsName)
+            
             if cell.valueToggle.isOn {
-                cell.valueToggle.thumbImage = setUnits(settingsViewModel.settings[indexPath.row - 1].settingsValueOff, UIImage(named: "switchOff") ?? UIImage())
+                cell.valueToggle.thumbImage = setUnits(settingsViewModel.settings[cellIdxPath].settingsValueOff, UIImage(named: "switchOff") ?? UIImage())
             } else {
-                cell.valueToggle.thumbImage = setUnits(settingsViewModel.settings[indexPath.row - 1].settingsValueOn, UIImage(named: "switchOn") ?? UIImage())
+                cell.valueToggle.thumbImage = setUnits(settingsViewModel.settings[cellIdxPath].settingsValueOn, UIImage(named: "switchOn") ?? UIImage())
             }
-//            tableView.reloadData()
+            
+            cell.valueToggle.tag = cellIdxPath
+            cell.valueToggle.addTarget(self, action: #selector(toggleChanged), for: .touchUpInside)
+            cell.valueToggle.labelOn.text = settingsViewModel.settings[cellIdxPath].settingsValueOn
+            cell.valueToggle.labelOff.text = settingsViewModel.settings[cellIdxPath].settingsValueOff
             return cell
         }
-        
-        
-//        cell.separatorInset = UIEdgeInsets
-//        cell.layoutMargins = .zero
-        
     }
-    
-    
 }
 //MARK: - UITableViewDelegate
 
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
-        
     }
-    
 }

@@ -9,15 +9,14 @@ import UIKit
 import CustomUISwitch
 
 class SettingsTableViewCell: UITableViewCell {
-//MARK: - props
+    //MARK: - props
     
     static let cellId = "SettingsTableViewCell"
-    private var toggleButtonOn = false
-    private let switchOnImageWithTitle = UIImage.textToImage(drawText: "On", inImage: UIImage(named: "switchOn") ?? UIImage(), font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
-    let switchOffImgWithTitle = UIImage.textToImage(drawText: "Off", inImage: UIImage(named: "switchOff") ?? UIImage(), font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
-//MARK: - subviews
+    private lazy var switchOnImageWithTitle = UIImage.textToImage(drawText: valueToggle.labelOn.text ?? "On", inImage: UIImage(named: "switchOn") ?? UIImage(), font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
+    private lazy var switchOffImgWithTitle = UIImage.textToImage(drawText: valueToggle.labelOff.text ?? "Off", inImage: UIImage(named: "switchOff") ?? UIImage(), font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
+    //MARK: - subviews
     
-    lazy var valueLabel: UILabel = {
+    let valueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(rgb: 0x898383)
@@ -25,7 +24,7 @@ class SettingsTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var valueToggle: CustomSwitch = {
+    let valueToggle: CustomSwitch = {
         let customSwitch = CustomSwitch()
         customSwitch.translatesAutoresizingMaskIntoConstraints = false
         
@@ -34,37 +33,28 @@ class SettingsTableViewCell: UITableViewCell {
         customSwitch.cornerRadius = 0.15
         customSwitch.thumbCornerRadius = 0.15
         customSwitch.thumbShadowOffset = CGSize(width: 0, height: 0)
-        customSwitch.thumbImage = switchOffImgWithTitle
         
         customSwitch.areLabelsShown = true
         customSwitch.labelOn.textColor = UIColor(rgb: 0x272722)
-        customSwitch.labelOff.textColor = customSwitch.labelOff.textColor
+        customSwitch.labelOff.textColor = customSwitch.labelOn.textColor
         
         customSwitch.labelOn.font = UIFont.setAppMainFont(16)
         customSwitch.labelOff.font = customSwitch.labelOn.font
-        
         customSwitch.thumbSize = CGSize(width: 40, height: 30)
-    
         customSwitch.animationDuration = 0.5
         
-//        customSwitch.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        customSwitch.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
         return customSwitch
     }()
     
     @objc private func buttonClicked(_ sender: Any) {
-        if !toggleButtonOn {
-            toggleButtonOn = true
-            valueToggle.thumbImage = switchOnImageWithTitle
-        } else {
-            toggleButtonOn = false
+        if valueToggle.isOn {
             valueToggle.thumbImage = switchOffImgWithTitle
+        } else {
+            valueToggle.thumbImage = switchOnImageWithTitle
         }
     }
-    
-//    func setUnits(_ unit: String, _ image: UIImage) -> UIImage {
-//        return UIImage.textToImage(drawText: unit, inImage: image , font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
-//    }
-//MARK: - init
+    //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -75,12 +65,13 @@ class SettingsTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }
 //MARK: - setup views
 
 extension SettingsTableViewCell {
     private func setupViews() {
+        
         contentView.backgroundColor = UIColor(rgb: 0xE9EEFA)
         contentView.addSubview(valueLabel)
         contentView.addSubview(valueToggle)
@@ -89,7 +80,6 @@ extension SettingsTableViewCell {
             valueLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             valueLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             valueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
             
             valueToggle.leadingAnchor.constraint(equalTo: valueLabel.trailingAnchor),
             valueToggle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

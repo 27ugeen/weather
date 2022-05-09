@@ -8,7 +8,7 @@
 import UIKit
 
 class SettingsHeaderView: UITableViewCell {
-//MARK: - props
+    //MARK: - props
     
     static let cellId = "SettingsHeaderView"
     //MARK: - subviews

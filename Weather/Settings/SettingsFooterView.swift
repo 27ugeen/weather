@@ -9,11 +9,11 @@ import UIKit
 
 class SettingsFooterView: UITableViewCell {
     //MARK: - props
-        
-        static let cellId = "SettingsFooterView"
-//MARK: - subviews
     
-    private let setButton: UIButton = {
+    static let cellId = "SettingsFooterView"
+    //MARK: - subviews
+    
+    private lazy var setButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Установить", for: .normal)
@@ -22,12 +22,10 @@ class SettingsFooterView: UITableViewCell {
         button.titleLabel?.font = UIFont.setAppMainFont(16)
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
-        
-        //        self.addTarget(self, action: #selector(nil), for: .touchUpInside)
-        
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchDown)
         return button
     }()
-//MARK: - init
+    //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -37,6 +35,11 @@ class SettingsFooterView: UITableViewCell {
     
     required init?(coder: NSCoder) {
         nil
+    }
+    //MARK: - methods
+
+    @objc private func buttonTapped() {
+        setButton.setBackgroundColor(UIColor(rgb: 0xC65607), forState: .highlighted)
     }
 }
 //MARK: - setupViews
@@ -50,7 +53,6 @@ extension SettingsFooterView {
             setButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
             setButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 35),
             setButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -35),
-//            setButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
             setButton.heightAnchor.constraint(equalToConstant: 40),
             setButton.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -70)
         ])
