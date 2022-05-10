@@ -12,15 +12,8 @@ class CityMainHeaderTableViewCell: UITableViewCell {
     
     static let cellId = "CityMainHeaderTableViewCell"
 //MARK: - subviews
-    
-    private let headerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(rgb: 0x204EC7)
-        view.layer.cornerRadius = 5
-        
-        return view
-    }()
+
+    private let headerView = HeaderView()
     
     private let dailyTempLabel: UILabel = {
        let label = UILabel()
@@ -146,14 +139,6 @@ class CityMainHeaderTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "humidity")
         return imageView
     }()
-    
-//    private let circleLayer: CAShapeLayer = {
-//       let circle = CAShapeLayer()
-//        circle.path = UIBezierPath(arcCenter: CGPoint(x: 172, y: 70), radius: 125, startAngle: 33, endAngle: 311, clockwise: true).cgPath
-//        circle.strokeColor = UIColor(rgb: 0xF6DD01).cgColor
-////        circle.fillColor = UIColor(rgb: 0xF6DD01).cgColor
-//        return circle
-//    }()
     //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -165,20 +150,7 @@ class CityMainHeaderTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        let startPoint = CGPoint(x: 33, y: 70)
-        
-        let semicircle = UIBezierPath()
-        semicircle.move(to: startPoint)
-        semicircle.addCurve(to: CGPoint(x: 311, y: 33), controlPoint1: CGPoint(x: 172, y: 195), controlPoint2: CGPoint(x: 311, y: 33))
-        
-        UIColor(rgb: 0xF6DD01).setStroke()
-        
-        semicircle.lineWidth = 4
-        semicircle.stroke()
-    }
+
 }
 //MARK: - setupViews
 
@@ -186,6 +158,11 @@ extension CityMainHeaderTableViewCell {
     private func setupViews() {
         contentView.backgroundColor = .white
         contentView.addSubview(headerView)
+        
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.backgroundColor = UIColor(rgb: 0x204EC7)
+        headerView.clipsToBounds = true
+        headerView.layer.cornerRadius = 5
         
         headerView.addSubview(dailyTempLabel)
         headerView.addSubview(presentTempLabel)
@@ -201,7 +178,6 @@ extension CityMainHeaderTableViewCell {
         headerView.addSubview(sunsetLabel)
         headerView.addSubview(sunsetImageView)
         headerView.addSubview(currentDateLabel)
-//        headerView.layer.addSublayer(circleLayer)
         
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 16),
@@ -269,81 +245,6 @@ extension CityMainHeaderTableViewCell {
             humidityImageView.bottomAnchor.constraint(equalTo: sunriseLabel.topAnchor, constant: -11),
             humidityImageView.heightAnchor.constraint(equalToConstant: 18),
             humidityImageView.widthAnchor.constraint(equalToConstant: 13)
-            
-            
-            
         ])
     }
-}
-
-
-
-
-
-
-class ArcsView: UIView {
-    
-    struct Arc {
-        var color: UIColor
-        var angle: CGFloat
-    }
-
-    override func draw(_ rect: CGRect) {
-        
-        let arcsCount = 5
-        let arcsWidth: CGFloat = 40.0
-        let spaceWidth: CGFloat = 10.0
-        
-        let innerArcRadius = rect.width / 2.0 - arcsWidth
-        let outerArcRadius = rect.width / 2.0
-        
-        // определяем расстояния (углы) между секторами по формуле треугольника, зная длины всех сторон
-        
-        let innerSpaceAngle = acos((pow(innerArcRadius, 2) + pow(innerArcRadius, 2) - pow(spaceWidth, 2)) / (2 * innerArcRadius * innerArcRadius))
-        let outerSpaceAngle = acos((pow(outerArcRadius, 2) + pow(outerArcRadius, 2) - pow(spaceWidth, 2)) / (2 * outerArcRadius * outerArcRadius))
-        let arcsAngle = CGFloat.pi * 2 / CGFloat(arcsCount)
-        
-        // заполняем массив для примера
-        
-        let arcs = [
-            Arc(color: .red, angle: arcsAngle),
-            Arc(color: .orange, angle: arcsAngle),
-            Arc(color: .yellow, angle: arcsAngle),
-            Arc(color: .green, angle: arcsAngle),
-            Arc(color: .blue, angle: arcsAngle)
-        ]
-        
-        // поворачиваем сектора для симметрии
-        
-        var angle: CGFloat = -arcsAngle / 4
-        
-        arcs.forEach {
-            
-            // добавляем дуги, которые сами соединяются линией и затем замыкаем контур
-            
-            let path = UIBezierPath()
-            path.lineWidth = 2
-
-            path.addArc(withCenter: CGPoint(x: rect.midX, y: rect.midY),
-                        radius: innerArcRadius,
-                        startAngle: angle + innerSpaceAngle / 2,
-                        endAngle: angle + $0.angle - innerSpaceAngle / 2,
-                        clockwise: true)
-
-            path.addArc(withCenter: CGPoint(x: rect.midX, y: rect.midY),
-                        radius: outerArcRadius,
-                        startAngle: angle + $0.angle - outerSpaceAngle / 2,
-                        endAngle: angle + outerSpaceAngle / 2,
-                        clockwise: false)
-
-            path.close()
-
-            $0.color.setFill()
-            path.fill()
-
-            angle += $0.angle
-        }
-    
-    }
-
 }

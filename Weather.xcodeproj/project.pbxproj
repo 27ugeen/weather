@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1152A98A2829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1152A9892829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift */; };
+		1159A924282B003700ECB30E /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159A923282B003700ECB30E /* HeaderView.swift */; };
 		117E3932280600DC00EA160C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E3931280600DC00EA160C /* AppDelegate.swift */; };
 		117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E3935280600DC00EA160C /* CarouselViewController.swift */; };
 		117E3939280600DC00EA160C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 117E3937280600DC00EA160C /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		1152A9892829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityMainHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		1159A923282B003700ECB30E /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		117E392E280600DC00EA160C /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		117E3931280600DC00EA160C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		117E3935280600DC00EA160C /* CarouselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */,
 				1152A9892829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift */,
 				117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */,
+				1159A923282B003700ECB30E /* HeaderView.swift */,
 			);
 			path = Carousel;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				117E3932280600DC00EA160C /* AppDelegate.swift in Sources */,
 				11E419FB2821244A001098D7 /* Utils.swift in Sources */,
 				11E41A09282191E3001098D7 /* SettingsFooterView.swift in Sources */,
+				1159A924282B003700ECB30E /* HeaderView.swift in Sources */,
 				11E41A05282182B0001098D7 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
