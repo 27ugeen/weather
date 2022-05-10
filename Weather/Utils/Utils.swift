@@ -32,6 +32,10 @@ extension UIFont {
     static func setAppMainFont(_ fontSize: CGFloat) -> UIFont {
         return UIFont(name: "Rubik-Regular", size: fontSize) ?? .systemFont(ofSize: fontSize)
     }
+    
+    static func setAppMediumFont(_ fontSize: CGFloat) -> UIFont {
+        return UIFont(name: "Rubik-Medium", size: fontSize) ?? .systemFont(ofSize: fontSize)
+    }
 }
 
 extension UIImage {

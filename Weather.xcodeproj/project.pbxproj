@@ -14,6 +14,7 @@
 		117E393B280600DE00EA160C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 117E393A280600DE00EA160C /* Assets.xcassets */; };
 		117E393E280600DE00EA160C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 117E393C280600DE00EA160C /* LaunchScreen.storyboard */; };
 		117E396C280844F600EA160C /* CarouselEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */; };
+		11A38758282ACC8D001C8F44 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */; };
 		11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */; };
 		11E419F528210D19001098D7 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419F428210D19001098D7 /* OnboardingViewController.swift */; };
 		11E419F928211E06001098D7 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11E419F828211E06001098D7 /* Rubik-Regular.ttf */; };
@@ -36,6 +37,7 @@
 		117E393D280600DE00EA160C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		117E393F280600DE00EA160C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
+		11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCityCollectionViewCell.swift; sourceTree = "<group>"; };
 		11E419F428210D19001098D7 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		11E419F828211E06001098D7 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				11E419F828211E06001098D7 /* Rubik-Regular.ttf */,
+				11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				11E419F928211E06001098D7 /* Rubik-Regular.ttf in Resources */,
 				117E393B280600DE00EA160C /* Assets.xcassets in Resources */,
 				117E3939280600DC00EA160C /* Main.storyboard in Resources */,
+				11A38758282ACC8D001C8F44 /* Rubik-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
