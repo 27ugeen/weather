@@ -64,7 +64,7 @@ class CarouselViewController: UIViewController {
         setupViews()
         
 //        self.title = "View"
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor(rgb: 0xE5E5E5)
     }
 
 

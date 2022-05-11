@@ -69,3 +69,9 @@ extension UIButton {
     setBackgroundImage(colorImage, for: controlState)
   }
 }
+
+extension String {
+    func setUnderlineStyle() -> NSAttributedString {
+        return NSAttributedString(string: self, attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
+    }
+}

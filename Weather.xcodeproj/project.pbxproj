@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1152A98A2829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1152A9892829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift */; };
 		1159A924282B003700ECB30E /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159A923282B003700ECB30E /* HeaderView.swift */; };
+		1159A926282B9B2000ECB30E /* WeatherPreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159A925282B9B2000ECB30E /* WeatherPreviewCollectionViewCell.swift */; };
+		1159A928282BAE2800ECB30E /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159A927282BAE2800ECB30E /* WeatherTableViewCell.swift */; };
 		117E3932280600DC00EA160C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E3931280600DC00EA160C /* AppDelegate.swift */; };
 		117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E3935280600DC00EA160C /* CarouselViewController.swift */; };
 		117E3939280600DC00EA160C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 117E3937280600DC00EA160C /* Main.storyboard */; };
@@ -31,6 +33,8 @@
 /* Begin PBXFileReference section */
 		1152A9892829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityMainHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		1159A923282B003700ECB30E /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		1159A925282B9B2000ECB30E /* WeatherPreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherPreviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		1159A927282BAE2800ECB30E /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		117E392E280600DC00EA160C /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		117E3931280600DC00EA160C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		117E3935280600DC00EA160C /* CarouselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +70,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1159A92A282BAE5C00ECB30E /* WeatherTable */ = {
+			isa = PBXGroup;
+			children = (
+				1159A927282BAE2800ECB30E /* WeatherTableViewCell.swift */,
+				1159A925282B9B2000ECB30E /* WeatherPreviewCollectionViewCell.swift */,
+			);
+			path = WeatherTable;
+			sourceTree = "<group>";
+		};
 		117E3925280600DC00EA160C = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				117E3931280600DC00EA160C /* AppDelegate.swift */,
+				1159A92A282BAE5C00ECB30E /* WeatherTable */,
 				11E419F728211DD8001098D7 /* Fonts */,
 				11E419FF2821414F001098D7 /* Settings */,
 				11E419F628210D27001098D7 /* Onboarding */,
@@ -284,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1159A928282BAE2800ECB30E /* WeatherTableViewCell.swift in Sources */,
 				117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */,
 				11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */,
 				1152A98A2829A1FC0062EDF2 /* CityMainHeaderTableViewCell.swift in Sources */,
@@ -294,6 +309,7 @@
 				117E396C280844F600EA160C /* CarouselEmptyCollectionViewCell.swift in Sources */,
 				117E3932280600DC00EA160C /* AppDelegate.swift in Sources */,
 				11E419FB2821244A001098D7 /* Utils.swift in Sources */,
+				1159A926282B9B2000ECB30E /* WeatherPreviewCollectionViewCell.swift in Sources */,
 				11E41A09282191E3001098D7 /* SettingsFooterView.swift in Sources */,
 				1159A924282B003700ECB30E /* HeaderView.swift in Sources */,
 				11E41A05282182B0001098D7 /* SettingsViewModel.swift in Sources */,

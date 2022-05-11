@@ -13,16 +13,18 @@ class CarouselCityCollectionViewCell: UICollectionViewCell {
     static let cellId = "CarouselCityCollectionViewCell"
     
     private let headerID = CityMainHeaderTableViewCell.cellId
+    private let collectionView = WeatherTableViewCell.cellId
     
     //MARK: - Subviews
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = UIColor(rgb: 0xE5E5E5)
         tableView.separatorStyle = .none
         return tableView
     }()
+    
 
 //MARK: - init
     
@@ -41,6 +43,7 @@ extension CarouselCityCollectionViewCell {
         contentView.addSubview(tableView)
         
         tableView.register(CityMainHeaderTableViewCell.self, forCellReuseIdentifier: headerID)
+        tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: collectionView)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -57,12 +60,19 @@ extension CarouselCityCollectionViewCell {
 
 extension CarouselCityCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: headerID, for: indexPath) as! CityMainHeaderTableViewCell
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: headerID, for: indexPath) as! CityMainHeaderTableViewCell
+            return cell
+            
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: collectionView, for: indexPath) as! WeatherTableViewCell
+            return cell
+        }
     }
     
     

@@ -156,7 +156,7 @@ class CityMainHeaderTableViewCell: UITableViewCell {
 
 extension CityMainHeaderTableViewCell {
     private func setupViews() {
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor(rgb: 0xE5E5E5)
         contentView.addSubview(headerView)
         
         headerView.translatesAutoresizingMaskIntoConstraints = false
