@@ -46,9 +46,8 @@ class CarouselEmptyCollectionViewCell: UICollectionViewCell {
 
 private extension CarouselEmptyCollectionViewCell {
     func setupUI() {
-//        backgroundColor = .white
-        
         contentView.addSubview(addCityButton)
+        contentView.backgroundColor = UIColor(rgb: 0xE5E5E5)
         
         let constraints = [
             addCityButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

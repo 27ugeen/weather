@@ -32,6 +32,10 @@ extension UIFont {
     static func setAppMainFont(_ fontSize: CGFloat) -> UIFont {
         return UIFont(name: "Rubik-Regular", size: fontSize) ?? .systemFont(ofSize: fontSize)
     }
+    
+    static func setAppMediumFont(_ fontSize: CGFloat) -> UIFont {
+        return UIFont(name: "Rubik-Medium", size: fontSize) ?? .systemFont(ofSize: fontSize)
+    }
 }
 
 extension UIImage {
@@ -64,4 +68,10 @@ extension UIButton {
     }
     setBackgroundImage(colorImage, for: controlState)
   }
+}
+
+extension String {
+    func setUnderlineStyle() -> NSAttributedString {
+        return NSAttributedString(string: self, attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
+    }
 }
