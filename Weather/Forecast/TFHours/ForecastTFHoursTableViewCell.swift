@@ -7,38 +7,12 @@
 
 import UIKit
 
-class WeatherTableViewCell: UITableViewCell {
+class ForecastTFHoursTableViewCell: UITableViewCell {
 //MARK: - props
     
-    static let cellId = "WeatherTableViewCell"
-    private let collectionCellID = WeatherPreviewCollectionViewCell.cellId
-//MARK: - subviews
+    static let cellId = "ForecastTFHoursTableViewCell"
+    private let collectionCellID = ForecastTFHoursCollectionViewCell.cellId
     
-    private let titleLableView: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.setAppMainFont(16)
-        label.textColor = UIColor(rgb: 0x272722)
-        label.attributedText = "Forecast for 24 hours".setUnderlineStyle()
-        return label
-    }()
-
-    private lazy var weatherPreview: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.showsHorizontalScrollIndicator = false
-        view.backgroundColor = UIColor(rgb: 0xE5E5E5)
-        
-        view.register(WeatherPreviewCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellID)
-
-        view.dataSource = self
-        view.delegate = self
-        
-        return view
-    }()
     //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -50,38 +24,64 @@ class WeatherTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+//MARK: - subviews
+    
+    private let titleLableView: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.setAppMainFont(16)
+        label.textColor = UIColor(rgb: 0x272722)
+        label.attributedText = "Forecast for 24 hours".setUnderlineStyle()
+        return label
+    }()
+
+    private lazy var tFHoursCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsHorizontalScrollIndicator = false
+        view.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        
+        view.register(ForecastTFHoursCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellID)
+
+        view.dataSource = self
+        view.delegate = self
+        
+        return view
+    }()
 }
 //MARK: - setupView
 
-extension WeatherTableViewCell {
+extension ForecastTFHoursTableViewCell {
     private func setupViews() {
         contentView.addSubview(titleLableView)
-        contentView.addSubview(weatherPreview)
-        contentView.backgroundColor = UIColor(rgb: 0xE5E5E5)
+        contentView.addSubview(tFHoursCollectionView)
         
         NSLayoutConstraint.activate([
             titleLableView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 33),
             titleLableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             titleLableView.heightAnchor.constraint(equalToConstant: 20),
             
-            weatherPreview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            weatherPreview.topAnchor.constraint(equalTo: titleLableView.bottomAnchor, constant: 10),
-            weatherPreview.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            weatherPreview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            weatherPreview.widthAnchor.constraint(equalToConstant: 19),
-            weatherPreview.heightAnchor.constraint(equalToConstant: 83)
+            tFHoursCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            tFHoursCollectionView.topAnchor.constraint(equalTo: titleLableView.bottomAnchor, constant: 10),
+            tFHoursCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            tFHoursCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+//            tFHoursCollectionView.widthAnchor.constraint(equalToConstant: 19),
+            tFHoursCollectionView.heightAnchor.constraint(equalToConstant: 83)
         ])
     }
 }
 //MARK: - UICollectionViewDataSource
 
-extension WeatherTableViewCell: UICollectionViewDataSource {
+extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 24
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = weatherPreview.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! WeatherPreviewCollectionViewCell
+        let cell = tFHoursCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! ForecastTFHoursCollectionViewCell
         return cell
     }
     
@@ -89,7 +89,7 @@ extension WeatherTableViewCell: UICollectionViewDataSource {
 }
 //MARK: - UICollectionViewDelegateFlowLayout
 
-extension WeatherTableViewCell: UICollectionViewDelegateFlowLayout {
+extension ForecastTFHoursTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 42, height: 83)
     }

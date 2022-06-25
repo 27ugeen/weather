@@ -7,13 +7,25 @@
 
 import UIKit
 
-class CityMainHeaderTableViewCell: UITableViewCell {
+class ForecastHeaderTableViewCell: UITableViewCell {
 //MARK: - props
     
-    static let cellId = "CityMainHeaderTableViewCell"
+    static let cellId = "ForecastHeaderTableViewCell"
+    
+    //MARK: - init
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 //MARK: - subviews
 
-    private let headerView = HeaderView()
+    private let headerView = ForecastHeaderView()
     
     private let dailyTempLabel: UILabel = {
        let label = UILabel()
@@ -139,24 +151,11 @@ class CityMainHeaderTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "humidity")
         return imageView
     }()
-    //MARK: - init
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-
-}
 //MARK: - setupViews
 
-extension CityMainHeaderTableViewCell {
+extension ForecastHeaderTableViewCell {
     private func setupViews() {
-        contentView.backgroundColor = UIColor(rgb: 0xE5E5E5)
+        contentView.backgroundColor = UIColor(rgb: 0xFFFFFF)
         contentView.addSubview(headerView)
         
         headerView.translatesAutoresizingMaskIntoConstraints = false

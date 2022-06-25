@@ -54,6 +54,7 @@ class CarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+// TODO: - move to subviews buttons?
         let leftBarButton = UIBarButtonItem(image: UIImage(named: "burger") , style: .done, target: self, action: nil)
         let rightBarButton = UIBarButtonItem(image: UIImage(named: "location"), style: .plain, target: self, action: nil)
         
@@ -64,7 +65,7 @@ class CarouselViewController: UIViewController {
         setupViews()
         
 //        self.title = "View"
-        self.view.backgroundColor = UIColor(rgb: 0xE5E5E5)
+        self.view.backgroundColor = UIColor(rgb: 0xFFFFFF)
     }
 
 
@@ -80,7 +81,7 @@ extension CarouselViewController {
         view.addSubview(carouselCollectionView)
         view.addSubview(pageControl)
         
-        let constraints = [
+        NSLayoutConstraint.activate([
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pageControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             
@@ -89,8 +90,7 @@ extension CarouselViewController {
             carouselCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             carouselCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 //            carouselCollectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor)
-        ]
-        NSLayoutConstraint.activate(constraints)
+        ])
     }
 }
 // MARK: - Helpers
@@ -114,7 +114,7 @@ extension CarouselViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        pageControl.numberOfPages = carouselData.count
-        pageControl.numberOfPages = 2
+        pageControl.numberOfPages = 3
 //        return carouselData.count
         return 1
     }

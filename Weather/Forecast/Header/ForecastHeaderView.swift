@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderView: UIView {
+class ForecastHeaderView: UIView {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)

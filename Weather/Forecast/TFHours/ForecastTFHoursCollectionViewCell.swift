@@ -7,18 +7,18 @@
 
 import UIKit
 
-class WeatherPreviewCollectionViewCell: UICollectionViewCell {
+class ForecastTFHoursCollectionViewCell: UICollectionViewCell {
 //MARK: - props
     
-    static let cellId = "WeatherPreviewCollectionViewCell"
+    static let cellId = "ForecastTFHoursCollectionViewCell"
 //MARK: - subviews
     
     private let wrapperView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(rgb: 0xE5E5E5)
+//        view.backgroundColor = UIColor(rgb: 0x000000)
         view.contentMode = .scaleAspectFill
-        view.layer.cornerRadius = 22
+        view.layer.cornerRadius = 20
         view.layer.borderWidth = 0.5
         view.layer.borderColor = UIColor(rgb: 0xABBCEA).cgColor
         view.clipsToBounds = true
@@ -75,7 +75,7 @@ class WeatherPreviewCollectionViewCell: UICollectionViewCell {
 }
 //MARK: - setupViews
 
-extension WeatherPreviewCollectionViewCell {
+extension ForecastTFHoursCollectionViewCell {
     private func setupViews() {
         contentView.addSubview(wrapperView)
         
