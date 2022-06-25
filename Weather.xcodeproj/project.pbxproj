@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1138984E286722CE00369F19 /* DetailTFHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138984D286722CE00369F19 /* DetailTFHoursViewController.swift */; };
+		113898502867401800369F19 /* DetailTFHoursTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138984F2867401800369F19 /* DetailTFHoursTableViewCell.swift */; };
 		1152A98A2829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1152A9892829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift */; };
 		1159A924282B003700ECB30E /* ForecastHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159A923282B003700ECB30E /* ForecastHeaderView.swift */; };
 		1159A926282B9B2000ECB30E /* ForecastTFHoursCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1159A925282B9B2000ECB30E /* ForecastTFHoursCollectionViewCell.swift */; };
@@ -19,6 +21,8 @@
 		117E393E280600DE00EA160C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 117E393C280600DE00EA160C /* LaunchScreen.storyboard */; };
 		117E396C280844F600EA160C /* CarouselEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */; };
 		1180C8E6284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1180C8E5284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift */; };
+		118E06C62867696900EB7AC0 /* DetailTFHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E06C52867696900EB7AC0 /* DetailTFHoursHeaderView.swift */; };
+		118E06C828676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E06C728676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift */; };
 		11A38758282ACC8D001C8F44 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */; };
 		11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */; };
 		11E419F528210D19001098D7 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419F428210D19001098D7 /* OnboardingViewController.swift */; };
@@ -33,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1138984D286722CE00369F19 /* DetailTFHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursViewController.swift; sourceTree = "<group>"; };
+		1138984F2867401800369F19 /* DetailTFHoursTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursTableViewCell.swift; sourceTree = "<group>"; };
 		1152A9892829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		1159A923282B003700ECB30E /* ForecastHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastHeaderView.swift; sourceTree = "<group>"; };
 		1159A925282B9B2000ECB30E /* ForecastTFHoursCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTFHoursCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -47,6 +53,8 @@
 		117E393F280600DE00EA160C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		1180C8E5284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDailyCollectionViewCell.swift; sourceTree = "<group>"; };
+		118E06C52867696900EB7AC0 /* DetailTFHoursHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursHeaderView.swift; sourceTree = "<group>"; };
+		118E06C728676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCityCollectionViewCell.swift; sourceTree = "<group>"; };
 		11E419F428210D19001098D7 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +96,7 @@
 			children = (
 				1159A927282BAE2800ECB30E /* ForecastTFHoursTableViewCell.swift */,
 				1159A925282B9B2000ECB30E /* ForecastTFHoursCollectionViewCell.swift */,
+				11389851286765FA00369F19 /* DetailTFHours */,
 			);
 			path = TFHours;
 			sourceTree = "<group>";
@@ -99,6 +108,16 @@
 				1180C8E5284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift */,
 			);
 			path = Daily;
+			sourceTree = "<group>";
+		};
+		11389851286765FA00369F19 /* DetailTFHours */ = {
+			isa = PBXGroup;
+			children = (
+				118E06C928676D4900EB7AC0 /* Header */,
+				1138984D286722CE00369F19 /* DetailTFHoursViewController.swift */,
+				1138984F2867401800369F19 /* DetailTFHoursTableViewCell.swift */,
+			);
+			path = DetailTFHours;
 			sourceTree = "<group>";
 		};
 		1159A92A282BAE5C00ECB30E /* Forecast */ = {
@@ -155,6 +174,15 @@
 				117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */,
 			);
 			path = Carousel;
+			sourceTree = "<group>";
+		};
+		118E06C928676D4900EB7AC0 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				118E06C52867696900EB7AC0 /* DetailTFHoursHeaderView.swift */,
+				118E06C728676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 		11E419F628210D27001098D7 /* Onboarding */ = {
@@ -331,14 +359,18 @@
 				117CB7A0284F4F1700D594BC /* ForecastDailyTableViewCell.swift in Sources */,
 				1159A928282BAE2800ECB30E /* ForecastTFHoursTableViewCell.swift in Sources */,
 				117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */,
+				1138984E286722CE00369F19 /* DetailTFHoursViewController.swift in Sources */,
 				1180C8E6284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift in Sources */,
 				11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */,
 				1152A98A2829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift in Sources */,
 				11E41A07282191B5001098D7 /* SettingsHeaderView.swift in Sources */,
 				11E41A0128214685001098D7 /* SettingsTableViewCell.swift in Sources */,
 				11E419FE2821413F001098D7 /* SettingsViewController.swift in Sources */,
+				118E06C62867696900EB7AC0 /* DetailTFHoursHeaderView.swift in Sources */,
 				11E419F528210D19001098D7 /* OnboardingViewController.swift in Sources */,
 				117E396C280844F600EA160C /* CarouselEmptyCollectionViewCell.swift in Sources */,
+				118E06C828676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift in Sources */,
+				113898502867401800369F19 /* DetailTFHoursTableViewCell.swift in Sources */,
 				117E3932280600DC00EA160C /* AppDelegate.swift in Sources */,
 				11E419FB2821244A001098D7 /* Utils.swift in Sources */,
 				1159A926282B9B2000ECB30E /* ForecastTFHoursCollectionViewCell.swift in Sources */,
