@@ -40,7 +40,7 @@ class DayHeadTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let tempLabel: UILabel = {
+    let tempLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(30)
@@ -101,6 +101,16 @@ class DayHeadTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "degree")
         imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         imageView.tintColor = UIColor(rgb: 0x292626)
+        return imageView
+    }()
+    
+    private let lineImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "line")
+//        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = UIColor(rgb: 0x2204EC7)
         return imageView
     }()
 

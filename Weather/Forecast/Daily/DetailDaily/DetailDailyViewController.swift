@@ -10,7 +10,9 @@ import UIKit
 class DetailDailyViewController: UIViewController {
     //MARK: - props
 
-    private let tableCellID = DetailDailyTableViewCell.cellId
+    private let dayCellID = DetailDayTableViewCell.cellId
+    private let nightCellID = DetailNightTableViewCell.cellId
+    
     
     //MARK: - init
         override func viewDidLoad() {
@@ -37,31 +39,31 @@ class DetailDailyViewController: UIViewController {
         return tableView
     }()
     
-    private let sunMoonLabel: UILabel = {
-       let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.setAppMainFont(18)
-        label.text = "Sun & Moon"
-        label.textColor = UIColor(rgb: 0x272722)
-        return label
-    }()
-    
-    private let moonLabel: UILabel = {
-       let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.backgroundColor = UIColor(rgb: 0x204EC7).cgColor
-        label.layer.cornerRadius = 15
-        return label
-    }()
-    
-    private let moonPhaseLabel: UILabel = {
-       let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.setAppMainFont(14)
-        label.text = "Full Moon"
-        label.textColor = UIColor(rgb: 0x272722)
-        return label
-    }()
+//    private let sunMoonLabel: UILabel = {
+//       let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.font = UIFont.setAppMainFont(18)
+//        label.text = "Sun & Moon"
+//        label.textColor = UIColor(rgb: 0x272722)
+//        return label
+//    }()
+//
+//    private let moonLabel: UILabel = {
+//       let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.layer.backgroundColor = UIColor(rgb: 0x204EC7).cgColor
+//        label.layer.cornerRadius = 15
+//        return label
+//    }()
+//
+//    private let moonPhaseLabel: UILabel = {
+//       let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.font = UIFont.setAppMainFont(14)
+//        label.text = "Full Moon"
+//        label.textColor = UIColor(rgb: 0x272722)
+//        return label
+//    }()
     
     
 }
@@ -75,7 +77,8 @@ extension DetailDailyViewController {
         
         
 //        tableView.register(DetailTFHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: headerID)
-        tableView.register(DetailDailyTableViewCell.self, forCellReuseIdentifier: tableCellID)
+        tableView.register(DetailDayTableViewCell.self, forCellReuseIdentifier: dayCellID)
+        tableView.register(DetailNightTableViewCell.self, forCellReuseIdentifier: nightCellID)
 //        tableView.register(DayOrdinaryTableViewCell.self, forCellReuseIdentifier: ordinaryCellID)
 //        tableView.register(ForecastDailyTableViewCell.self, forCellReuseIdentifier: dailyID)
 //        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
@@ -86,8 +89,7 @@ extension DetailDailyViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
@@ -98,8 +100,18 @@ extension DetailDailyViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: tableCellID, for: indexPath) as! DetailDailyTableViewCell
-        return cell
+        let dayCell = tableView.dequeueReusableCell(withIdentifier: dayCellID) as! DetailDayTableViewCell
+        let nightCell = tableView.dequeueReusableCell(withIdentifier: nightCellID) as! DetailNightTableViewCell
+        
+        switch indexPath.row {
+        case 0:
+            return dayCell
+        case 1:
+            return nightCell
+        default:
+            return nightCell
+        }
+
     }
 }
 

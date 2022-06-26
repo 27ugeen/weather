@@ -7,10 +7,10 @@
 
 import UIKit
 
-class DetailDailyTableViewCell: UITableViewCell {
+class DetailDayTableViewCell: UITableViewCell {
     //MARK: - props
     
-    static let cellId = "DetailDailyTableViewCell"
+    static let cellId = "DetailDayTableViewCell"
     
     private let headCellID = DayHeadTableViewCell.cellId
     private let ordinaryCellID = DayOrdinaryTableViewCell.cellId
@@ -39,7 +39,7 @@ class DetailDailyTableViewCell: UITableViewCell {
     }()
 }
 //MARK: - setupViews
-extension DetailDailyTableViewCell {
+extension DetailDayTableViewCell {
     private func setupViews() {
         contentView.addSubview(tableView)
         
@@ -59,52 +59,51 @@ extension DetailDailyTableViewCell {
     }
 }
 //MARK: - UITableViewDataSource
-extension DetailDailyTableViewCell: UITableViewDataSource {
+extension DetailDayTableViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let defaultCell = tableView.dequeueReusableCell(withIdentifier: ordinaryCellID) as! DayOrdinaryTableViewCell
+        let headCell = tableView.dequeueReusableCell(withIdentifier: headCellID) as! DayHeadTableViewCell
+        let defCell = tableView.dequeueReusableCell(withIdentifier: ordinaryCellID) as! DayOrdinaryTableViewCell
         
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: headCellID) as! DayHeadTableViewCell
-            return cell
+            headCell.dayLabel.text = "Day"
+            headCell.tempLabel.text = "33"
+            return headCell
         case 1:
-            defaultCell.weatherImageView.image = UIImage(named: "windSpeed")
-            defaultCell.weatherCompLabel.text = "Wind"
-            defaultCell.weatherCompValueLabel.text = "5 m/s, WSW"
-            return defaultCell
+            defCell.weatherImageView.image = UIImage(named: "windSpeed")
+            defCell.weatherCompLabel.text = "Wind"
+            defCell.weatherCompValueLabel.text = "5 m/s, WSW"
+            return defCell
         case 2:
-            let cell = defaultCell
-            cell.weatherImageView.image = UIImage(named: "sun")
-            cell.weatherCompLabel.text = "UV Index"
-            cell.weatherCompValueLabel.text = "2 Low"
-            return cell
+            defCell.weatherImageView.image = UIImage(named: "sun")
+            defCell.weatherCompLabel.text = "UV Index"
+            defCell.weatherCompValueLabel.text = "7 Hi"
+            return defCell
         case 3:
-            let cell = defaultCell
-            cell.weatherImageView.image = UIImage(named: "rain")
-            cell.weatherCompLabel.text = "Rain"
-            cell.weatherCompValueLabel.text = "55%"
-            return cell
+            defCell.weatherImageView.image = UIImage(named: "rain")
+            defCell.weatherCompLabel.text = "Rain"
+            defCell.weatherCompValueLabel.text = "55%"
+            return defCell
         case 4:
-            let cell = defaultCell
-            cell.weatherImageView.image = UIImage(named: "cloud")
-            cell.weatherCompLabel.text = "Cloudness"
-            cell.weatherCompValueLabel.text = "72%"
-            return cell
+            defCell.weatherImageView.image = UIImage(named: "cloud")
+            defCell.weatherCompLabel.text = "Cloudness"
+            defCell.weatherCompValueLabel.text = "72%"
+            return defCell
         case 5:
             let cell = UITableViewCell()
             cell.backgroundColor = UIColor(rgb: 0xE9EEFA)
             return cell
         default:
-            return defaultCell
+            return defCell
         }
     }
 }
 //MARK: - UITableViewDelegate
-extension DetailDailyTableViewCell: UITableViewDelegate {
+extension DetailDayTableViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:

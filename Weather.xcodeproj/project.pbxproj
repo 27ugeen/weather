@@ -26,7 +26,8 @@
 		1196D7A728685704008924AA /* DetailDailyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7A628685704008924AA /* DetailDailyViewController.swift */; };
 		1196D7AC286890A9008924AA /* DayHeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7AB286890A9008924AA /* DayHeadTableViewCell.swift */; };
 		1196D7AE28689948008924AA /* DayOrdinaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7AD28689948008924AA /* DayOrdinaryTableViewCell.swift */; };
-		1196D7B12868B974008924AA /* DetailDailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7B02868B974008924AA /* DetailDailyTableViewCell.swift */; };
+		1196D7B12868B974008924AA /* DetailDayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7B02868B974008924AA /* DetailDayTableViewCell.swift */; };
+		1196D7B32868D7CC008924AA /* DetailNightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7B22868D7CC008924AA /* DetailNightTableViewCell.swift */; };
 		11A38758282ACC8D001C8F44 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */; };
 		11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */; };
 		11E419F528210D19001098D7 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419F428210D19001098D7 /* OnboardingViewController.swift */; };
@@ -37,6 +38,7 @@
 		11E41A05282182B0001098D7 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A04282182B0001098D7 /* SettingsViewModel.swift */; };
 		11E41A07282191B5001098D7 /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A06282191B5001098D7 /* SettingsHeaderView.swift */; };
 		11E41A09282191E3001098D7 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A08282191E3001098D7 /* SettingsFooterView.swift */; };
+		11E432F12868DCFC0061743E /* SunMoonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E432F02868DCFC0061743E /* SunMoonTableViewCell.swift */; };
 		643D3D05806B5FBF9A0199B9 /* Pods_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E46779C923B23D5BB5A6C2 /* Pods_Weather.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +64,8 @@
 		1196D7A628685704008924AA /* DetailDailyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDailyViewController.swift; sourceTree = "<group>"; };
 		1196D7AB286890A9008924AA /* DayHeadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeadTableViewCell.swift; sourceTree = "<group>"; };
 		1196D7AD28689948008924AA /* DayOrdinaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOrdinaryTableViewCell.swift; sourceTree = "<group>"; };
-		1196D7B02868B974008924AA /* DetailDailyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDailyTableViewCell.swift; sourceTree = "<group>"; };
+		1196D7B02868B974008924AA /* DetailDayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDayTableViewCell.swift; sourceTree = "<group>"; };
+		1196D7B22868D7CC008924AA /* DetailNightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNightTableViewCell.swift; sourceTree = "<group>"; };
 		11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCityCollectionViewCell.swift; sourceTree = "<group>"; };
 		11E419F428210D19001098D7 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +76,7 @@
 		11E41A04282182B0001098D7 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		11E41A06282191B5001098D7 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
 		11E41A08282191E3001098D7 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
+		11E432F02868DCFC0061743E /* SunMoonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunMoonTableViewCell.swift; sourceTree = "<group>"; };
 		289968FE07F2BD99E0EC836B /* Pods-Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.release.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.release.xcconfig"; sourceTree = "<group>"; };
 		890283250F091510EEB784C7 /* Pods-Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.debug.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		C2E46779C923B23D5BB5A6C2 /* Pods_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,7 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				1196D7A628685704008924AA /* DetailDailyViewController.swift */,
-				1196D7B02868B974008924AA /* DetailDailyTableViewCell.swift */,
+				11E432F02868DCFC0061743E /* SunMoonTableViewCell.swift */,
 				1196D7AF28689964008924AA /* Day */,
 			);
 			path = DetailDaily;
@@ -207,6 +211,8 @@
 		1196D7AF28689964008924AA /* Day */ = {
 			isa = PBXGroup;
 			children = (
+				1196D7B02868B974008924AA /* DetailDayTableViewCell.swift */,
+				1196D7B22868D7CC008924AA /* DetailNightTableViewCell.swift */,
 				1196D7AB286890A9008924AA /* DayHeadTableViewCell.swift */,
 				1196D7AD28689948008924AA /* DayOrdinaryTableViewCell.swift */,
 			);
@@ -386,7 +392,7 @@
 			files = (
 				117CB7A0284F4F1700D594BC /* ForecastDailyTableViewCell.swift in Sources */,
 				1196D7A728685704008924AA /* DetailDailyViewController.swift in Sources */,
-				1196D7B12868B974008924AA /* DetailDailyTableViewCell.swift in Sources */,
+				1196D7B12868B974008924AA /* DetailDayTableViewCell.swift in Sources */,
 				1159A928282BAE2800ECB30E /* ForecastTFHoursTableViewCell.swift in Sources */,
 				117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */,
 				1138984E286722CE00369F19 /* DetailTFHoursViewController.swift in Sources */,
@@ -403,9 +409,11 @@
 				118E06C828676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift in Sources */,
 				1196D7AC286890A9008924AA /* DayHeadTableViewCell.swift in Sources */,
 				113898502867401800369F19 /* DetailTFHoursTableViewCell.swift in Sources */,
+				1196D7B32868D7CC008924AA /* DetailNightTableViewCell.swift in Sources */,
 				117E3932280600DC00EA160C /* AppDelegate.swift in Sources */,
 				11E419FB2821244A001098D7 /* Utils.swift in Sources */,
 				1159A926282B9B2000ECB30E /* ForecastTFHoursCollectionViewCell.swift in Sources */,
+				11E432F12868DCFC0061743E /* SunMoonTableViewCell.swift in Sources */,
 				11E41A09282191E3001098D7 /* SettingsFooterView.swift in Sources */,
 				1159A924282B003700ECB30E /* ForecastHeaderView.swift in Sources */,
 				11E41A05282182B0001098D7 /* SettingsViewModel.swift in Sources */,
