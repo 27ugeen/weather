@@ -8,38 +8,28 @@
 import UIKit
 
 class DetailTFHoursHeaderCollectionViewCell: UICollectionViewCell {
-//MARK: - props
+    //MARK: - props
     
     static let cellId = "DetailTFHoursHeaderCollectionViewCell"
-//MARK: - subviews
     
-    private let wrapperView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = UIColor(rgb: 0x000000)
-        view.contentMode = .scaleAspectFill
-        view.layer.cornerRadius = 20
-        view.layer.borderWidth = 0.5
-        view.layer.borderColor = UIColor(rgb: 0xABBCEA).cgColor
-        view.clipsToBounds = true
-        return view
-    }()
+    //MARK: - init
     
-    private let timeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "12:00"
-        label.font = UIFont.setAppMediumFont(12)
-        label.textColor = UIColor(rgb: 0x9C9797)
-        return label
-    }()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    //MARK: - subviews
     
     private let tempLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "13"
-        label.font = UIFont.setAppMediumFont(16)
-        label.textColor = UIColor(rgb: 0x343030)
+        label.font = UIFont.setAppMainFont(14)
+        label.textColor = UIColor(rgb: 0x272722)
         return label
     }()
     
@@ -53,61 +43,89 @@ class DetailTFHoursHeaderCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    private let dotLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.backgroundColor = UIColor(rgb: 0xFFFFFF).cgColor
+        label.layer.cornerRadius = 5
+        return label
+    }()
+    
     private let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "sun")
+        imageView.image = UIImage(named: "rain")
         return imageView
     }()
-
     
-//MARK: - init
+    private let precipitationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "47%"
+        label.font = UIFont.setAppMainFont(12)
+        label.textColor = UIColor(rgb: 0x272722)
+        return label
+    }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
+    private let rectLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.backgroundColor = UIColor(rgb: 0x204EC7).cgColor
+        return label
+    }()
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let timeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "12:00"
+        label.font = UIFont.setAppMainFont(14)
+        label.textColor = UIColor(rgb: 0x272722)
+        return label
+    }()
 }
 //MARK: - setupViews
-
 extension DetailTFHoursHeaderCollectionViewCell {
     private func setupViews() {
-        contentView.addSubview(wrapperView)
-        
-        wrapperView.addSubview(timeLabel)
-        wrapperView.addSubview(tempLabel)
-        wrapperView.addSubview(degreeImageView)
-        wrapperView.addSubview(weatherImageView)
+        contentView.addSubview(tempLabel)
+        contentView.addSubview(degreeImageView)
+        contentView.addSubview(dotLabel)
+        contentView.addSubview(weatherImageView)
+        contentView.addSubview(precipitationLabel)
+        contentView.addSubview(rectLabel)
+        contentView.addSubview(timeLabel)
         
         NSLayoutConstraint.activate([
-            wrapperView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            wrapperView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            wrapperView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            wrapperView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-//            wrapperView.widthAnchor.constraint(equalToConstant: 42),
-//            wrapperView.heightAnchor.constraint(equalToConstant: 83),
+            tempLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            tempLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
             
-            timeLabel.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 11),
-            timeLabel.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
+            degreeImageView.leadingAnchor.constraint(equalTo: tempLabel.trailingAnchor, constant: 1),
+            degreeImageView.bottomAnchor.constraint(equalTo: tempLabel.topAnchor, constant: 4),
+            degreeImageView.widthAnchor.constraint(equalToConstant: 5),
+            degreeImageView.heightAnchor.constraint(equalTo: degreeImageView.widthAnchor),
             
-            weatherImageView.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
-            weatherImageView.centerYAnchor.constraint(equalTo: wrapperView.centerYAnchor),
+            dotLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            dotLabel.topAnchor.constraint(equalTo: tempLabel.bottomAnchor, constant: 2),
+            dotLabel.widthAnchor.constraint(equalToConstant: 5),
+            dotLabel.heightAnchor.constraint(equalTo: dotLabel.widthAnchor),
+            
+            weatherImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            weatherImageView.topAnchor.constraint(equalTo: dotLabel.bottomAnchor, constant: 37),
             weatherImageView.widthAnchor.constraint(equalToConstant: 20),
             weatherImageView.heightAnchor.constraint(equalTo: weatherImageView.widthAnchor),
             
-            tempLabel.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
-            tempLabel.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor, constant: -7),
-            tempLabel.heightAnchor.constraint(equalToConstant: 18),
+            precipitationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            precipitationLabel.topAnchor.constraint(equalTo: weatherImageView.bottomAnchor, constant: 4),
             
-            degreeImageView.leadingAnchor.constraint(equalTo: tempLabel.trailingAnchor, constant: 1),
-            degreeImageView.bottomAnchor.constraint(equalTo: tempLabel.topAnchor, constant: 3),
-            degreeImageView.widthAnchor.constraint(equalToConstant: 5),
-            degreeImageView.heightAnchor.constraint(equalTo: degreeImageView.widthAnchor)
+            rectLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            rectLabel.topAnchor.constraint(equalTo: precipitationLabel.bottomAnchor, constant: 9),
+            //            rectLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
+            rectLabel.widthAnchor.constraint(equalToConstant: 4),
+            rectLabel.heightAnchor.constraint(equalToConstant: 8),
+            //
+            timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            timeLabel.topAnchor.constraint(equalTo: rectLabel.bottomAnchor, constant: 8),
+            //            timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 }
