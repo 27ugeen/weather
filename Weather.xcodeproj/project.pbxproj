@@ -23,6 +23,10 @@
 		1180C8E6284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1180C8E5284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift */; };
 		118E06C62867696900EB7AC0 /* DetailTFHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E06C52867696900EB7AC0 /* DetailTFHoursHeaderView.swift */; };
 		118E06C828676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E06C728676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift */; };
+		1196D7A728685704008924AA /* DetailDailyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7A628685704008924AA /* DetailDailyViewController.swift */; };
+		1196D7AC286890A9008924AA /* DayHeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7AB286890A9008924AA /* DayHeadTableViewCell.swift */; };
+		1196D7AE28689948008924AA /* DayOrdinaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7AD28689948008924AA /* DayOrdinaryTableViewCell.swift */; };
+		1196D7B12868B974008924AA /* DetailDailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7B02868B974008924AA /* DetailDailyTableViewCell.swift */; };
 		11A38758282ACC8D001C8F44 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */; };
 		11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */; };
 		11E419F528210D19001098D7 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419F428210D19001098D7 /* OnboardingViewController.swift */; };
@@ -55,6 +59,10 @@
 		1180C8E5284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDailyCollectionViewCell.swift; sourceTree = "<group>"; };
 		118E06C52867696900EB7AC0 /* DetailTFHoursHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursHeaderView.swift; sourceTree = "<group>"; };
 		118E06C728676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
+		1196D7A628685704008924AA /* DetailDailyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDailyViewController.swift; sourceTree = "<group>"; };
+		1196D7AB286890A9008924AA /* DayHeadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeadTableViewCell.swift; sourceTree = "<group>"; };
+		1196D7AD28689948008924AA /* DayOrdinaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOrdinaryTableViewCell.swift; sourceTree = "<group>"; };
+		1196D7B02868B974008924AA /* DetailDailyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDailyTableViewCell.swift; sourceTree = "<group>"; };
 		11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCityCollectionViewCell.swift; sourceTree = "<group>"; };
 		11E419F428210D19001098D7 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +114,7 @@
 			children = (
 				117CB79F284F4F1700D594BC /* ForecastDailyTableViewCell.swift */,
 				1180C8E5284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift */,
+				1196D7AA28685748008924AA /* DetailDaily */,
 			);
 			path = Daily;
 			sourceTree = "<group>";
@@ -183,6 +192,25 @@
 				118E06C728676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift */,
 			);
 			path = Header;
+			sourceTree = "<group>";
+		};
+		1196D7AA28685748008924AA /* DetailDaily */ = {
+			isa = PBXGroup;
+			children = (
+				1196D7A628685704008924AA /* DetailDailyViewController.swift */,
+				1196D7B02868B974008924AA /* DetailDailyTableViewCell.swift */,
+				1196D7AF28689964008924AA /* Day */,
+			);
+			path = DetailDaily;
+			sourceTree = "<group>";
+		};
+		1196D7AF28689964008924AA /* Day */ = {
+			isa = PBXGroup;
+			children = (
+				1196D7AB286890A9008924AA /* DayHeadTableViewCell.swift */,
+				1196D7AD28689948008924AA /* DayOrdinaryTableViewCell.swift */,
+			);
+			path = Day;
 			sourceTree = "<group>";
 		};
 		11E419F628210D27001098D7 /* Onboarding */ = {
@@ -357,6 +385,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				117CB7A0284F4F1700D594BC /* ForecastDailyTableViewCell.swift in Sources */,
+				1196D7A728685704008924AA /* DetailDailyViewController.swift in Sources */,
+				1196D7B12868B974008924AA /* DetailDailyTableViewCell.swift in Sources */,
 				1159A928282BAE2800ECB30E /* ForecastTFHoursTableViewCell.swift in Sources */,
 				117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */,
 				1138984E286722CE00369F19 /* DetailTFHoursViewController.swift in Sources */,
@@ -367,9 +397,11 @@
 				11E41A0128214685001098D7 /* SettingsTableViewCell.swift in Sources */,
 				11E419FE2821413F001098D7 /* SettingsViewController.swift in Sources */,
 				118E06C62867696900EB7AC0 /* DetailTFHoursHeaderView.swift in Sources */,
+				1196D7AE28689948008924AA /* DayOrdinaryTableViewCell.swift in Sources */,
 				11E419F528210D19001098D7 /* OnboardingViewController.swift in Sources */,
 				117E396C280844F600EA160C /* CarouselEmptyCollectionViewCell.swift in Sources */,
 				118E06C828676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift in Sources */,
+				1196D7AC286890A9008924AA /* DayHeadTableViewCell.swift in Sources */,
 				113898502867401800369F19 /* DetailTFHoursTableViewCell.swift in Sources */,
 				117E3932280600DC00EA160C /* AppDelegate.swift in Sources */,
 				11E419FB2821244A001098D7 /* Utils.swift in Sources */,
