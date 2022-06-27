@@ -16,6 +16,7 @@ class DetailNightTableViewCell: UITableViewCell {
     private let ordinaryCellID = DayOrdinaryTableViewCell.cellId
     
     //MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -72,6 +73,7 @@ extension DetailNightTableViewCell: UITableViewDataSource {
         case 0:
             headCell.dayLabel.text = "Night"
             headCell.tempLabel.text = "0"
+            headCell.tempFieelsValueLabel.text = "-3"
             return headCell
         case 1:
             defCell.weatherImageView.image = UIImage(named: "windSpeed")

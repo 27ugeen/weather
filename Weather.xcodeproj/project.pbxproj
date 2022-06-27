@@ -30,6 +30,8 @@
 		1196D7B32868D7CC008924AA /* DetailNightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7B22868D7CC008924AA /* DetailNightTableViewCell.swift */; };
 		11A38758282ACC8D001C8F44 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */; };
 		11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */; };
+		11C445342869D20A0004CD49 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C445332869D20A0004CD49 /* DateCollectionViewCell.swift */; };
+		11C44539286A1AE90004CD49 /* AirQTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C44538286A1AE90004CD49 /* AirQTableViewCell.swift */; };
 		11E419F528210D19001098D7 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419F428210D19001098D7 /* OnboardingViewController.swift */; };
 		11E419F928211E06001098D7 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11E419F828211E06001098D7 /* Rubik-Regular.ttf */; };
 		11E419FB2821244A001098D7 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419FA2821244A001098D7 /* Utils.swift */; };
@@ -39,6 +41,8 @@
 		11E41A07282191B5001098D7 /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A06282191B5001098D7 /* SettingsHeaderView.swift */; };
 		11E41A09282191E3001098D7 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A08282191E3001098D7 /* SettingsFooterView.swift */; };
 		11E432F12868DCFC0061743E /* SunMoonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E432F02868DCFC0061743E /* SunMoonTableViewCell.swift */; };
+		11E432F32869A21D0061743E /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E432F22869A21C0061743E /* DateTableViewCell.swift */; };
+		11E432F52869ADBB0061743E /* SunMoonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E432F42869ADBB0061743E /* SunMoonCollectionViewCell.swift */; };
 		643D3D05806B5FBF9A0199B9 /* Pods_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E46779C923B23D5BB5A6C2 /* Pods_Weather.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +72,8 @@
 		1196D7B22868D7CC008924AA /* DetailNightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNightTableViewCell.swift; sourceTree = "<group>"; };
 		11A38757282ACC8D001C8F44 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCityCollectionViewCell.swift; sourceTree = "<group>"; };
+		11C445332869D20A0004CD49 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		11C44538286A1AE90004CD49 /* AirQTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQTableViewCell.swift; sourceTree = "<group>"; };
 		11E419F428210D19001098D7 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		11E419F828211E06001098D7 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		11E419FA2821244A001098D7 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -77,6 +83,8 @@
 		11E41A06282191B5001098D7 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
 		11E41A08282191E3001098D7 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
 		11E432F02868DCFC0061743E /* SunMoonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunMoonTableViewCell.swift; sourceTree = "<group>"; };
+		11E432F22869A21C0061743E /* DateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
+		11E432F42869ADBB0061743E /* SunMoonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunMoonCollectionViewCell.swift; sourceTree = "<group>"; };
 		289968FE07F2BD99E0EC836B /* Pods-Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.release.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.release.xcconfig"; sourceTree = "<group>"; };
 		890283250F091510EEB784C7 /* Pods-Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.debug.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		C2E46779C923B23D5BB5A6C2 /* Pods_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,8 +210,10 @@
 			isa = PBXGroup;
 			children = (
 				1196D7A628685704008924AA /* DetailDailyViewController.swift */,
-				11E432F02868DCFC0061743E /* SunMoonTableViewCell.swift */,
+				11C445352869D2130004CD49 /* Date */,
 				1196D7AF28689964008924AA /* Day */,
+				11E432F62869AE900061743E /* SunMoon */,
+				11C4453A286A1E9F0004CD49 /* AirQ */,
 			);
 			path = DetailDaily;
 			sourceTree = "<group>";
@@ -217,6 +227,23 @@
 				1196D7AD28689948008924AA /* DayOrdinaryTableViewCell.swift */,
 			);
 			path = Day;
+			sourceTree = "<group>";
+		};
+		11C445352869D2130004CD49 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				11E432F22869A21C0061743E /* DateTableViewCell.swift */,
+				11C445332869D20A0004CD49 /* DateCollectionViewCell.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
+		11C4453A286A1E9F0004CD49 /* AirQ */ = {
+			isa = PBXGroup;
+			children = (
+				11C44538286A1AE90004CD49 /* AirQTableViewCell.swift */,
+			);
+			path = AirQ;
 			sourceTree = "<group>";
 		};
 		11E419F628210D27001098D7 /* Onboarding */ = {
@@ -254,6 +281,15 @@
 				11E41A04282182B0001098D7 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		11E432F62869AE900061743E /* SunMoon */ = {
+			isa = PBXGroup;
+			children = (
+				11E432F02868DCFC0061743E /* SunMoonTableViewCell.swift */,
+				11E432F42869ADBB0061743E /* SunMoonCollectionViewCell.swift */,
+			);
+			path = SunMoon;
 			sourceTree = "<group>";
 		};
 		2F2CB2CA2378F6D052B81629 /* Pods */ = {
@@ -392,11 +428,15 @@
 			files = (
 				117CB7A0284F4F1700D594BC /* ForecastDailyTableViewCell.swift in Sources */,
 				1196D7A728685704008924AA /* DetailDailyViewController.swift in Sources */,
+				11C44539286A1AE90004CD49 /* AirQTableViewCell.swift in Sources */,
 				1196D7B12868B974008924AA /* DetailDayTableViewCell.swift in Sources */,
 				1159A928282BAE2800ECB30E /* ForecastTFHoursTableViewCell.swift in Sources */,
+				11C445342869D20A0004CD49 /* DateCollectionViewCell.swift in Sources */,
 				117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */,
 				1138984E286722CE00369F19 /* DetailTFHoursViewController.swift in Sources */,
 				1180C8E6284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift in Sources */,
+				11E432F32869A21D0061743E /* DateTableViewCell.swift in Sources */,
+				11E432F52869ADBB0061743E /* SunMoonCollectionViewCell.swift in Sources */,
 				11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */,
 				1152A98A2829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift in Sources */,
 				11E41A07282191B5001098D7 /* SettingsHeaderView.swift in Sources */,

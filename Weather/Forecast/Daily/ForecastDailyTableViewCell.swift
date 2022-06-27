@@ -34,7 +34,7 @@ class ForecastDailyTableViewCell: UITableViewCell {
         label.text = "Daily forecast"
         return label
     }()
-
+    
     private lazy var dailyCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -45,19 +45,18 @@ class ForecastDailyTableViewCell: UITableViewCell {
         view.backgroundColor = UIColor(rgb: 0xFFFFFF)
         
         view.register(ForecastDailyCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellID)
-
+        
         view.dataSource = self
         view.delegate = self
         
         return view
     }()
 }
-
+//MARK: - setupViews
 extension ForecastDailyTableViewCell {
     private func setupViews() {
         contentView.addSubview(titleLableView)
         contentView.addSubview(dailyCollectionView)
-//        contentView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             titleLableView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
@@ -68,7 +67,6 @@ extension ForecastDailyTableViewCell {
             dailyCollectionView.topAnchor.constraint(equalTo: titleLableView.bottomAnchor, constant: 10),
             dailyCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             dailyCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-//            dailyCollectionView.widthAnchor.constraint(equalToConstant: 340),
             dailyCollectionView.heightAnchor.constraint(equalToConstant: 400)
         ])
     }
@@ -84,16 +82,11 @@ extension ForecastDailyTableViewCell: UICollectionViewDataSource {
         let cell = dailyCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! ForecastDailyCollectionViewCell
         return cell
     }
-    
-    
 }
 //MARK: - UICollectionViewDelegateFlowLayout
-
 extension ForecastDailyTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //TODO: - cell width?
         let cellWidth = UIScreen.main.bounds.width - 32
-//        print(cellWidth)
         return CGSize(width: cellWidth, height: 56)
     }
     
@@ -108,5 +101,4 @@ extension ForecastDailyTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
-    
 }

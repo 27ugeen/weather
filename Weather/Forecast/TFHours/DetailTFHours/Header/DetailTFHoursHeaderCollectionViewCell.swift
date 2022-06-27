@@ -119,13 +119,12 @@ extension DetailTFHoursHeaderCollectionViewCell {
             
             rectLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             rectLabel.topAnchor.constraint(equalTo: precipitationLabel.bottomAnchor, constant: 9),
-            //            rectLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
+            
             rectLabel.widthAnchor.constraint(equalToConstant: 4),
             rectLabel.heightAnchor.constraint(equalToConstant: 8),
-            //
+            
             timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             timeLabel.topAnchor.constraint(equalTo: rectLabel.bottomAnchor, constant: 8),
-            //            timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 }

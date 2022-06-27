@@ -13,6 +13,7 @@ class DayHeadTableViewCell: UITableViewCell {
     static let cellId = "DayHeadTableViewCell"
     
     //MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -23,8 +24,8 @@ class DayHeadTableViewCell: UITableViewCell {
     }
     //MARK: - subviews
     
-     let dayLabel: UILabel = {
-       let label = UILabel()
+    let dayLabel: UILabel = {
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(18)
         label.text = "Day/Night"
@@ -41,7 +42,7 @@ class DayHeadTableViewCell: UITableViewCell {
     }()
     
     let tempLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(30)
         label.text = "13"
@@ -77,7 +78,7 @@ class DayHeadTableViewCell: UITableViewCell {
     }()
     
     private let tempFieelsLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "Feels like..."
@@ -85,11 +86,11 @@ class DayHeadTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let tempFieelsValueLabel: UILabel = {
-       let label = UILabel()
+    let tempFieelsValueLabel: UILabel = {
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(18)
-        label.text = "11"
+        label.text = "30"
         label.textColor = UIColor(rgb: 0x272722)
         return label
     }()
@@ -109,12 +110,10 @@ class DayHeadTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "line")
-//        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        //        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         imageView.tintColor = UIColor(rgb: 0x2204EC7)
         return imageView
     }()
-
-    
 }
 //MARK: - setupViews
 extension DayHeadTableViewCell {

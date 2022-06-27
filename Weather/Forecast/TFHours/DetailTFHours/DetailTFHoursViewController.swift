@@ -12,19 +12,7 @@ class DetailTFHoursViewController: UIViewController {
     private let headerID = DetailTFHoursHeaderView.cellId
     private let detailID = DetailTFHoursTableViewCell.cellId
     
-//MARK: - subviews
-    private let tableView: UITableView = {
-        //TODO: - style?
-        let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//        tableView.separatorStyle = .singleLine
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        tableView.separatorColor = UIColor(rgb: 0x204EC7)
-        return tableView
-    }()
-    
-//MARK: - init
+    //MARK: - init
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +20,17 @@ class DetailTFHoursViewController: UIViewController {
         
         setupViews()
     }
+    //MARK: - subviews
+    private let tableView: UITableView = {
+        //TODO: - style?
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        //        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        tableView.separatorColor = UIColor(rgb: 0x204EC7)
+        return tableView
+    }()
 }
 //MARK: - setupViews
 extension DetailTFHoursViewController {
@@ -40,8 +39,6 @@ extension DetailTFHoursViewController {
         
         tableView.register(DetailTFHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: headerID)
         tableView.register(DetailTFHoursTableViewCell.self, forCellReuseIdentifier: detailID)
-//        tableView.register(ForecastTFHoursTableViewCell.self, forCellReuseIdentifier: tFHoursID)
-//        tableView.register(ForecastDailyTableViewCell.self, forCellReuseIdentifier: dailyID)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -54,7 +51,6 @@ extension DetailTFHoursViewController {
         ])
     }
 }
-
 //MARK: - UITableViewDataSource
 extension DetailTFHoursViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,19 +75,10 @@ extension DetailTFHoursViewController: UITableViewDataSource {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerID) as! DetailTFHoursHeaderView
         return header
     }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "Forecast for 24 hours"
-//    }
 }
-
 //MARK: - UITableViewDelegate
 extension DetailTFHoursViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 185
     }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//    return "teeeeeeeeeeeeeest"
-//    }
 }

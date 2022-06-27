@@ -22,7 +22,7 @@ class ForecastDailyCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - subviews
-        
+    
     private let wrapperView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -77,10 +77,7 @@ class ForecastDailyCollectionViewCell: UICollectionViewCell {
         return label
     }()
 }
-
-
 //MARK: - setupViews
-
 extension ForecastDailyCollectionViewCell {
     private func setupViews() {
         contentView.addSubview(wrapperView)
@@ -99,12 +96,12 @@ extension ForecastDailyCollectionViewCell {
             
             dateLabel.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 10),
             dateLabel.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 6),
-
+            
             weatherImageView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 10),
             weatherImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor,constant: 6),
             weatherImageView.heightAnchor.constraint(equalToConstant: 17),
             weatherImageView.widthAnchor.constraint(equalToConstant: 15),
-
+            
             humidityLabel.leadingAnchor.constraint(equalTo: weatherImageView.trailingAnchor, constant: 5),
             humidityLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 6),
             

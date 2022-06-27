@@ -13,6 +13,7 @@ class DayOrdinaryTableViewCell: UITableViewCell {
     static let cellId = "DayOrdinaryTableViewCell"
     
     //MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -32,7 +33,7 @@ class DayOrdinaryTableViewCell: UITableViewCell {
     }()
     
     let weatherCompLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "Wind"
@@ -41,7 +42,7 @@ class DayOrdinaryTableViewCell: UITableViewCell {
     }()
     
     let weatherCompValueLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(18)
         label.text = "5 m/s, WSW"
@@ -64,14 +65,12 @@ extension DayOrdinaryTableViewCell {
             weatherImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 13),
             weatherImageView.widthAnchor.constraint(equalToConstant: 20),
             weatherImageView.heightAnchor.constraint(equalTo: weatherImageView.widthAnchor),
-//            weatherImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -13),
             
             weatherCompLabel.leadingAnchor.constraint(equalTo: weatherImageView.trailingAnchor, constant: 15),
             weatherCompLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-
+            
             weatherCompValueLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             weatherCompValueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 }
-

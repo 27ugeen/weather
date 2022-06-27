@@ -8,7 +8,7 @@
 import UIKit
 
 class ForecastTFHoursTableViewCell: UITableViewCell {
-//MARK: - props
+    //MARK: - props
     
     static let cellId = "ForecastTFHoursTableViewCell"
     private let collectionCellID = ForecastTFHoursCollectionViewCell.cellId
@@ -24,7 +24,7 @@ class ForecastTFHoursTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//MARK: - subviews
+    //MARK: - subviews
     
     private let titleLableView: UILabel = {
         let label = UILabel()
@@ -34,7 +34,7 @@ class ForecastTFHoursTableViewCell: UITableViewCell {
         label.attributedText = "Forecast for 24 hours".setUnderlineStyle()
         return label
     }()
-
+    
     private lazy var tFHoursCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -45,7 +45,7 @@ class ForecastTFHoursTableViewCell: UITableViewCell {
         view.backgroundColor = UIColor(rgb: 0xFFFFFF)
         
         view.register(ForecastTFHoursCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellID)
-
+        
         view.dataSource = self
         view.delegate = self
         
@@ -53,7 +53,6 @@ class ForecastTFHoursTableViewCell: UITableViewCell {
     }()
 }
 //MARK: - setupView
-
 extension ForecastTFHoursTableViewCell {
     private func setupViews() {
         contentView.addSubview(titleLableView)
@@ -68,13 +67,12 @@ extension ForecastTFHoursTableViewCell {
             tFHoursCollectionView.topAnchor.constraint(equalTo: titleLableView.bottomAnchor, constant: 10),
             tFHoursCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             tFHoursCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-//            tFHoursCollectionView.widthAnchor.constraint(equalToConstant: 19),
+            //            tFHoursCollectionView.widthAnchor.constraint(equalToConstant: 19),
             tFHoursCollectionView.heightAnchor.constraint(equalToConstant: 83)
         ])
     }
 }
 //MARK: - UICollectionViewDataSource
-
 extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 24
@@ -84,11 +82,8 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
         let cell = tFHoursCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! ForecastTFHoursCollectionViewCell
         return cell
     }
-    
-    
 }
 //MARK: - UICollectionViewDelegateFlowLayout
-
 extension ForecastTFHoursTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 42, height: 83)
@@ -105,7 +100,6 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 8
     }
-    
 }
 
 

@@ -8,7 +8,7 @@
 import UIKit
 
 class DetailTFHoursHeaderView: UITableViewHeaderFooterView {
-//MARK: - props
+    //MARK: - props
     
     static let cellId = "DetailTFHoursHeaderView"
     private let collectionCellID = DetailTFHoursHeaderCollectionViewCell.cellId
@@ -24,7 +24,7 @@ class DetailTFHoursHeaderView: UITableViewHeaderFooterView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//MARK: - subviews
+    //MARK: - subviews
     
     private let titleLableView: UILabel = {
         let label = UILabel()
@@ -34,7 +34,7 @@ class DetailTFHoursHeaderView: UITableViewHeaderFooterView {
         label.text = "Forecast for 24 hours"
         return label
     }()
-
+    
     private lazy var tFHoursCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -45,15 +45,14 @@ class DetailTFHoursHeaderView: UITableViewHeaderFooterView {
         view.backgroundColor = UIColor(rgb: 0xE9EEFA)
         
         view.register(DetailTFHoursHeaderCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellID)
-
+        
         view.dataSource = self
         view.delegate = self
         
         return view
     }()
 }
-//MARK: - setupView
-
+//MARK: - setupViews
 extension DetailTFHoursHeaderView {
     private func setupViews() {
         contentView.addSubview(titleLableView)
@@ -62,20 +61,15 @@ extension DetailTFHoursHeaderView {
         NSLayoutConstraint.activate([
             titleLableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleLableView.topAnchor.constraint(equalTo: contentView.topAnchor),
-//            titleLableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -150),
-//            titleLableView.heightAnchor.constraint(equalToConstant: 20),
             
             tFHoursCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             tFHoursCollectionView.topAnchor.constraint(equalTo: titleLableView.bottomAnchor),
             tFHoursCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             tFHoursCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-//            tFHoursCollectionView.widthAnchor.constraint(equalToConstant: 19),
-//            tFHoursCollectionView.heightAnchor.constraint(equalToConstant: 83)
         ])
     }
 }
 //MARK: - UICollectionViewDataSource
-
 extension DetailTFHoursHeaderView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 8
@@ -85,11 +79,8 @@ extension DetailTFHoursHeaderView: UICollectionViewDataSource {
         let cell = tFHoursCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! DetailTFHoursHeaderCollectionViewCell
         return cell
     }
-    
-    
 }
 //MARK: - UICollectionViewDelegateFlowLayout
-
 extension DetailTFHoursHeaderView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 54, height: 152)
@@ -106,7 +97,6 @@ extension DetailTFHoursHeaderView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
 }
 
 

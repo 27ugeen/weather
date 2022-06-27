@@ -8,7 +8,7 @@
 import UIKit
 
 class ForecastHeaderView: UIView {
-
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
@@ -23,5 +23,4 @@ class ForecastHeaderView: UIView {
         semicircle.lineWidth = 3
         semicircle.stroke()
     }
-
 }

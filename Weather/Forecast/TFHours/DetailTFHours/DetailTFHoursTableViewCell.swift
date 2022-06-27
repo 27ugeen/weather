@@ -13,6 +13,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
     static let cellId = "DetailTFHoursTableViewCell"
     
     //MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -24,7 +25,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
     //MARK: - subviews
     
     private let dateLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(18)
         label.text = "fri 16/04"
@@ -33,7 +34,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
     }()
     
     private let timeLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "12:00"
@@ -42,7 +43,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
     }()
     
     private let tempLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(18)
         label.text = "12"
@@ -71,7 +72,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
     }()
     
     private let tempFieelsLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "Feels like..."
@@ -80,16 +81,16 @@ class DetailTFHoursTableViewCell: UITableViewCell {
     }()
     
     private let tempFieelsValueLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "10"
         label.textColor = UIColor(rgb: 0x9A9696)
         return label
     }()
-
+    
     private let windSpeedLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "Wind"
@@ -98,16 +99,16 @@ class DetailTFHoursTableViewCell: UITableViewCell {
     }()
     
     private let windSpeedValueLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "2 m/s NNW"
         label.textColor = UIColor(rgb: 0x9A9696)
         return label
     }()
-
+    
     private let humidityLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "Precipitation"
@@ -116,7 +117,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
     }()
     
     private let humidityValueLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "0%"
@@ -134,7 +135,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
     }()
     
     private let cloudinessValueLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "29%"
@@ -165,7 +166,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "humidity")
         return imageView
     }()
-
+    
     private let cloudinessImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -196,20 +197,17 @@ extension DetailTFHoursTableViewCell {
         contentView.addSubview(windSpeedImageView)
         contentView.addSubview(humidityImageView)
         contentView.addSubview(cloudinessImageView)
-
+        
         
         NSLayoutConstraint.activate([
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-//            dateLabel.heightAnchor.constraint(equalToConstant: 22),
             
             timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             timeLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
-//            timeLabel.heightAnchor.constraint(equalToConstant: 19),
             
             tempLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 22),
             tempLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10),
-//            tempLabel.heightAnchor.constraint(equalToConstant: 22),
             
             degreeImageView.leadingAnchor.constraint(equalTo: tempLabel.trailingAnchor, constant: 1),
             degreeImageView.bottomAnchor.constraint(equalTo: tempLabel.topAnchor, constant: 3),

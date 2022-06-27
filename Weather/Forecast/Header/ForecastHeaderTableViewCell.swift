@@ -8,7 +8,7 @@
 import UIKit
 
 class ForecastHeaderTableViewCell: UITableViewCell {
-//MARK: - props
+    //MARK: - props
     
     static let cellId = "ForecastHeaderTableViewCell"
     
@@ -22,13 +22,12 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-//MARK: - subviews
-
+    //MARK: - subviews
+    
     private let headerView = ForecastHeaderView()
     
     private let dailyTempLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(16)
         label.text = "7°/13°"
@@ -37,7 +36,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     }()
     
     private let presentTempLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(36)
         label.text = "13°"
@@ -46,7 +45,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     }()
     
     private let weatherDescriptLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(16)
         label.text = "It is raining today"
@@ -55,7 +54,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     }()
     
     private let cloudinessLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "0"
@@ -64,7 +63,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     }()
     
     private let windSpeedLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "3 m/s"
@@ -73,7 +72,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     }()
     
     private let humidityLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
         label.text = "75%"
@@ -82,7 +81,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     }()
     
     private let currentDateLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(16)
         label.text = "\(Date())"
@@ -91,7 +90,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     }()
     
     private let sunriseLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(14)
         label.text = "5:41"
@@ -100,7 +99,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     }()
     
     private let sunsetLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(14)
         label.text = "19:31"
@@ -151,8 +150,8 @@ class ForecastHeaderTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "humidity")
         return imageView
     }()
+}
 //MARK: - setupViews
-
 extension ForecastHeaderTableViewCell {
     private func setupViews() {
         contentView.backgroundColor = UIColor(rgb: 0xFFFFFF)

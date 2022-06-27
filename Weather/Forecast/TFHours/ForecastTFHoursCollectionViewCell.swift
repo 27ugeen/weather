@@ -8,15 +8,26 @@
 import UIKit
 
 class ForecastTFHoursCollectionViewCell: UICollectionViewCell {
-//MARK: - props
+    //MARK: - props
     
     static let cellId = "ForecastTFHoursCollectionViewCell"
-//MARK: - subviews
+    
+    //MARK: - init
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    //MARK: - subviews
     
     private let wrapperView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = UIColor(rgb: 0x000000)
+        //        view.backgroundColor = UIColor(rgb: 0x000000)
         view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 20
         view.layer.borderWidth = 0.5
@@ -60,21 +71,8 @@ class ForecastTFHoursCollectionViewCell: UICollectionViewCell {
         imageView.image = UIImage(named: "sun")
         return imageView
     }()
-
-    
-//MARK: - init
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 //MARK: - setupViews
-
 extension ForecastTFHoursCollectionViewCell {
     private func setupViews() {
         contentView.addSubview(wrapperView)

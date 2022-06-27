@@ -16,6 +16,7 @@ class DetailDayTableViewCell: UITableViewCell {
     private let ordinaryCellID = DayOrdinaryTableViewCell.cellId
     
     //MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -72,6 +73,7 @@ extension DetailDayTableViewCell: UITableViewDataSource {
         case 0:
             headCell.dayLabel.text = "Day"
             headCell.tempLabel.text = "33"
+            headCell.tempFieelsValueLabel.text = "30"
             return headCell
         case 1:
             defCell.weatherImageView.image = UIImage(named: "windSpeed")
