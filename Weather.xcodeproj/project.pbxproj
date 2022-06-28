@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11309B93286AFE2700C89643 /* MenuToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11309B92286AFE2700C89643 /* MenuToggleTableViewCell.swift */; };
 		1138984E286722CE00369F19 /* DetailTFHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138984D286722CE00369F19 /* DetailTFHoursViewController.swift */; };
 		113898502867401800369F19 /* DetailTFHoursTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138984F2867401800369F19 /* DetailTFHoursTableViewCell.swift */; };
 		1152A98A2829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1152A9892829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift */; };
@@ -43,10 +44,13 @@
 		11E432F12868DCFC0061743E /* SunMoonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E432F02868DCFC0061743E /* SunMoonTableViewCell.swift */; };
 		11E432F32869A21D0061743E /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E432F22869A21C0061743E /* DateTableViewCell.swift */; };
 		11E432F52869ADBB0061743E /* SunMoonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E432F42869ADBB0061743E /* SunMoonCollectionViewCell.swift */; };
+		11FF57AA286ADF8200C86EC9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FF57A9286ADF8200C86EC9 /* MenuViewController.swift */; };
+		11FF57AC286AE3B700C86EC9 /* MenuOrdinaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FF57AB286AE3B700C86EC9 /* MenuOrdinaryTableViewCell.swift */; };
 		643D3D05806B5FBF9A0199B9 /* Pods_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E46779C923B23D5BB5A6C2 /* Pods_Weather.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11309B92286AFE2700C89643 /* MenuToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuToggleTableViewCell.swift; sourceTree = "<group>"; };
 		1138984D286722CE00369F19 /* DetailTFHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursViewController.swift; sourceTree = "<group>"; };
 		1138984F2867401800369F19 /* DetailTFHoursTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursTableViewCell.swift; sourceTree = "<group>"; };
 		1152A9892829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 		11E432F02868DCFC0061743E /* SunMoonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunMoonTableViewCell.swift; sourceTree = "<group>"; };
 		11E432F22869A21C0061743E /* DateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
 		11E432F42869ADBB0061743E /* SunMoonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunMoonCollectionViewCell.swift; sourceTree = "<group>"; };
+		11FF57A9286ADF8200C86EC9 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		11FF57AB286AE3B700C86EC9 /* MenuOrdinaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOrdinaryTableViewCell.swift; sourceTree = "<group>"; };
 		289968FE07F2BD99E0EC836B /* Pods-Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.release.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.release.xcconfig"; sourceTree = "<group>"; };
 		890283250F091510EEB784C7 /* Pods-Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.debug.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		C2E46779C923B23D5BB5A6C2 /* Pods_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +182,7 @@
 				117E396A28083FDA00EA160C /* Carousel */,
 				11E419F628210D27001098D7 /* Onboarding */,
 				1159A92A282BAE5C00ECB30E /* Forecast */,
+				11FF57AD286AE3C700C86EC9 /* Menu */,
 				11E419FF2821414F001098D7 /* Settings */,
 				11E419F728211DD8001098D7 /* Fonts */,
 				11E419FC28212451001098D7 /* Utils */,
@@ -290,6 +297,16 @@
 				11E432F42869ADBB0061743E /* SunMoonCollectionViewCell.swift */,
 			);
 			path = SunMoon;
+			sourceTree = "<group>";
+		};
+		11FF57AD286AE3C700C86EC9 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				11FF57A9286ADF8200C86EC9 /* MenuViewController.swift */,
+				11FF57AB286AE3B700C86EC9 /* MenuOrdinaryTableViewCell.swift */,
+				11309B92286AFE2700C89643 /* MenuToggleTableViewCell.swift */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		2F2CB2CA2378F6D052B81629 /* Pods */ = {
@@ -433,9 +450,12 @@
 				1159A928282BAE2800ECB30E /* ForecastTFHoursTableViewCell.swift in Sources */,
 				11C445342869D20A0004CD49 /* DateCollectionViewCell.swift in Sources */,
 				117E3936280600DC00EA160C /* CarouselViewController.swift in Sources */,
+				11FF57AA286ADF8200C86EC9 /* MenuViewController.swift in Sources */,
+				11309B93286AFE2700C89643 /* MenuToggleTableViewCell.swift in Sources */,
 				1138984E286722CE00369F19 /* DetailTFHoursViewController.swift in Sources */,
 				1180C8E6284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift in Sources */,
 				11E432F32869A21D0061743E /* DateTableViewCell.swift in Sources */,
+				11FF57AC286AE3B700C86EC9 /* MenuOrdinaryTableViewCell.swift in Sources */,
 				11E432F52869ADBB0061743E /* SunMoonCollectionViewCell.swift in Sources */,
 				11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */,
 				1152A98A2829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift in Sources */,
