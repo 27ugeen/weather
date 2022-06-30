@@ -6,8 +6,31 @@
 //
 
 import UIKit
+import CoreLocation
 
 class OnboardingViewController: UIViewController {
+    //MARK: - props
+    
+    private let locationManager: CLLocationManager
+    
+    //MARK: - init
+    
+    init(locationManager: CLLocationManager) {
+        self.locationManager = locationManager
+
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        nil
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        checkUserLocationPermissions()
+        setupViews()
+    }
     //MARK: - subviews
     
     private let scrollView: UIScrollView = {
@@ -70,7 +93,7 @@ class OnboardingViewController: UIViewController {
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
         
-        //        self.addTarget(self, action: #selector(nil), for: .touchUpInside)
+        button.addTarget(self, action: #selector(allowLocation), for: .touchUpInside)
         
         return button
     }()
@@ -82,25 +105,27 @@ class OnboardingViewController: UIViewController {
         button.setTitleColor(UIColor(rgb: 0xFDFBF5), for: .normal)
         button.titleLabel?.font = UIFont.setAppMainFont(16)
         
-        //        self.addTarget(self, action: #selector(nil), for: .touchUpInside)
+        button.addTarget(self, action: #selector(denieLocation), for: .touchUpInside)
         
         return button
     }()
+//MARK: - methods
     
+    @objc private func allowLocation() {
+        locationManager.requestAlwaysAuthorization()
+        self.checkUserLocationPermissions()
+    }
     
-    
-    //MARK: - loading
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupViews()
+    @objc private func denieLocation() {
+        UserDefaults.standard.set(false, forKey: "isStatusOn")
+        let mainVC = CarouselViewController()
+        navigationController?.pushViewController(mainVC, animated: true)
+        print("Location access denied")
     }
     
 }
 
 //MARK: - setupViews
-
 extension OnboardingViewController {
     private func setupViews() {
         view.backgroundColor = UIColor(rgb: 0x204EC7)
@@ -154,5 +179,42 @@ extension OnboardingViewController {
             denieLocationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18),
             denieLocationButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -77)
         ])
+    }
+}
+
+//MARK: - check UserLocationPermissions
+extension OnboardingViewController {
+    private func checkUserLocationPermissions() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = 100
+        locationManager.startUpdatingLocation()
+        
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            print("Location access is not determined")
+        case .denied, .restricted:
+            self.denieLocation()
+        case .authorizedAlways, .authorizedWhenInUse:
+            UserDefaults.standard.set(true, forKey: "isStatusOn")
+            let mainVC = CarouselViewController()
+            navigationController?.pushViewController(mainVC, animated: true)
+            print("Location access allowed")
+        @unknown default:
+            fatalError("Unknown status")
+        }
+    }
+}
+
+//MARK: - CLLocationManagerDelegate
+extension OnboardingViewController: CLLocationManagerDelegate {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkUserLocationPermissions()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else { return }
+        
+//        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 3000, longitudinalMeters: 3000)
+//        mapView.setRegion(region, animated: true)
     }
 }

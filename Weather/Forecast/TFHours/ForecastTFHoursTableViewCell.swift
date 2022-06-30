@@ -5,6 +5,7 @@
 //  Created by GiN Eugene on 11/5/2022.
 //
 
+import Foundation
 import UIKit
 
 class ForecastTFHoursTableViewCell: UITableViewCell {
@@ -26,13 +27,14 @@ class ForecastTFHoursTableViewCell: UITableViewCell {
     }
     //MARK: - subviews
     
-    private let titleLableView: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.setAppMainFont(16)
-        label.textColor = UIColor(rgb: 0x272722)
-        label.attributedText = "Forecast for 24 hours".setUnderlineStyle()
-        return label
+    let forecastTFHoursButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setAttributedTitle("Forecast for 24 hours".setUnderlineStyle(), for: .normal)
+        button.setTitleColor(UIColor(rgb: 0x272722), for: .normal)
+        button.titleLabel?.font = UIFont.setAppMainFont(16)
+//        button.addTarget(self, action: #selector(buttonTupped), for: .touchUpInside)
+        return button
     }()
     
     private lazy var tFHoursCollectionView: UICollectionView = {
@@ -55,20 +57,20 @@ class ForecastTFHoursTableViewCell: UITableViewCell {
 //MARK: - setupView
 extension ForecastTFHoursTableViewCell {
     private func setupViews() {
-        contentView.addSubview(titleLableView)
+        contentView.addSubview(forecastTFHoursButton)
         contentView.addSubview(tFHoursCollectionView)
         
         NSLayoutConstraint.activate([
-            titleLableView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 33),
-            titleLableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            titleLableView.heightAnchor.constraint(equalToConstant: 20),
+            forecastTFHoursButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 33),
+            forecastTFHoursButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+//            forecastTFHoursButton.heightAnchor.constraint(equalToConstant: 20),
             
             tFHoursCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            tFHoursCollectionView.topAnchor.constraint(equalTo: titleLableView.bottomAnchor, constant: 10),
+            tFHoursCollectionView.topAnchor.constraint(equalTo: forecastTFHoursButton.bottomAnchor, constant: 10),
             tFHoursCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             tFHoursCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            //            tFHoursCollectionView.widthAnchor.constraint(equalToConstant: 19),
-            tFHoursCollectionView.heightAnchor.constraint(equalToConstant: 83)
+            //TODO: -
+//            tFHoursCollectionView.heightAnchor.constraint(equalToConstant: 83)
         ])
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11309B93286AFE2700C89643 /* MenuToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11309B92286AFE2700C89643 /* MenuToggleTableViewCell.swift */; };
+		11309B95286C599F00C89643 /* DailyHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11309B94286C599F00C89643 /* DailyHeaderTableViewCell.swift */; };
 		1138984E286722CE00369F19 /* DetailTFHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138984D286722CE00369F19 /* DetailTFHoursViewController.swift */; };
 		113898502867401800369F19 /* DetailTFHoursTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138984F2867401800369F19 /* DetailTFHoursTableViewCell.swift */; };
 		1152A98A2829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1152A9892829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift */; };
@@ -21,7 +22,6 @@
 		117E393B280600DE00EA160C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 117E393A280600DE00EA160C /* Assets.xcassets */; };
 		117E393E280600DE00EA160C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 117E393C280600DE00EA160C /* LaunchScreen.storyboard */; };
 		117E396C280844F600EA160C /* CarouselEmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */; };
-		1180C8E6284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1180C8E5284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift */; };
 		118E06C62867696900EB7AC0 /* DetailTFHoursHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E06C52867696900EB7AC0 /* DetailTFHoursHeaderView.swift */; };
 		118E06C828676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118E06C728676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift */; };
 		1196D7A728685704008924AA /* DetailDailyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1196D7A628685704008924AA /* DetailDailyViewController.swift */; };
@@ -51,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		11309B92286AFE2700C89643 /* MenuToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuToggleTableViewCell.swift; sourceTree = "<group>"; };
+		11309B94286C599F00C89643 /* DailyHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		1138984D286722CE00369F19 /* DetailTFHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursViewController.swift; sourceTree = "<group>"; };
 		1138984F2867401800369F19 /* DetailTFHoursTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursTableViewCell.swift; sourceTree = "<group>"; };
 		1152A9892829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -66,7 +67,6 @@
 		117E393D280600DE00EA160C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		117E393F280600DE00EA160C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselEmptyCollectionViewCell.swift; sourceTree = "<group>"; };
-		1180C8E5284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDailyCollectionViewCell.swift; sourceTree = "<group>"; };
 		118E06C52867696900EB7AC0 /* DetailTFHoursHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursHeaderView.swift; sourceTree = "<group>"; };
 		118E06C728676D4000EB7AC0 /* DetailTFHoursHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		1196D7A628685704008924AA /* DetailDailyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDailyViewController.swift; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				117CB79F284F4F1700D594BC /* ForecastDailyTableViewCell.swift */,
-				1180C8E5284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift */,
+				11309B94286C599F00C89643 /* DailyHeaderTableViewCell.swift */,
 				1196D7AA28685748008924AA /* DetailDaily */,
 			);
 			path = Daily;
@@ -453,7 +453,6 @@
 				11FF57AA286ADF8200C86EC9 /* MenuViewController.swift in Sources */,
 				11309B93286AFE2700C89643 /* MenuToggleTableViewCell.swift in Sources */,
 				1138984E286722CE00369F19 /* DetailTFHoursViewController.swift in Sources */,
-				1180C8E6284FE11700F0E3A3 /* ForecastDailyCollectionViewCell.swift in Sources */,
 				11E432F32869A21D0061743E /* DateTableViewCell.swift in Sources */,
 				11FF57AC286AE3B700C86EC9 /* MenuOrdinaryTableViewCell.swift in Sources */,
 				11E432F52869ADBB0061743E /* SunMoonCollectionViewCell.swift in Sources */,
@@ -476,6 +475,7 @@
 				11E432F12868DCFC0061743E /* SunMoonTableViewCell.swift in Sources */,
 				11E41A09282191E3001098D7 /* SettingsFooterView.swift in Sources */,
 				1159A924282B003700ECB30E /* ForecastHeaderView.swift in Sources */,
+				11309B95286C599F00C89643 /* DailyHeaderTableViewCell.swift in Sources */,
 				11E41A05282182B0001098D7 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

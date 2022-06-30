@@ -19,6 +19,36 @@ class SettingsViewController: UIViewController {
     
     private let tableView = UITableView(frame: .zero, style: .plain)
     
+    private let topCloudImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "cloudSetTop")
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = UIColor(rgb: 0xE9EEFA)
+        return imageView
+    }()
+    
+    private let midCloudImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "cloudSetMid")
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = UIColor(rgb: 0xE9EEFA)
+        return imageView
+    }()
+    
+    private let botCloudImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "cloudSetBot")
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = UIColor(rgb: 0xE9EEFA)
+        return imageView
+    }()
+    
     //MARK: - init
     init(settingsViewModel: SettingsViewModel) {
         self.settingsViewModel = settingsViewModel
@@ -56,6 +86,10 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController {
     private func setupViews() {
         view.backgroundColor = UIColor(rgb: 0x204EC7)
+        
+        view.addSubview(topCloudImageView)
+        view.addSubview(midCloudImageView)
+        view.addSubview(botCloudImageView)
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,6 +105,21 @@ extension SettingsViewController {
         tableView.delegate = self
         
         NSLayoutConstraint.activate([
+            topCloudImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topCloudImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 37),
+            topCloudImageView.widthAnchor.constraint(equalToConstant: 246),
+            topCloudImageView.heightAnchor.constraint(equalToConstant: 59),
+            
+            midCloudImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 121),
+            midCloudImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            midCloudImageView.widthAnchor.constraint(equalToConstant: 180),
+            midCloudImageView.heightAnchor.constraint(equalToConstant: 95),
+            
+            botCloudImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            botCloudImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -95),
+            botCloudImageView.widthAnchor.constraint(equalToConstant: 217),
+            botCloudImageView.heightAnchor.constraint(equalToConstant: 66),
+            
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),

@@ -14,7 +14,11 @@ class CarouselCityCollectionViewCell: UICollectionViewCell {
     
     private let headerID = ForecastHeaderTableViewCell.cellId
     private let tFHoursID = ForecastTFHoursTableViewCell.cellId
+    private let dailyHeaderID = DailyHeaderTableViewCell.cellId
     private let dailyID = ForecastDailyTableViewCell.cellId
+    
+    var goToTFHDetailAction: (() -> Void)?
+    var goToDailyDetailAction: (() -> Void)?
     
     //MARK: - Subviews
     
@@ -27,7 +31,11 @@ class CarouselCityCollectionViewCell: UICollectionViewCell {
         return tableView
     }()
     
-
+//MARK: - methods
+    
+    @objc private func forecastTFHoursTupped() {
+        self.goToTFHDetailAction?()
+    }
 //MARK: - init
     
     override init(frame: CGRect) {
@@ -46,6 +54,7 @@ extension CarouselCityCollectionViewCell {
         
         tableView.register(ForecastHeaderTableViewCell.self, forCellReuseIdentifier: headerID)
         tableView.register(ForecastTFHoursTableViewCell.self, forCellReuseIdentifier: tFHoursID)
+        tableView.register(DailyHeaderTableViewCell.self, forCellReuseIdentifier: dailyHeaderID)
         tableView.register(ForecastDailyTableViewCell.self, forCellReuseIdentifier: dailyID)
         
         tableView.dataSource = self
@@ -63,39 +72,48 @@ extension CarouselCityCollectionViewCell {
 
 extension CarouselCityCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        //TODO: 7-25 days
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: headerID) as! ForecastHeaderTableViewCell
+        let tFHCell = tableView.dequeueReusableCell(withIdentifier: tFHoursID) as! ForecastTFHoursTableViewCell
+        let dailyHeaderCell = tableView.dequeueReusableCell(withIdentifier: dailyHeaderID) as! DailyHeaderTableViewCell
+        let dailyCell = tableView.dequeueReusableCell(withIdentifier: dailyID) as! ForecastDailyTableViewCell
+        
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: headerID, for: indexPath) as! ForecastHeaderTableViewCell
-            return cell
+            return headerCell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: tFHoursID, for: indexPath) as! ForecastTFHoursTableViewCell
-            return cell
+            tFHCell.forecastTFHoursButton.addTarget(self, action: #selector(forecastTFHoursTupped), for: .touchUpInside)
+            return tFHCell
+        case 2:
+            return dailyHeaderCell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: dailyID, for: indexPath) as! ForecastDailyTableViewCell
-            return cell
-//            return UITableViewCell()
+            return dailyCell
         }
     }
-    
-    
 }
 
 //MARK: - UITableViewDelegate
-
 extension CarouselCityCollectionViewCell: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        switch indexPath.row {
-//        case 0:
-//            return 212
-//        case 1:
-//            return 200
-//        default:
-//            return 56
-//        }
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return 212
+        case 1:
+            return 158
+        case 2:
+            return 63
+        default:
+            return 66
+        }
+    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row > 2 {
+            self.goToDailyDetailAction?()
+        }
+    }
 }

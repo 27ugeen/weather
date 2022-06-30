@@ -18,10 +18,10 @@ class SettingsViewModel {
     //MARK: - props
     
     let settings: [Settings] = [
-        Settings(settingsName: "Temp", settingsValueOn: "C", settingsValueOff: "F"),
-        Settings(settingsName: "wind", settingsValueOn: "Mi", settingsValueOff: "Km"),
-        Settings(settingsName: "time", settingsValueOn: "12", settingsValueOff: "24"),
-        Settings(settingsName: "notific", settingsValueOn: "On", settingsValueOff: "Off")
+        Settings(settingsName: "Temperature", settingsValueOn: "C", settingsValueOff: "F"),
+        Settings(settingsName: "Wind speed", settingsValueOn: "Mi", settingsValueOff: "Km"),
+        Settings(settingsName: "Time format", settingsValueOn: "12", settingsValueOff: "24"),
+        Settings(settingsName: "Notification", settingsValueOn: "On", settingsValueOff: "Off")
     ]
     
 }

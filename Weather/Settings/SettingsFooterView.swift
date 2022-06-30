@@ -16,7 +16,7 @@ class SettingsFooterView: UITableViewCell {
     private lazy var setButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Установить", for: .normal)
+        button.setTitle("Set", for: .normal)
         button.setTitleColor(UIColor(rgb: 0xFFFFFF), for: .normal)
         button.backgroundColor = UIColor(rgb: 0xF26E11)
         button.titleLabel?.font = UIFont.setAppMainFont(16)

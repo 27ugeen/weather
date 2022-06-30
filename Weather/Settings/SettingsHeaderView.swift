@@ -16,7 +16,7 @@ class SettingsHeaderView: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Настройки"
+        label.text = "Settings"
         label.textColor = UIColor(rgb: 0x272722)
         label.font = UIFont.setAppMainFont(18)
         label.numberOfLines = 0

@@ -54,24 +54,41 @@ class CarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-// TODO: - move to subviews buttons?
-        let leftBarButton = UIBarButtonItem(image: UIImage(named: "burger") , style: .done, target: self, action: nil)
-        let rightBarButton = UIBarButtonItem(image: UIImage(named: "location"), style: .plain, target: self, action: nil)
+        title = "Kharkiv, Ukraine"
+        view.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        navigationController?.navigationBar.tintColor = .black
         
+        setupNuvButtons()
+        setupViews()
+    }
+    //MARK: - methods
+    
+    private func goToTFHDetailPage() {
+        let detailTFHVC = DetailTFHoursViewController()
+        navigationController?.pushViewController(detailTFHVC, animated: true)
+    }
+    
+    private func goToDailyDetailPage() {
+        let detaiDailyVC = DetailDailyViewController()
+        navigationController?.pushViewController(detaiDailyVC, animated: true)
+    }
+    
+    @objc private func leftBtnTupped() {
+        let settingsVC = SettingsViewController(settingsViewModel: SettingsViewModel().self)
+        navigationController?.present(settingsVC, animated: true)
+    }
+}
+//MARK: - setupNuvButtons
+extension CarouselViewController {
+    private func setupNuvButtons() {
+        let leftBarButton = UIBarButtonItem(image: UIImage(named: "burger") , style: .done, target: self, action: #selector(leftBtnTupped))
+        let rightBarButton = UIBarButtonItem(image: UIImage(named: "geo"), style: .plain, target: self, action: nil)
         
         self.navigationItem.setLeftBarButton(leftBarButton, animated: true)
         self.navigationItem.setRightBarButton(rightBarButton, animated: true)
-        
-        setupViews()
-        
-//        self.title = "View"
-        self.view.backgroundColor = UIColor(rgb: 0xFFFFFF)
     }
-
-
 }
 //MARK: - setup Views
-
 extension CarouselViewController {
     func setupViews() {
         
@@ -120,14 +137,22 @@ extension CarouselViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as? CarouselCityCollectionViewCell else { return UICollectionViewCell() }
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as? CarouselCityCollectionViewCell else { return UICollectionViewCell() }
+        let isStatusOn = UserDefaults.standard.bool(forKey: "isStatusOn")
         
-//        let image = carouselData[indexPath.row].image
-//        let text = carouselData[indexPath.row].text
-//
-//        cell.configure(image: image, text: text)
-        
-        return cell
+        if isStatusOn {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as! CarouselCityCollectionViewCell
+            cell.goToTFHDetailAction = {
+                self.goToTFHDetailPage()
+            }
+            cell.goToDailyDetailAction = {
+                self.goToDailyDetailPage()
+            }
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emptyCellID, for: indexPath) as! CarouselEmptyCollectionViewCell
+            return cell
+        }
     }
 }
 //MARK: - UICollectionViewDelegate
