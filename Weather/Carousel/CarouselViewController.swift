@@ -36,10 +36,11 @@ class CarouselViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(self.viewModel.currentWeatherCoordinate)
         if isStatusOn {
             viewModel.decodeModelFromData() { model in
-                self.title = "\(model.city), \(model.country.toCountry())"
+//                self.title = "\(model.city), \(model.country.toCountry())"
+                
             }
         }
         
@@ -157,6 +158,7 @@ extension CarouselViewController: UICollectionViewDataSource {
         
         if isStatusOn {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as! CarouselCityCollectionViewCell
+            cell.viewModel = self.viewModel
             
             cell.goToTFHDetailAction = {
                 self.goToTFHDetailPage()

@@ -192,8 +192,9 @@ extension OnboardingViewController {
 extension OnboardingViewController {
     private func checkUserLocationPermissions() {
         locationManager.delegate = self
-        locationManager.desiredAccuracy = 100
+        locationManager.desiredAccuracy = 1000
         locationManager.startUpdatingLocation()
+        
         
         switch locationManager.authorizationStatus {
         case .notDetermined:
@@ -201,6 +202,7 @@ extension OnboardingViewController {
         case .denied, .restricted:
             self.denieLocation()
         case .authorizedAlways, .authorizedWhenInUse:
+            viewModel.currentWeatherCoordinate = viewModel.createURLForCurrentWeather(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
             UserDefaults.standard.set(true, forKey: "isStatusOn")
             let mainVC = CarouselViewController(viewModel: viewModel)
             navigationController?.pushViewController(mainVC, animated: true)
@@ -220,6 +222,10 @@ extension OnboardingViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
         
+        viewModel.currentWeatherCoordinate = viewModel.createURLForCurrentWeather(location.coordinate)
+        
+        
+        
 //        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 3000, longitudinalMeters: 3000)
 //        mapView.setRegion(region, animated: true)
     }
@@ -229,7 +235,7 @@ extension OnboardingViewController {
   func fetchData() {
     // 1
       //MARK: - 8 days, 48 hours
-//    let reqEightdays = AF.request("https://api.openweathermap.org/data/3.0/onecall?lat=47.09608&lon=37.54817&exclude=hourly,daily&appid=205e68368240d2136c5ca99aaf88ec20&units=metric")
+//    let reqEightdays = AF.request("https://api.openweathermap.org/data/3.0/onecall?units=metric&appid=205e68368240d2136c5ca99aaf88ec20&lat=47.09608&lon=37.54817")
 //
 //      reqEightdays.responseJSON { (data) in
 //      print("8 days: \(data)")

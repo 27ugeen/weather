@@ -20,8 +20,7 @@ class CarouselCityCollectionViewCell: UICollectionViewCell {
     var goToTFHDetailAction: (() -> Void)?
     var goToDailyDetailAction: (() -> Void)?
     
-    //TODO: - injection??
-    var viewModel = ForecastViewModel()
+    var viewModel: ForecastViewModel?
     
     //MARK: - init
     
@@ -87,10 +86,10 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         
         switch indexPath.row {
         case 0:
-            viewModel.decodeModelFromData() { model in
+            viewModel?.decodeModelFromData() { model in
                 headerCell.presentTempLabel.text = "\(Int(model.temp))°"
-                headerCell.dailyTempLabel.text = "\(Int(model.tempMin))°/\( Int(model.tempMax))°"
-                headerCell.cloudinessLabel.text = "\(model.cloudiness)"
+//                headerCell.dailyTempLabel.text = "\(Int(model.tempMin))°/\( Int(model.tempMax))°"
+                headerCell.cloudinessLabel.text = "\(model.clouds)"
                 headerCell.windSpeedLabel.text = "\(Int(model.windSpeed.rounded()))m/s"
                 headerCell.humidityLabel.text = "\(model.humidity)%"
                 headerCell.weatherDescriptLabel.text = model.weather[0].descript

@@ -7,89 +7,67 @@
 
 import Foundation
 import Alamofire
+import CoreLocation
 
 enum WeatherURLs: String {
-    case current = "https://api.openweathermap.org/data/2.5/weather?lat=47.09608&lon=37.54817&appid=205e68368240d2136c5ca99aaf88ec20&units=metric"
+//    case current = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid="
+    case daily = "https://api.openweathermap.org/data/3.0/onecall?units=metric&appid="
 }
 
 struct ForecastModel: Decodable {
-    let id: Int
-    let city: String
-    let currentTime: Int
-    let weather: [Weather]
-    
-    let temp: Double
-    let feelsLike: Double
-    let tempMin: Double
-    let tempMax: Double
-    let humidity: Int
-    
-    let cloudiness: Int
-    
-    let country: String
-    let sunrise: Int
-    let sunset: Int
-    
-    let windSpeed: Double
+    let daily: [Daily]
+    let hourly: [Hourly]
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case city = "name"
-        case currentTime = "dt"
-        case weather
+        case daily
+        case hourly
         
-        case main
-        case clouds
-        case sysInfo = "sys"
-        case wind
+        case current
     }
+    //1======current==========
+    let currentTime: Int
+    let sunrise: Int
+    let sunset: Int
+    let temp: Double
+    let feelsLike: Double
+    let humidity: Int
+    let uvi: Double
+    let clouds: Int
+    let windSpeed: Double
+    let windDeg: Int
+    let weather: [Weather]
     
-    enum MainCodingKeys: String, CodingKey {
-        case temp
-        case feelsLike = "feels_like"
-        case tempMin = "temp_min"
-        case tempMax = "temp_max"
-        case humidity
-    }
-    
-    enum CloudsCodingKeys: String, CodingKey {
-        case cloudiness = "all"
-    }
-    
-    enum SysInfoCodingKeys: String, CodingKey {
-        case country
+    enum CurrentCodingKeys: String, CodingKey {
+        case currentTime = "dt"
         case sunrise
         case sunset
-    }
-    
-    enum WindCodingKeys: String, CodingKey {
-        case windSpeed = "speed"
+        case temp
+        case feelsLike = "feels_like"
+        case humidity
+        case uvi
+        case clouds
+        case windSpeed = "wind_speed"
+        case windDeg = "wind_deg"
+        case weather
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int.self, forKey: .id)
-        city = try container.decode(String.self, forKey: .city)
-        currentTime = try container.decode(Int.self, forKey: .currentTime)
-        weather = try container.decode([Weather].self, forKey: .weather)
-        //==================================================
-        let mainContainer = try container.nestedContainer(keyedBy: MainCodingKeys.self, forKey: .main)
-        temp = try mainContainer.decode(Double.self, forKey: .temp)
-        feelsLike = try mainContainer.decode(Double.self, forKey: .feelsLike)
-        tempMin = try mainContainer.decode(Double.self, forKey: .tempMin)
-        tempMax = try mainContainer.decode(Double.self, forKey: .tempMax)
-        humidity = try mainContainer.decode(Int.self, forKey: .humidity)
-        //==================================================
-        let cloudsContainer = try container.nestedContainer(keyedBy: CloudsCodingKeys.self, forKey: .clouds)
-        cloudiness = try cloudsContainer.decode(Int.self, forKey: .cloudiness)
-        //==================================================
-        let sysInfoContainer = try container.nestedContainer(keyedBy: SysInfoCodingKeys.self, forKey: .sysInfo)
-        country = try sysInfoContainer.decode(String.self, forKey: .country)
-        sunrise = try sysInfoContainer.decode(Int.self, forKey: .sunrise)
-        sunset = try sysInfoContainer.decode(Int.self, forKey: .sunset)
-        //==================================================
-        let windContainer = try container.nestedContainer(keyedBy: WindCodingKeys.self, forKey: .wind)
-        windSpeed = try windContainer.decode(Double.self, forKey: .windSpeed)
+        daily = try container.decode([Daily].self, forKey: .daily)
+        hourly = try container.decode([Hourly].self, forKey: .hourly)
+        //1=====================current===========================
+        let cContainer = try container.nestedContainer(keyedBy: CurrentCodingKeys.self, forKey: .current)
+        currentTime = try cContainer.decode(Int.self, forKey: .currentTime)
+        sunrise = try cContainer.decode(Int.self, forKey: .sunrise)
+        sunset = try cContainer.decode(Int.self, forKey: .sunset)
+        temp = try cContainer.decode(Double.self, forKey: .temp)
+        feelsLike = try cContainer.decode(Double.self, forKey: .feelsLike)
+        humidity = try cContainer.decode(Int.self, forKey: .humidity)
+        uvi = try cContainer.decode(Double.self, forKey: .uvi)
+        clouds = try cContainer.decode(Int.self, forKey: .clouds)
+        windSpeed = try cContainer.decode(Double.self, forKey: .windSpeed)
+        windDeg = try cContainer.decode(Int.self, forKey: .windDeg)
+        weather = try cContainer.decode([Weather].self, forKey: .weather)
     }
 }
 
@@ -104,15 +82,146 @@ struct Weather: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         descript = try container.decode(String.self, forKey: .descript)
     }
+}
+
+struct Daily: Decodable {
+    let dClouds: Int
+    let dTime: Int
+    let dMoonPhase: Double
+    let dMoonrise: Int
+    let dMoonset: Int
+    let dSunrise: Int
+    let dSunset: Int
+    let dPop: Double
+    let dUVI: Double
+    let dWeather: [Weather]
+    let dWindDeg: Int
+    let dWindSpeed: Double
     
+    
+    enum CodingKeys: String, CodingKey {
+        case dClouds = "clouds"
+        case dTime = "dt"
+        case dMoonPhase = "moon_phase"
+        case dMoonrise = "moonrise"
+        case dMoonset = "moonset"
+        case dSunrise = "sunrise"
+        case dSunset = "sunset"
+        case dPop = "pop"
+        case dUVI = "uvi"
+        case dWeather = "weather"
+        case dWindDeg = "wind_deg"
+        case dWindSpeed = "wind_speed"
+        
+        case dFeelsLike = "feels_like"
+        case dTemp = "temp"
+    }
+    
+    let dFeelsTemp: Double
+    let nFeelsTemp: Double
+    
+    enum FeelsLikeCodingKeys: String, CodingKey {
+        case dFeelsTemp = "day"
+        case nFeelsTemp = "night"
+    }
+    
+    let dTempDay: Double
+    let dTempNight: Double
+    
+    enum TemperatureCodingKeys: String, CodingKey {
+        case dTempDay = "day"
+        case dTempNight = "night"
+    }
+    
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        dClouds = try container.decode(Int.self, forKey: .dClouds)
+        dTime = try container.decode(Int.self, forKey: .dTime)
+        dMoonPhase = try container.decode(Double.self, forKey: .dMoonPhase)
+        dMoonrise = try container.decode(Int.self, forKey: .dMoonrise)
+        dMoonset = try container.decode(Int.self, forKey: .dMoonset)
+        dSunrise = try container.decode(Int.self, forKey: .dSunrise)
+        dSunset = try container.decode(Int.self, forKey: .dSunset)
+        dPop = try container.decode(Double.self, forKey: .dPop)
+        dUVI = try container.decode(Double.self, forKey: .dUVI)
+        dWeather = try container.decode([Weather].self, forKey: .dWeather)
+        dWindDeg = try container.decode(Int.self, forKey: .dWindDeg)
+        dWindSpeed = try container.decode(Double.self, forKey: .dWindSpeed)
+        
+        let feelsContainer = try container.nestedContainer(keyedBy: FeelsLikeCodingKeys.self, forKey: .dFeelsLike)
+        dFeelsTemp = try feelsContainer.decode(Double.self, forKey: .dFeelsTemp)
+        nFeelsTemp = try feelsContainer.decode(Double.self, forKey: .nFeelsTemp)
+        
+        let tempContainer = try container.nestedContainer(keyedBy: TemperatureCodingKeys.self, forKey: .dTemp)
+        dTempDay = try tempContainer.decode(Double.self, forKey: .dTempDay)
+        dTempNight = try tempContainer.decode(Double.self, forKey: .dTempNight)
+    }
+}
+
+struct Hourly: Decodable {
+    let hClouds: Int
+    let hTime: Int
+    let hFeelsLike: Double
+    let hPop: Double
+    let hTemp: Double
+    let hWindDeg: Int
+    let hWindSpeed: Double
+    let hWeather: [Weather]
+
+    enum CodingKeys: String, CodingKey {
+        case hClouds = "clouds"
+        case hTime = "dt"
+        case hFeelsLike = "feels_like"
+        case hPop = "pop"
+        case hTemp = "temp"
+        case hWindDeg = "wind_deg"
+        case hWindSpeed = "wind_speed"
+        case hWeather = "weather"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        hClouds = try container.decode(Int.self, forKey: .hClouds)
+        hTime = try container.decode(Int.self, forKey: .hTime)
+        hFeelsLike = try container.decode(Double.self, forKey: .hFeelsLike)
+        hPop = try container.decode(Double.self, forKey: .hPop)
+        hTemp = try container.decode(Double.self, forKey: .hTemp)
+        hWindDeg = try container.decode(Int.self, forKey: .hWindDeg)
+        hWindSpeed = try container.decode(Double.self, forKey: .hWindSpeed)
+        hWeather = try container.decode([Weather].self, forKey: .hWeather)
+    }
 }
 
 class ForecastViewModel {
     
+    private var apiKey: String {
+        get {
+            guard let filePath = Bundle.main.path(forResource: "Info", ofType: "plist") else {
+                fatalError("Couldn't find file 'Info.plist'.")
+            }
+            let plist = NSDictionary(contentsOfFile: filePath)
+            guard let value = plist?.object(forKey: "API_KEY") as? String else {
+                fatalError("Couldn't find key 'API_KEY' in 'Info.plist'.")
+            }
+            return value
+        }
+    }
+    
     var currentWeather: ForecastModel?
+    var currentWeatherCoordinate: String = ""
+    
+    func createURLForCurrentWeather(_ coordinate: CLLocationCoordinate2D) -> String {
+        let headRL = WeatherURLs.daily.rawValue
+        let coordinateParams = "&lat=\(coordinate.latitude)&lon=\(coordinate.longitude)"
+        
+        let resultURL = headRL + apiKey + coordinateParams
+        
+        return resultURL
+    }
     
     func decodeModelFromData(completition: @escaping (ForecastModel) -> Void) {
-        if let url = URL(string: WeatherURLs.current.rawValue) {
+        if let url = URL(string: currentWeatherCoordinate) {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             
