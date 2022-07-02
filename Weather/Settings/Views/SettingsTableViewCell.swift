@@ -12,8 +12,21 @@ class SettingsTableViewCell: UITableViewCell {
     //MARK: - props
     
     static let cellId = "SettingsTableViewCell"
+    
     private lazy var switchOnImageWithTitle = UIImage.textToImage(drawText: valueToggle.labelOn.text ?? "On", inImage: UIImage(named: "switchOn") ?? UIImage(), font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
     private lazy var switchOffImgWithTitle = UIImage.textToImage(drawText: valueToggle.labelOff.text ?? "Off", inImage: UIImage(named: "switchOff") ?? UIImage(), font: UIFont.setAppMainFont(16), color: UIColor(rgb: 0xE9EEFA), atPoint: CGPoint(x: 10, y: 5))
+    
+    //MARK: - init
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     //MARK: - subviews
     
     let valueLabel: UILabel = {
@@ -24,7 +37,7 @@ class SettingsTableViewCell: UITableViewCell {
         return label
     }()
     
-    let valueToggle: CustomSwitch = {
+    lazy var valueToggle: CustomSwitch = {
         let customSwitch = CustomSwitch()
         customSwitch.translatesAutoresizingMaskIntoConstraints = false
         
@@ -43,36 +56,25 @@ class SettingsTableViewCell: UITableViewCell {
         customSwitch.thumbSize = CGSize(width: 40, height: 30)
         customSwitch.animationDuration = 0.5
         
-        customSwitch.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        customSwitch.addTarget(self, action: #selector(toggleChanged), for: .touchUpInside)
         return customSwitch
     }()
     
-    @objc private func buttonClicked(_ sender: Any) {
+    //MARK: - methods
+    
+    @objc private func toggleChanged(_ sender: Any) {
         if valueToggle.isOn {
             valueToggle.thumbImage = switchOffImgWithTitle
         } else {
             valueToggle.thumbImage = switchOnImageWithTitle
         }
     }
-    //MARK: - init
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        setupViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
 //MARK: - setup views
-
 extension SettingsTableViewCell {
     private func setupViews() {
-        
         contentView.backgroundColor = UIColor(rgb: 0xE9EEFA)
+        
         contentView.addSubview(valueLabel)
         contentView.addSubview(valueToggle)
         

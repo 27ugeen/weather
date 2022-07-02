@@ -10,13 +10,44 @@ import UIKit
 class CarouselViewController: UIViewController {
     //MARK: - Props
     
+    let viewModel: ForecastViewModel
+    var forecastModel: ForecastModel?
+    
     private let emptyCellID = CarouselEmptyCollectionViewCell.cellId
     private let cityCellId = CarouselCityCollectionViewCell.cellId
+    
+    private let isStatusOn = UserDefaults.standard.bool(forKey: "isStatusOn")
     
     private var currentPage: Int = 0 {
         didSet {
             pageControl.currentPage = currentPage
         }
+    }
+    //MARK: - init
+    
+    init(viewModel: ForecastViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        nil
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if isStatusOn {
+            viewModel.decodeModelFromData() { model in
+                self.title = "\(model.city), \(model.country.toCountry())"
+            }
+        }
+        
+        view.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        navigationController?.navigationBar.tintColor = .black
+        
+        setupNuvButtons()
+        setupViews()
     }
     //MARK: - Subviews
     
@@ -31,9 +62,6 @@ class CarouselViewController: UIViewController {
         collection.showsHorizontalScrollIndicator = false
         collection.backgroundColor = .clear
         collection.isPagingEnabled = true
-        
-        
-        
         collection.dataSource = self
         collection.delegate = self
         return collection
@@ -49,18 +77,7 @@ class CarouselViewController: UIViewController {
 
         return pageControl
     }()
-    //MARK: - loading
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        title = "Kharkiv, Ukraine"
-        view.backgroundColor = UIColor(rgb: 0xFFFFFF)
-        navigationController?.navigationBar.tintColor = .black
-        
-        setupNuvButtons()
-        setupViews()
-    }
     //MARK: - methods
     
     private func goToTFHDetailPage() {
@@ -75,7 +92,7 @@ class CarouselViewController: UIViewController {
     
     @objc private func leftBtnTupped() {
         let settingsVC = SettingsViewController(settingsViewModel: SettingsViewModel().self)
-        navigationController?.present(settingsVC, animated: true)
+        navigationController?.pushVCFromLeft(controller: settingsVC)
     }
 }
 //MARK: - setupNuvButtons
@@ -123,7 +140,6 @@ private extension CarouselViewController {
     }
 }
 //MARK: - UICollectionViewDataSource
-
 extension CarouselViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -137,11 +153,11 @@ extension CarouselViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as? CarouselCityCollectionViewCell else { return UICollectionViewCell() }
-        let isStatusOn = UserDefaults.standard.bool(forKey: "isStatusOn")
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as? CarouselCityCollectionViewCell else { return UICollectionViewCell()
         
         if isStatusOn {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as! CarouselCityCollectionViewCell
+            
             cell.goToTFHDetailAction = {
                 self.goToTFHDetailPage()
             }
@@ -156,7 +172,6 @@ extension CarouselViewController: UICollectionViewDataSource {
     }
 }
 //MARK: - UICollectionViewDelegate
-
 extension CarouselViewController: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = getCurrentPage()
@@ -171,7 +186,6 @@ extension CarouselViewController: UICollectionViewDelegate {
     }
 }
 //MARK: - UICollectionViewDelegateFlowLayout
-
 extension CarouselViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)

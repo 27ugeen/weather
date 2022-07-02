@@ -11,20 +11,9 @@ class SettingsFooterView: UITableViewCell {
     //MARK: - props
     
     static let cellId = "SettingsFooterView"
-    //MARK: - subviews
     
-    private lazy var setButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Set", for: .normal)
-        button.setTitleColor(UIColor(rgb: 0xFFFFFF), for: .normal)
-        button.backgroundColor = UIColor(rgb: 0xF26E11)
-        button.titleLabel?.font = UIFont.setAppMainFont(16)
-        button.layer.cornerRadius = 8
-        button.clipsToBounds = true
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchDown)
-        return button
-    }()
+    var goToMainVC: (() -> Void)?
+    
     //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -36,17 +25,33 @@ class SettingsFooterView: UITableViewCell {
     required init?(coder: NSCoder) {
         nil
     }
+    //MARK: - subviews
+    
+    lazy var setButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Set", for: .normal)
+        button.setTitleColor(UIColor(rgb: 0xFFFFFF), for: .normal)
+        button.setBackgroundColor(UIColor(rgb: 0xF26E11), forState: .normal)
+        button.setBackgroundColor(UIColor(rgb: 0xC65607), forState: .highlighted)
+        button.titleLabel?.font = UIFont.setAppMainFont(16)
+        button.layer.cornerRadius = 8
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - methods
-
+    
     @objc private func buttonTapped() {
-        setButton.setBackgroundColor(UIColor(rgb: 0xC65607), forState: .highlighted)
+        self.goToMainVC?()
     }
 }
 //MARK: - setupViews
-
 extension SettingsFooterView {
     private func setupViews() {
         contentView.backgroundColor = UIColor(rgb: 0xE9EEFA)
+        
         addSubview(setButton)
         
         NSLayoutConstraint.activate([

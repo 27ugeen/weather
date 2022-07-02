@@ -20,6 +20,19 @@ class CarouselCityCollectionViewCell: UICollectionViewCell {
     var goToTFHDetailAction: (() -> Void)?
     var goToDailyDetailAction: (() -> Void)?
     
+    //TODO: - injection??
+    var viewModel = ForecastViewModel()
+    
+    //MARK: - init
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     //MARK: - Subviews
     
     private let tableView: UITableView = {
@@ -31,20 +44,10 @@ class CarouselCityCollectionViewCell: UICollectionViewCell {
         return tableView
     }()
     
-//MARK: - methods
+    //MARK: - methods
     
     @objc private func forecastTFHoursTupped() {
         self.goToTFHDetailAction?()
-    }
-//MARK: - init
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 //MARK: - setupViews
@@ -84,6 +87,17 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         
         switch indexPath.row {
         case 0:
+            viewModel.decodeModelFromData() { model in
+                headerCell.presentTempLabel.text = "\(Int(model.temp))°"
+                headerCell.dailyTempLabel.text = "\(Int(model.tempMin))°/\( Int(model.tempMax))°"
+                headerCell.cloudinessLabel.text = "\(model.cloudiness)"
+                headerCell.windSpeedLabel.text = "\(Int(model.windSpeed.rounded()))m/s"
+                headerCell.humidityLabel.text = "\(model.humidity)%"
+                headerCell.weatherDescriptLabel.text = model.weather[0].descript
+                headerCell.currentDateLabel.text = Double(model.currentTime).toDate()
+                headerCell.sunriseLabel.text = Double(model.sunrise).toTime()
+                headerCell.sunsetLabel.text = Double(model.sunset).toTime()
+            }
             return headerCell
         case 1:
             tFHCell.forecastTFHoursButton.addTarget(self, action: #selector(forecastTFHoursTupped), for: .touchUpInside)

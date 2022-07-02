@@ -12,6 +12,8 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     
     static let cellId = "ForecastHeaderTableViewCell"
     
+    let viewModel = ForecastViewModel()
+    
     //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -26,7 +28,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     
     private let headerView = ForecastHeaderView()
     
-    private let dailyTempLabel: UILabel = {
+    let dailyTempLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(16)
@@ -35,7 +37,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let presentTempLabel: UILabel = {
+    let presentTempLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(36)
@@ -44,7 +46,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let weatherDescriptLabel: UILabel = {
+    let weatherDescriptLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(16)
@@ -53,7 +55,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let cloudinessLabel: UILabel = {
+    let cloudinessLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
@@ -62,7 +64,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let windSpeedLabel: UILabel = {
+    let windSpeedLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
@@ -71,7 +73,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let humidityLabel: UILabel = {
+    let humidityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
@@ -80,7 +82,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let currentDateLabel: UILabel = {
+    let currentDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(16)
@@ -89,7 +91,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let sunriseLabel: UILabel = {
+    let sunriseLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(14)
@@ -98,7 +100,7 @@ class ForecastHeaderTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let sunsetLabel: UILabel = {
+    let sunsetLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(14)

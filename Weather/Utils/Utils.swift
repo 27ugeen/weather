@@ -76,6 +76,20 @@ extension String {
     }
 }
 
+extension String {
+    func toCountry() -> String {
+        let country = (Locale.current as NSLocale).displayName(forKey: .countryCode, value: self)
+        
+        return country ?? ""
+    }
+}
+
+//extension Int {
+//    func toString() -> String {
+//        return String(describing: self)
+//    }
+//}
+
 extension UINavigationController {
     func pushVCFromLeft(controller: UIViewController) {
         let transition = CATransition()
@@ -100,10 +114,28 @@ extension UINavigationController {
 
 extension UIViewController {
     func showAlert(message: String) {
-//        let alertTitle = "alert_error".localized()
-//        let alertOk = "alert_ok".localized()
+        //        let alertTitle = "alert_error".localized()
+        //        let alertOk = "alert_ok".localized()
         let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertVC, animated: true, completion: nil)
+    }
+}
+
+extension Double {
+    func toDate() -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(self))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm, EE d MMMM"
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    func toTime() -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(self))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        
+        return dateFormatter.string(from: date)
     }
 }

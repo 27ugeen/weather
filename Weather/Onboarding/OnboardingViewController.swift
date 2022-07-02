@@ -7,16 +7,19 @@
 
 import UIKit
 import CoreLocation
+import Alamofire
 
 class OnboardingViewController: UIViewController {
     //MARK: - props
     
     private let locationManager: CLLocationManager
+    private let viewModel: ForecastViewModel
     
     //MARK: - init
     
-    init(locationManager: CLLocationManager) {
+    init(locationManager: CLLocationManager, viewModel: ForecastViewModel) {
         self.locationManager = locationManager
+        self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -27,6 +30,8 @@ class OnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchData()
         
         checkUserLocationPermissions()
         setupViews()
@@ -83,12 +88,14 @@ class OnboardingViewController: UIViewController {
         return label
     }()
     
-    private let allowLocationButton: UIButton = {
+    private lazy var allowLocationButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА", for: .normal)
         button.setTitleColor(UIColor(rgb: 0xFFFFFF), for: .normal)
-        button.backgroundColor = UIColor(rgb: 0xF26E11)
+        button.setBackgroundColor(UIColor(rgb: 0xF26E11), forState: .normal)
+        button.setBackgroundColor(UIColor(rgb: 0xC65607), forState: .highlighted)
+        button.setBackgroundColor(UIColor(rgb: 0xC65607), forState: .selected)
         button.titleLabel?.font = UIFont.setAppMainFont(12)
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
@@ -98,7 +105,7 @@ class OnboardingViewController: UIViewController {
         return button
     }()
     
-    private let denieLocationButton: UIButton = {
+    private lazy var denieLocationButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ", for: .normal)
@@ -109,6 +116,7 @@ class OnboardingViewController: UIViewController {
         
         return button
     }()
+    
 //MARK: - methods
     
     @objc private func allowLocation() {
@@ -118,13 +126,11 @@ class OnboardingViewController: UIViewController {
     
     @objc private func denieLocation() {
         UserDefaults.standard.set(false, forKey: "isStatusOn")
-        let mainVC = CarouselViewController()
+        let mainVC = CarouselViewController(viewModel: viewModel)
         navigationController?.pushViewController(mainVC, animated: true)
         print("Location access denied")
     }
-    
 }
-
 //MARK: - setupViews
 extension OnboardingViewController {
     private func setupViews() {
@@ -174,6 +180,7 @@ extension OnboardingViewController {
             allowLocationButton.topAnchor.constraint(equalTo: infoBotLabel.bottomAnchor, constant: 40),
             allowLocationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18),
             allowLocationButton.heightAnchor.constraint(equalToConstant: 40),
+            allowLocationButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -36),
             
             denieLocationButton.topAnchor.constraint(equalTo: allowLocationButton.bottomAnchor, constant: 25),
             denieLocationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18),
@@ -181,7 +188,6 @@ extension OnboardingViewController {
         ])
     }
 }
-
 //MARK: - check UserLocationPermissions
 extension OnboardingViewController {
     private func checkUserLocationPermissions() {
@@ -196,7 +202,7 @@ extension OnboardingViewController {
             self.denieLocation()
         case .authorizedAlways, .authorizedWhenInUse:
             UserDefaults.standard.set(true, forKey: "isStatusOn")
-            let mainVC = CarouselViewController()
+            let mainVC = CarouselViewController(viewModel: viewModel)
             navigationController?.pushViewController(mainVC, animated: true)
             print("Location access allowed")
         @unknown default:
@@ -217,4 +223,26 @@ extension OnboardingViewController: CLLocationManagerDelegate {
 //        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 3000, longitudinalMeters: 3000)
 //        mapView.setRegion(region, animated: true)
     }
+}
+//MARK: - Alamofire
+extension OnboardingViewController {
+  func fetchData() {
+    // 1
+      //MARK: - 8 days, 48 hours
+//    let reqEightdays = AF.request("https://api.openweathermap.org/data/3.0/onecall?lat=47.09608&lon=37.54817&exclude=hourly,daily&appid=205e68368240d2136c5ca99aaf88ec20&units=metric")
+//
+//      reqEightdays.responseJSON { (data) in
+//      print("8 days: \(data)")
+//    }
+      //MARK: - current weather
+//      let reqCurrent = AF.request("https://api.openweathermap.org/data/2.5/weather?lat=47.09608&lon=37.54817&appid=205e68368240d2136c5ca99aaf88ec20&units=metric")
+//
+//      reqCurrent.responseJSON { (data) in
+//      print("current: \(data)")
+//    }
+      
+//      ForecastViewModel().decodeModelFromData()
+      
+    
+  }
 }

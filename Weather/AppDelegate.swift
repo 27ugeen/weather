@@ -16,9 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let locationManager = CLLocationManager()
-        let onBoardingVC = OnboardingViewController(locationManager: locationManager)
+        let forecastVM = ForecastViewModel()
+        
+        let onBoardingVC = OnboardingViewController(locationManager: locationManager, viewModel: forecastVM)
         
         let navigationController = UINavigationController(rootViewController: onBoardingVC)
+        
+        
+//        let navigationController = UINavigationController(rootViewController: CarouselViewController().self)
+//        let navigationController = UINavigationController(rootViewController: DetailTFHoursViewController().self)
+//        let navigationController = UINavigationController(rootViewController: DetailDailyViewController().self)
+//        let navigationController = UINavigationController(rootViewController: SettingsViewController(settingsViewModel: SettingsViewModel().self).self)
+//        let navigationController = UINavigationController(rootViewController: MenuViewController().self)
+//        navigationController.isNavigationBarHidden = true
+//        navigationController.navigationBar.tintColor = .black
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController

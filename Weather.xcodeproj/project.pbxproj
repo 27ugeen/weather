@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		11309B93286AFE2700C89643 /* MenuToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11309B92286AFE2700C89643 /* MenuToggleTableViewCell.swift */; };
 		11309B95286C599F00C89643 /* DailyHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11309B94286C599F00C89643 /* DailyHeaderTableViewCell.swift */; };
+		11309BA1286EE28A00C89643 /* ForecastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11309BA0286EE28A00C89643 /* ForecastModel.swift */; };
 		1138984E286722CE00369F19 /* DetailTFHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138984D286722CE00369F19 /* DetailTFHoursViewController.swift */; };
 		113898502867401800369F19 /* DetailTFHoursTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138984F2867401800369F19 /* DetailTFHoursTableViewCell.swift */; };
 		1152A98A2829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1152A9892829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		11309B92286AFE2700C89643 /* MenuToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuToggleTableViewCell.swift; sourceTree = "<group>"; };
 		11309B94286C599F00C89643 /* DailyHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		11309BA0286EE28A00C89643 /* ForecastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastModel.swift; sourceTree = "<group>"; };
 		1138984D286722CE00369F19 /* DetailTFHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursViewController.swift; sourceTree = "<group>"; };
 		1138984F2867401800369F19 /* DetailTFHoursTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTFHoursTableViewCell.swift; sourceTree = "<group>"; };
 		1152A9892829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -108,6 +110,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11309B96286D4FF100C89643 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11E41A04282182B0001098D7 /* SettingsViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		11309B97286D500200C89643 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				11E41A0028214685001098D7 /* SettingsTableViewCell.swift */,
+				11E41A06282191B5001098D7 /* SettingsHeaderView.swift */,
+				11E41A08282191E3001098D7 /* SettingsFooterView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		1138984A2867019800369F19 /* Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +173,7 @@
 				1138984A2867019800369F19 /* Header */,
 				1138984B28670C6B00369F19 /* TFHours */,
 				1138984C28670C7D00369F19 /* Daily */,
+				11309BA0286EE28A00C89643 /* ForecastModel.swift */,
 			);
 			path = Forecast;
 			sourceTree = "<group>";
@@ -282,10 +303,8 @@
 			isa = PBXGroup;
 			children = (
 				11E419FD2821413F001098D7 /* SettingsViewController.swift */,
-				11E41A0028214685001098D7 /* SettingsTableViewCell.swift */,
-				11E41A06282191B5001098D7 /* SettingsHeaderView.swift */,
-				11E41A08282191E3001098D7 /* SettingsFooterView.swift */,
-				11E41A04282182B0001098D7 /* SettingsViewModel.swift */,
+				11309B97286D500200C89643 /* Views */,
+				11309B96286D4FF100C89643 /* Model */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -456,6 +475,7 @@
 				11E432F32869A21D0061743E /* DateTableViewCell.swift in Sources */,
 				11FF57AC286AE3B700C86EC9 /* MenuOrdinaryTableViewCell.swift in Sources */,
 				11E432F52869ADBB0061743E /* SunMoonCollectionViewCell.swift in Sources */,
+				11309BA1286EE28A00C89643 /* ForecastModel.swift in Sources */,
 				11B654492809653A007A3DD3 /* CarouselCityCollectionViewCell.swift in Sources */,
 				1152A98A2829A1FC0062EDF2 /* ForecastHeaderTableViewCell.swift in Sources */,
 				11E41A07282191B5001098D7 /* SettingsHeaderView.swift in Sources */,
