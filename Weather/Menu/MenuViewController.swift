@@ -28,7 +28,7 @@ class MenuViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "setTitleImg")
+        imageView.image = UIImage(named: "cloudiness")
         return imageView
     }()
     

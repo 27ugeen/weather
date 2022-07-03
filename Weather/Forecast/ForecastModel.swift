@@ -236,7 +236,7 @@ class ForecastViewModel {
             request.validate().responseDecodable(of: ForecastModel.self, decoder: decoder) { data in
                 if let uValue = data.value {
                     completition(uValue)
-                    self.currentWeather = uValue
+//                    self.currentWeather = uValue
                     print("All: \(String(describing: uValue))")
                     print("Weather descript: \(String(describing: uValue.weather[0].descript))")
                 }

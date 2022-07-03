@@ -123,27 +123,52 @@ extension UIViewController {
 }
 
 extension Double {
-    func toDate() -> String {
+    func dateFormatted(_ format: String) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(self))
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm, EE d MMMM"
+//        dateFormatter.dateFormat = "HH:mm, EE d MMMM"
+        dateFormatter.dateFormat = format
         
         return dateFormatter.string(from: date)
     }
-    
-    func toTime() -> String {
-        let date = Date(timeIntervalSince1970: TimeInterval(self))
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        
-        return dateFormatter.string(from: date)
+}
+
+enum Direction: String, CaseIterable {
+    case n, nne, ne, ene, e, ese, se, sse, s, ssw, sw, wsw, w, wnw, nw, nnw
+}
+
+extension Direction: CustomStringConvertible  {
+    init<D: BinaryFloatingPoint>(_ direction: D) {
+        self =  Self.allCases[Int((direction.angle + 11.25).truncatingRemainder(dividingBy: 360)/22.5)]
     }
-    
-    func toDM() -> String {
-        let date = Date(timeIntervalSince1970: TimeInterval(self))
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM"
-        
-        return dateFormatter.string(from: date)
+    var description: String { rawValue.uppercased() }
+}
+
+extension BinaryFloatingPoint {
+    var angle: Self {
+        (truncatingRemainder(dividingBy: 360) + 360)
+            .truncatingRemainder(dividingBy: 360)
+    }
+    var direction: Direction { .init(self) }
+}
+
+enum UVI: String, CaseIterable {
+    case Low, Moderate, High, VeryHigh = "Very High", Extreme
+}
+
+extension Int {
+    func uviToStr() -> String {
+        switch self {
+        case let x where x < 2:
+            return UVI.Low.rawValue
+        case let x where x > 2 && x < 6:
+            return UVI.Moderate.rawValue
+        case let x where x > 5 && x < 8:
+            return UVI.High.rawValue
+        case let x where x > 7 && x < 11:
+            return UVI.VeryHigh.rawValue
+        default:
+            return UVI.Extreme.rawValue
+        }
     }
 }

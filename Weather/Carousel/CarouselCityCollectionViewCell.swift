@@ -18,9 +18,13 @@ class CarouselCityCollectionViewCell: UICollectionViewCell {
     private let dailyID = ForecastDailyTableViewCell.cellId
     
     var goToTFHDetailAction: (() -> Void)?
-    var goToDailyDetailAction: (() -> Void)?
+    var goToDailyDetailAction: ((Int) -> Void)?
     
-    var viewModel: ForecastViewModel?
+    var model: ForecastModel? {
+        didSet{
+            tableView.reloadData()
+        }
+    }
     
     //MARK: - init
     
@@ -75,7 +79,7 @@ extension CarouselCityCollectionViewCell {
 extension CarouselCityCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //TODO: 7-25 days
-        return 10
+        return (model?.daily.count ?? 0) + 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -84,20 +88,17 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         let dailyHeaderCell = tableView.dequeueReusableCell(withIdentifier: dailyHeaderID) as! DailyHeaderTableViewCell
         let dailyCell = tableView.dequeueReusableCell(withIdentifier: dailyID) as! ForecastDailyTableViewCell
         
-        viewModel?.decodeModelFromData() { model in
-            headerCell.presentTempLabel.text = "\(Int(model.temp))°"
-            headerCell.dailyTempLabel.text = "\(Int(model.daily[0].dTempMin))°/\( Int(model.daily[0].dTempMax))°"
-            headerCell.cloudinessLabel.text = "\(model.clouds)"
-            headerCell.windSpeedLabel.text = "\(Int(model.windSpeed.rounded()))m/s"
-            headerCell.humidityLabel.text = "\(model.humidity)%"
-            headerCell.weatherDescriptLabel.text = model.weather[0].descript
-            headerCell.currentDateLabel.text = Double(model.currentTime).toDate()
-            headerCell.sunriseLabel.text = Double(model.sunrise).toTime()
-            headerCell.sunsetLabel.text = Double(model.sunset).toTime()
-        }
-        
         switch indexPath.row {
         case 0:
+            headerCell.presentTempLabel.text = "\(Int(model?.temp ?? 0))°"
+            headerCell.dailyTempLabel.text = "\(Int(model?.daily[0].dTempMin ?? 0))°/\( Int(model?.daily[0].dTempMax ?? 0))°"
+            headerCell.cloudinessLabel.text = "\(model?.clouds ?? 0)"
+            headerCell.windSpeedLabel.text = "\(Int(model?.windSpeed.rounded() ?? 0))m/s"
+            headerCell.humidityLabel.text = "\(model?.humidity ?? 0)%"
+            headerCell.weatherDescriptLabel.text = model?.weather[0].descript
+            headerCell.currentDateLabel.text = Double(model?.currentTime ?? 0).dateFormatted("HH:mm, EE d MMMM")
+            headerCell.sunriseLabel.text = Double(model?.sunrise ?? 0).dateFormatted("HH:mm")
+            headerCell.sunsetLabel.text = Double(model?.sunset ?? 0).dateFormatted("HH:mm")
             return headerCell
         case 1:
             tFHCell.forecastTFHoursButton.addTarget(self, action: #selector(forecastTFHoursTupped), for: .touchUpInside)
@@ -105,6 +106,13 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         case 2:
             return dailyHeaderCell
         default:
+            let idx = indexPath.row - 3
+            let m = model?.daily[idx]
+            
+            dailyCell.dateLabel.text = "\(Double(m?.dTime ?? 0).dateFormatted("dd/MM"))"
+            dailyCell.mainForecastLabel.text = "\(m?.dWeather[0].descript ?? "")"
+            dailyCell.popLabel.text = "\(Int((m?.dPop ?? 0) * 100))%"
+            dailyCell.dailyTempRangeLabel.text = "\(Int(m?.dTempMin.rounded() ?? 0))°-\(Int(m?.dTempMax.rounded() ?? 0))°"
             return dailyCell
         }
     }
@@ -127,7 +135,7 @@ extension CarouselCityCollectionViewCell: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row > 2 {
-            self.goToDailyDetailAction?()
+            self.goToDailyDetailAction?(indexPath.row - 3)
         }
     }
 }

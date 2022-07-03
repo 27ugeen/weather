@@ -36,12 +36,14 @@ class CarouselViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         print(self.viewModel.currentWeatherCoordinate)
         if isStatusOn {
-//            viewModel.decodeModelFromData() { data in
+            viewModel.decodeModelFromData() { data in
 //                self.title = "\(model.city), \(model.country.toCountry())"
-//                self.forecastModel = data
-//            }
+                self.forecastModel = data
+                self.carouselCollectionView.reloadData()
+            }
         }
         
         view.backgroundColor = UIColor(rgb: 0xFFFFFF)
@@ -86,9 +88,11 @@ class CarouselViewController: UIViewController {
         navigationController?.pushViewController(detailTFHVC, animated: true)
     }
     
-    private func goToDailyDetailPage() {
-        let detaiDailyVC = DetailDailyViewController()
-        navigationController?.pushViewController(detaiDailyVC, animated: true)
+    private func goToDailyDetailPage(_ index: Int) {
+        let detailDailyVC = DetailDailyViewController()
+        detailDailyVC.model = self.forecastModel
+        detailDailyVC.rowIdx = index
+        navigationController?.pushViewController(detailDailyVC, animated: true)
     }
     
     @objc private func leftBtnTupped() {
@@ -158,14 +162,14 @@ extension CarouselViewController: UICollectionViewDataSource {
         
         if isStatusOn {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as! CarouselCityCollectionViewCell
-            cell.viewModel = self.viewModel
-//            cell.model = forecastModel
+//            cell.viewModel = self.viewModel
+            cell.model = self.forecastModel
             
             cell.goToTFHDetailAction = {
                 self.goToTFHDetailPage()
             }
-            cell.goToDailyDetailAction = {
-                self.goToDailyDetailPage()
+            cell.goToDailyDetailAction = { idx in
+                self.goToDailyDetailPage(idx)
             }
             return cell
         } else {

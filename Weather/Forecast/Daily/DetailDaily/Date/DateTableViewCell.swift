@@ -13,6 +13,14 @@ class DateTableViewCell: UITableViewCell {
     static let cellId = "DateTableViewCell"
     private let collectionCellID = DateCollectionViewCell.cellId
     
+    var goToToDayAction: ((Int) -> Void)?
+    
+    var rowIdx = 0
+    var model: ForecastModel? {
+        didSet {
+            dateCollectionView.reloadData()
+        }
+    }
     //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -42,6 +50,12 @@ class DateTableViewCell: UITableViewCell {
         
         return view
     }()
+    
+    //MARK: - methods
+    
+    @objc private func dateBtnTapped(_ sender: UIButton) {
+        self.goToToDayAction?(sender.tag)
+    }
 }
 //MARK: - setupView
 
@@ -60,18 +74,34 @@ extension DateTableViewCell {
 //MARK: - UICollectionViewDataSource
 extension DateTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 24
+        return model?.daily.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dateCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! DateCollectionViewCell
+        let day = "\(Double(model?.daily[indexPath.row].dTime ?? 0).dateFormatted("dd/MM EE"))"
+        
+        cell.dateButton.setTitle(day, for: .normal)
+        cell.dateButton.tag = indexPath.row
+        cell.dateButton.addTarget(self, action: #selector(dateBtnTapped), for: .touchUpInside)
+        
+        if indexPath.row == rowIdx {
+            cell.dateButton.backgroundColor = UIColor(rgb: 0x204EC7)
+            cell.dateButton.setTitleColor(.white, for: .normal)
+            //TODO: -
+//            dateCollectionView.scrollToItem(at: indexPath as IndexPath, at: .left, animated: true)
+        } else {
+            cell.dateButton.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            cell.dateButton.setTitleColor(.black, for: .normal)
+        }
+        
         return cell
     }
 }
 //MARK: - UICollectionViewDelegateFlowLayout
 extension DateTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 88, height: 36)
+        return CGSize(width: 90, height: 36)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

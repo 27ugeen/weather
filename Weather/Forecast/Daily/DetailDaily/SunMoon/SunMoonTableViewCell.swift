@@ -13,6 +13,12 @@ class SunMoonTableViewCell: UITableViewCell {
     static let cellId = "SunMoonTableViewCell"
     private let collectionCellID = SunMoonCollectionViewCell.cellId
     
+    var rowIdx = 0
+    var model: ForecastModel? {
+        didSet {
+            sunMoonCollectionView.reloadData()
+        }
+    }
     //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -70,6 +76,21 @@ class SunMoonTableViewCell: UITableViewCell {
         
         return view
     }()
+    //MARK: - methods
+    private func secToHHmm(_ max: Int, _ min: Int) -> String {
+        var dHourLength = (max - min) / 3600
+        var dMinuteLength = ((max - min) - dHourLength * 3600) / 60
+        //TODO: - moonset = nil
+        if dHourLength < 0 {
+            dHourLength += 23
+        }
+        
+        if dMinuteLength < 0 {
+            dMinuteLength += 60
+        }
+        
+        return "\(dHourLength)h \(dMinuteLength)m"
+    }
 }
 //MARK: - setupView
 extension SunMoonTableViewCell {
@@ -107,13 +128,25 @@ extension SunMoonTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = sunMoonCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! SunMoonCollectionViewCell
         
+        let m = model?.daily[rowIdx]
+        let dLength = self.secToHHmm((m?.dSunset ?? 0), (m?.dSunrise ?? 0))
+        let nLength = self.secToHHmm((m?.dMoonset ?? 0), (m?.dMoonrise ?? 0))
+        
         switch indexPath.item {
         case 0:
             cell.sunMoonImageView.image = UIImage(named: "sun")
+            cell.sunriseLabel.text = "Sunrise"
+            cell.sunsetLabel.text = "Sunset"
+            cell.sunriseValueLabel.text = "\(Double(m?.dSunrise ?? 0).dateFormatted("HH:mm"))"
+            cell.sunsetValueLabel.text = "\(Double(m?.dSunset ?? 0).dateFormatted("HH:mm"))"
+            cell.dayLengthLabel.text = dLength
         case 1:
             cell.sunMoonImageView.image = UIImage(named: "moon")
             cell.sunriseLabel.text = "Moonrise"
             cell.sunsetLabel.text = "Moonset"
+            cell.sunriseValueLabel.text = "\(Double(m?.dMoonrise ?? 0).dateFormatted("HH:mm"))"
+            cell.sunsetValueLabel.text = "\(Double(m?.dMoonset ?? 0).dateFormatted("HH:mm"))"
+            cell.dayLengthLabel.text = "\(nLength)"
         default:
             break
         }

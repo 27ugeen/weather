@@ -24,7 +24,7 @@ class ForecastDailyTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - subviews
-
+    
     private let wrapperView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -36,39 +36,39 @@ class ForecastDailyTableViewCell: UITableViewCell {
     }()
     
     let dateLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = UIFont.setAppMainFont(16)
-    label.textColor = UIColor(rgb: 0x9A9696)
-    label.text = "17/4"
-    return label
-}()
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.setAppMainFont(16)
+        label.textColor = UIColor(rgb: 0x9A9696)
+        label.text = "17/4"
+        return label
+    }()
     
     private let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "sun")
+        imageView.image = UIImage(named: "rain")
         return imageView
     }()
     
-    let humidityLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = UIFont.setAppMainFont(12)
-    label.text = "75%"
-    label.textColor = UIColor(rgb: 0x204EC7)
-    return label
-}()
+    let popLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.setAppMainFont(12)
+        label.text = "75%"
+        label.textColor = UIColor(rgb: 0x204EC7)
+        return label
+    }()
     
     let mainForecastLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = UIFont.setAppMainFont(16)
-    label.text = "Shower"
-    label.textColor = UIColor(rgb: 0x272722)
-    return label
-}()
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.setAppMainFont(16)
+        label.text = "Shower"
+        label.textColor = UIColor(rgb: 0x272722)
+        return label
+    }()
     
     let dailyTempRangeLabel: UILabel = {
         let label = UILabel()
@@ -95,7 +95,7 @@ extension ForecastDailyTableViewCell {
         
         wrapperView.addSubview(dateLabel)
         wrapperView.addSubview(weatherImageView)
-        wrapperView.addSubview(humidityLabel)
+        wrapperView.addSubview(popLabel)
         wrapperView.addSubview(mainForecastLabel)
         wrapperView.addSubview(dailyTempRangeLabel)
         wrapperView.addSubview(chevronRightImageView)
@@ -105,7 +105,7 @@ extension ForecastDailyTableViewCell {
             wrapperView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 5),
             wrapperView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             wrapperView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -5),
-//            wrapperView.heightAnchor.constraint(equalToConstant: 56),
+            //            wrapperView.heightAnchor.constraint(equalToConstant: 56),
             
             dateLabel.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 10),
             dateLabel.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 6),
@@ -115,8 +115,8 @@ extension ForecastDailyTableViewCell {
             weatherImageView.heightAnchor.constraint(equalToConstant: 17),
             weatherImageView.widthAnchor.constraint(equalToConstant: 15),
             
-            humidityLabel.leadingAnchor.constraint(equalTo: weatherImageView.trailingAnchor, constant: 5),
-            humidityLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 6),
+            popLabel.leadingAnchor.constraint(equalTo: weatherImageView.trailingAnchor, constant: 5),
+            popLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 6),
             
             mainForecastLabel.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor,constant: 66),
             mainForecastLabel.centerYAnchor.constraint(equalTo: wrapperView.centerYAnchor),

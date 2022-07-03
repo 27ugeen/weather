@@ -16,6 +16,13 @@ class DetailDailyViewController: UIViewController {
     private let sunMoonCellID = SunMoonTableViewCell.cellId
     private let airQCellID = AirQTableViewCell.cellId
     
+    var model: ForecastModel? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    var rowIdx = 0
     //MARK: - init
     
     override func viewDidLoad() {
@@ -32,6 +39,14 @@ class DetailDailyViewController: UIViewController {
         tableView.separatorStyle = .none
         return tableView
     }()
+    
+//MARK: - methods
+    
+    private func goToDate(_ idx: Int) {
+        print("idx: \(idx)")
+        
+        
+    }
 }
 //MARK: - setupViews
 extension DetailDailyViewController {
@@ -70,12 +85,24 @@ extension DetailDailyViewController: UITableViewDataSource {
         
         switch indexPath.row {
         case 0:
+            dateCell.model = self.model
+            dateCell.rowIdx = self.rowIdx
+            dateCell.goToToDayAction =  { idx in
+                self.rowIdx = idx
+                tableView.reloadData()
+            }
             return dateCell
         case 1:
+            dayCell.model = self.model
+            dayCell.rowIdx = self.rowIdx
             return dayCell
         case 2:
+            nightCell.model = self.model
+            nightCell.rowIdx = self.rowIdx
             return nightCell
         case 3:
+            sunMoonCell.model = self.model
+            sunMoonCell.rowIdx = self.rowIdx
             return sunMoonCell
         case 4:
             return airQCell

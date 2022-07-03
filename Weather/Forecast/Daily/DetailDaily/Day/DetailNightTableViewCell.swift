@@ -15,6 +15,12 @@ class DetailNightTableViewCell: UITableViewCell {
     private let headCellID = DayHeadTableViewCell.cellId
     private let ordinaryCellID = DayOrdinaryTableViewCell.cellId
     
+    var rowIdx = 0
+    var model: ForecastModel? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -69,16 +75,34 @@ extension DetailNightTableViewCell: UITableViewDataSource {
         let headCell = tableView.dequeueReusableCell(withIdentifier: headCellID) as! DayHeadTableViewCell
         let defCell = tableView.dequeueReusableCell(withIdentifier: ordinaryCellID) as! DayOrdinaryTableViewCell
         
+        let m = model?.daily[rowIdx]
+        
+        switch m?.dWeather[0].descript {
+        case "clear sky":
+            headCell.weatherImageView.image = UIImage(named: "moon")
+        case "heavy intensity rain":
+            headCell.weatherImageView.image = UIImage(named: "heavyRain")
+        case "moderate rain":
+            headCell.weatherImageView.image = UIImage(named: "rain")
+        case "light rain":
+            headCell.weatherImageView.image = UIImage(named: "rain")
+        case .none:
+            headCell.weatherImageView.image = UIImage(named: "scatClouds")
+        case .some(_):
+            headCell.weatherImageView.image = UIImage(named: "scatClouds")
+        }
+        
         switch indexPath.row {
         case 0:
             headCell.dayLabel.text = "Night"
-            headCell.tempLabel.text = "0"
-            headCell.tempFieelsValueLabel.text = "-3"
+            headCell.tempLabel.text = "\(Int(m?.dTempNight.rounded() ?? 0))"
+            headCell.mainForecastLabel.text = "\(m?.dWeather[0].descript ?? "clear")"
+            headCell.tempFieelsValueLabel.text = "\(Int(m?.nFeelsTemp.rounded() ?? 0))"
             return headCell
         case 1:
             defCell.weatherImageView.image = UIImage(named: "windSpeed")
             defCell.weatherCompLabel.text = "Wind"
-            defCell.weatherCompValueLabel.text = "20 m/s, WSW"
+            defCell.weatherCompValueLabel.text = "\(Int(m?.dWindSpeed.rounded() ?? 0))m/s, \(Double(m?.dWindDeg ?? 0).direction)"
             return defCell
         case 2:
             defCell.weatherImageView.image = UIImage(named: "sun")
@@ -88,12 +112,12 @@ extension DetailNightTableViewCell: UITableViewDataSource {
         case 3:
             defCell.weatherImageView.image = UIImage(named: "rain")
             defCell.weatherCompLabel.text = "Rain"
-            defCell.weatherCompValueLabel.text = "55%"
+            defCell.weatherCompValueLabel.text = "\(Int((m?.dPop ?? 0) * 100))%"
             return defCell
         case 4:
             defCell.weatherImageView.image = UIImage(named: "cloud")
             defCell.weatherCompLabel.text = "Cloudness"
-            defCell.weatherCompValueLabel.text = "42%"
+            defCell.weatherCompValueLabel.text = "\(m?.dClouds ?? 0)%"
             return defCell
         case 5:
             let cell = UITableViewCell()

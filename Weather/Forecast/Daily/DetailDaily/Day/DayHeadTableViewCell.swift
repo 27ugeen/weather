@@ -33,7 +33,7 @@ class DayHeadTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let weatherImageView: UIImageView = {
+    let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -60,7 +60,7 @@ class DayHeadTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let mainForecastLabel: UILabel = {
+    let mainForecastLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(18)
@@ -134,7 +134,7 @@ extension DayHeadTableViewCell {
             dayLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             dayLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
             
-            weatherImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
+            weatherImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 19),
             weatherImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -20),
             weatherImageView.widthAnchor.constraint(equalToConstant: 30),
             weatherImageView.heightAnchor.constraint(equalTo: weatherImageView.widthAnchor),

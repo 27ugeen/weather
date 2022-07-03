@@ -34,7 +34,7 @@ class SunMoonCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let dayLengthLabel: UILabel = {
+    let dayLengthLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "14h 27m"
@@ -60,7 +60,7 @@ class SunMoonCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let sunriseValueLabel: UILabel = {
+    let sunriseValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "05:19"
@@ -86,7 +86,7 @@ class SunMoonCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let sunsetValueLabel: UILabel = {
+    let sunsetValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "19:42"
