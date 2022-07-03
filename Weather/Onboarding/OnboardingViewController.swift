@@ -223,11 +223,6 @@ extension OnboardingViewController: CLLocationManagerDelegate {
         guard let location = locations.first else { return }
         
         viewModel.currentWeatherCoordinate = viewModel.createURLForCurrentWeather(location.coordinate)
-        
-        
-        
-//        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 3000, longitudinalMeters: 3000)
-//        mapView.setRegion(region, animated: true)
     }
 }
 //MARK: - Alamofire

@@ -38,10 +38,10 @@ class CarouselViewController: UIViewController {
         super.viewDidLoad()
         print(self.viewModel.currentWeatherCoordinate)
         if isStatusOn {
-            viewModel.decodeModelFromData() { model in
+//            viewModel.decodeModelFromData() { data in
 //                self.title = "\(model.city), \(model.country.toCountry())"
-                
-            }
+//                self.forecastModel = data
+//            }
         }
         
         view.backgroundColor = UIColor(rgb: 0xFFFFFF)
@@ -159,6 +159,7 @@ extension CarouselViewController: UICollectionViewDataSource {
         if isStatusOn {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as! CarouselCityCollectionViewCell
             cell.viewModel = self.viewModel
+//            cell.model = forecastModel
             
             cell.goToTFHDetailAction = {
                 self.goToTFHDetailPage()

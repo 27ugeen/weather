@@ -24,15 +24,6 @@ class ForecastDailyTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - subviews
-    
-//    private let titleLableView: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.font = UIFont.setAppMainFont(18)
-//        label.textColor = UIColor(rgb: 0x272722)
-//        label.text = "Daily forecast"
-//        return label
-//    }()
 
     private let wrapperView: UIView = {
         let view = UIView()
@@ -44,14 +35,14 @@ class ForecastDailyTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let dateLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.setAppMainFont(16)
-        label.textColor = UIColor(rgb: 0x9A9696)
-        label.text = "17/4"
-        return label
-    }()
+    let dateLabel: UILabel = {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.font = UIFont.setAppMainFont(16)
+    label.textColor = UIColor(rgb: 0x9A9696)
+    label.text = "17/4"
+    return label
+}()
     
     private let weatherImageView: UIImageView = {
         let imageView = UIImageView()
@@ -61,25 +52,25 @@ class ForecastDailyTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let humidityLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.setAppMainFont(12)
-        label.text = "75%"
-        label.textColor = UIColor(rgb: 0x204EC7)
-        return label
-    }()
+    let humidityLabel: UILabel = {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.font = UIFont.setAppMainFont(12)
+    label.text = "75%"
+    label.textColor = UIColor(rgb: 0x204EC7)
+    return label
+}()
     
-    private let mainForecastLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.setAppMainFont(16)
-        label.text = "Shower"
-        label.textColor = UIColor(rgb: 0x272722)
-        return label
-    }()
+    let mainForecastLabel: UILabel = {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.font = UIFont.setAppMainFont(16)
+    label.text = "Shower"
+    label.textColor = UIColor(rgb: 0x272722)
+    return label
+}()
     
-    private let dailyTempRangeLabel: UILabel = {
+    let dailyTempRangeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(18)
@@ -96,23 +87,6 @@ class ForecastDailyTableViewCell: UITableViewCell {
         imageView.tintColor = UIColor(rgb: 0x000000)
         return imageView
     }()
-    
-//    private lazy var dailyCollectionView: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//
-//        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.showsVerticalScrollIndicator = false
-//        view.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//
-//        view.register(ForecastDailyCollectionViewCell.self, forCellWithReuseIdentifier: collectionCellID)
-//
-//        view.dataSource = self
-//        view.delegate = self
-//
-//        return view
-//    }()
 }
 //MARK: - setupViews
 extension ForecastDailyTableViewCell {

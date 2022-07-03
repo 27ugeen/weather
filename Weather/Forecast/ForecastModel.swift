@@ -10,7 +10,7 @@ import Alamofire
 import CoreLocation
 
 enum WeatherURLs: String {
-//    case current = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid="
+    //    case current = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid="
     case daily = "https://api.openweathermap.org/data/3.0/onecall?units=metric&appid="
 }
 
@@ -126,10 +126,14 @@ struct Daily: Decodable {
     }
     
     let dTempDay: Double
+    let dTempMax: Double
+    let dTempMin: Double
     let dTempNight: Double
     
     enum TemperatureCodingKeys: String, CodingKey {
         case dTempDay = "day"
+        case dTempMax = "max"
+        case dTempMin = "min"
         case dTempNight = "night"
     }
     
@@ -156,6 +160,8 @@ struct Daily: Decodable {
         let tempContainer = try container.nestedContainer(keyedBy: TemperatureCodingKeys.self, forKey: .dTemp)
         dTempDay = try tempContainer.decode(Double.self, forKey: .dTempDay)
         dTempNight = try tempContainer.decode(Double.self, forKey: .dTempNight)
+        dTempMax = try tempContainer.decode(Double.self, forKey: .dTempMax)
+        dTempMin = try tempContainer.decode(Double.self, forKey: .dTempMin)
     }
 }
 
@@ -168,7 +174,7 @@ struct Hourly: Decodable {
     let hWindDeg: Int
     let hWindSpeed: Double
     let hWeather: [Weather]
-
+    
     enum CodingKeys: String, CodingKey {
         case hClouds = "clouds"
         case hTime = "dt"
@@ -179,7 +185,7 @@ struct Hourly: Decodable {
         case hWindSpeed = "wind_speed"
         case hWeather = "weather"
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         hClouds = try container.decode(Int.self, forKey: .hClouds)
@@ -230,7 +236,7 @@ class ForecastViewModel {
             request.validate().responseDecodable(of: ForecastModel.self, decoder: decoder) { data in
                 if let uValue = data.value {
                     completition(uValue)
-                    
+                    self.currentWeather = uValue
                     print("All: \(String(describing: uValue))")
                     print("Weather descript: \(String(describing: uValue.weather[0].descript))")
                 }

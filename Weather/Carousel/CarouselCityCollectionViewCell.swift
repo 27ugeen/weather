@@ -84,19 +84,20 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         let dailyHeaderCell = tableView.dequeueReusableCell(withIdentifier: dailyHeaderID) as! DailyHeaderTableViewCell
         let dailyCell = tableView.dequeueReusableCell(withIdentifier: dailyID) as! ForecastDailyTableViewCell
         
+        viewModel?.decodeModelFromData() { model in
+            headerCell.presentTempLabel.text = "\(Int(model.temp))°"
+            headerCell.dailyTempLabel.text = "\(Int(model.daily[0].dTempMin))°/\( Int(model.daily[0].dTempMax))°"
+            headerCell.cloudinessLabel.text = "\(model.clouds)"
+            headerCell.windSpeedLabel.text = "\(Int(model.windSpeed.rounded()))m/s"
+            headerCell.humidityLabel.text = "\(model.humidity)%"
+            headerCell.weatherDescriptLabel.text = model.weather[0].descript
+            headerCell.currentDateLabel.text = Double(model.currentTime).toDate()
+            headerCell.sunriseLabel.text = Double(model.sunrise).toTime()
+            headerCell.sunsetLabel.text = Double(model.sunset).toTime()
+        }
+        
         switch indexPath.row {
         case 0:
-            viewModel?.decodeModelFromData() { model in
-                headerCell.presentTempLabel.text = "\(Int(model.temp))°"
-//                headerCell.dailyTempLabel.text = "\(Int(model.tempMin))°/\( Int(model.tempMax))°"
-                headerCell.cloudinessLabel.text = "\(model.clouds)"
-                headerCell.windSpeedLabel.text = "\(Int(model.windSpeed.rounded()))m/s"
-                headerCell.humidityLabel.text = "\(model.humidity)%"
-                headerCell.weatherDescriptLabel.text = model.weather[0].descript
-                headerCell.currentDateLabel.text = Double(model.currentTime).toDate()
-                headerCell.sunriseLabel.text = Double(model.sunrise).toTime()
-                headerCell.sunsetLabel.text = Double(model.sunset).toTime()
-            }
             return headerCell
         case 1:
             tFHCell.forecastTFHoursButton.addTarget(self, action: #selector(forecastTFHoursTupped), for: .touchUpInside)

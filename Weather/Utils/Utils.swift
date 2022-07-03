@@ -138,4 +138,12 @@ extension Double {
         
         return dateFormatter.string(from: date)
     }
+    
+    func toDM() -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(self))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM"
+        
+        return dateFormatter.string(from: date)
+    }
 }
