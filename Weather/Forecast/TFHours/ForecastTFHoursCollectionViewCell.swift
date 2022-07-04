@@ -24,10 +24,9 @@ class ForecastTFHoursCollectionViewCell: UICollectionViewCell {
     }
     //MARK: - subviews
     
-    private let wrapperView: UIView = {
+    let wrapperView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        //        view.backgroundColor = UIColor(rgb: 0x000000)
         view.contentMode = .scaleAspectFill
         view.layer.cornerRadius = 20
         view.layer.borderWidth = 0.5
@@ -36,7 +35,7 @@ class ForecastTFHoursCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private let timeLabel: UILabel = {
+    let timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "12:00"
@@ -45,7 +44,7 @@ class ForecastTFHoursCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let tempLabel: UILabel = {
+    let tempLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "13"
@@ -64,11 +63,11 @@ class ForecastTFHoursCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let weatherImageView: UIImageView = {
+    let weatherImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "sun")
+//        imageView.image = UIImage(named: "sun")
         return imageView
     }()
 }

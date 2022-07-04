@@ -160,9 +160,9 @@
 		11389851286765FA00369F19 /* DetailTFHours */ = {
 			isa = PBXGroup;
 			children = (
-				118E06C928676D4900EB7AC0 /* Header */,
 				1138984D286722CE00369F19 /* DetailTFHoursViewController.swift */,
 				1138984F2867401800369F19 /* DetailTFHoursTableViewCell.swift */,
+				118E06C928676D4900EB7AC0 /* Header */,
 			);
 			path = DetailTFHours;
 			sourceTree = "<group>";

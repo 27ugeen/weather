@@ -13,6 +13,8 @@ class DetailTFHoursHeaderView: UITableViewHeaderFooterView {
     static let cellId = "DetailTFHoursHeaderView"
     private let collectionCellID = DetailTFHoursHeaderCollectionViewCell.cellId
     
+    var model: ForecastModel?
+    
     //MARK: - init
     
     override init(reuseIdentifier: String?) {
@@ -31,7 +33,7 @@ class DetailTFHoursHeaderView: UITableViewHeaderFooterView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(18)
         label.textColor = UIColor(rgb: 0x272722)
-        label.text = "Forecast for 24 hours"
+        label.text = "Forecast for 48 hours"
         return label
     }()
     
@@ -72,11 +74,18 @@ extension DetailTFHoursHeaderView {
 //MARK: - UICollectionViewDataSource
 extension DetailTFHoursHeaderView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        //TODO: - received 48h
+        return model?.hourly.count ?? 8
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = tFHoursCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! DetailTFHoursHeaderCollectionViewCell
+        
+        let m = model?.hourly[indexPath.item]
+        
+        cell.timeLabel.text = "\(Double(m?.hTime ?? 0).dateFormatted("HH:mm"))"
+        cell.tempLabel.text = "\(Int((m?.hTemp ?? 0).rounded()))"
+        cell.precipitationLabel.text = "\(Int((m?.hPop ?? 0) * 100))%"
         return cell
     }
 }

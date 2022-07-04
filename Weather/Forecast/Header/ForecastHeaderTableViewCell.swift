@@ -12,8 +12,6 @@ class ForecastHeaderTableViewCell: UITableViewCell {
     
     static let cellId = "ForecastHeaderTableViewCell"
     
-    let viewModel = ForecastViewModel()
-    
     //MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

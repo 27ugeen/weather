@@ -34,7 +34,7 @@ class DailyHeaderTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let rightLabel: UILabel = {
+    let rightLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(16)

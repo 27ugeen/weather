@@ -31,6 +31,7 @@ class DateCollectionViewCell: UICollectionViewCell {
         button.layer.cornerRadius = 4
         button.setTitle("16/04 Fri", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.setAppMainFont(16)
 //        button.setTitleColor(.white, for: .selected)
         //TODO: -
         //        button.setBackgroundColor(UIColor(rgb: 0xFFFFFF), forState: .normal)

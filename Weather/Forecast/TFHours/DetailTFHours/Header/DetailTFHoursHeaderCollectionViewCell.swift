@@ -24,7 +24,7 @@ class DetailTFHoursHeaderCollectionViewCell: UICollectionViewCell {
     }
     //MARK: - subviews
     
-    private let tempLabel: UILabel = {
+    let tempLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "13"
@@ -59,7 +59,7 @@ class DetailTFHoursHeaderCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let precipitationLabel: UILabel = {
+    let precipitationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "47%"
@@ -75,7 +75,7 @@ class DetailTFHoursHeaderCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let timeLabel: UILabel = {
+    let timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "12:00"

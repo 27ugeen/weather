@@ -78,16 +78,17 @@ class SunMoonTableViewCell: UITableViewCell {
     }()
     //MARK: - methods
     private func secToHHmm(_ max: Int, _ min: Int) -> String {
+        var max = max
+        var min = min
+        
+        if max == 0 { max = min }
+        if min == 0 { min = max }
+        
         var dHourLength = (max - min) / 3600
         var dMinuteLength = ((max - min) - dHourLength * 3600) / 60
-        //TODO: - moonset = nil
-        if dHourLength < 0 {
-            dHourLength += 23
-        }
         
-        if dMinuteLength < 0 {
-            dMinuteLength += 60
-        }
+        if dHourLength < 0 { dHourLength += 23 }
+        if dMinuteLength < 0 { dMinuteLength += 60 }
         
         return "\(dHourLength)h \(dMinuteLength)m"
     }

@@ -61,7 +61,7 @@ class OnboardingViewController: UIViewController {
     private let infoTopLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Разрешить приложению  Weather использовать данные о местоположении вашего устройства"
+        label.text = "Allow the Weather app to use your device's location data"
         label.numberOfLines = 0
         label.textColor = UIColor(rgb: 0xF8F5F5)
         label.font = UIFont.setAppMainFont(16)
@@ -71,7 +71,7 @@ class OnboardingViewController: UIViewController {
     private let infoMidLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Чтобы получить более точные прогнозы погоды во время движения или путешествия"
+        label.text = "To get more accurate weather forecasts while driving or traveling"
         label.numberOfLines = 0
         label.textColor = UIColor(rgb: 0xFFFFFF)
         label.font = UIFont.setAppMainFont(14)
@@ -81,7 +81,7 @@ class OnboardingViewController: UIViewController {
     private let infoBotLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Вы можете изменить свой выбор в любое время из меню приложения"
+        label.text = "You can change your selection at any time from the application menu"
         label.numberOfLines = 0
         label.textColor = UIColor(rgb: 0xFFFFFF)
         label.font = UIFont.setAppMainFont(14)
@@ -91,7 +91,7 @@ class OnboardingViewController: UIViewController {
     private lazy var allowLocationButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА", for: .normal)
+        button.setTitle("USE THE DEVICE LOCATION", for: .normal)
         button.setTitleColor(UIColor(rgb: 0xFFFFFF), for: .normal)
         button.setBackgroundColor(UIColor(rgb: 0xF26E11), forState: .normal)
         button.setBackgroundColor(UIColor(rgb: 0xC65607), forState: .highlighted)
@@ -108,7 +108,7 @@ class OnboardingViewController: UIViewController {
     private lazy var denieLocationButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ", for: .normal)
+        button.setTitle("NO, I'LL BE ADDING LOCATIONS", for: .normal)
         button.setTitleColor(UIColor(rgb: 0xFDFBF5), for: .normal)
         button.titleLabel?.font = UIFont.setAppMainFont(16)
         

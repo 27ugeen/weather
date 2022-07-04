@@ -101,9 +101,11 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
             headerCell.sunsetLabel.text = Double(model?.sunset ?? 0).dateFormatted("HH:mm")
             return headerCell
         case 1:
+            tFHCell.model = self.model
             tFHCell.forecastTFHoursButton.addTarget(self, action: #selector(forecastTFHoursTupped), for: .touchUpInside)
             return tFHCell
         case 2:
+            dailyHeaderCell.rightLabel.attributedText = "\(model?.daily.count ?? 0) days".setUnderlineStyle()
             return dailyHeaderCell
         default:
             let idx = indexPath.row - 3

@@ -24,7 +24,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
     }
     //MARK: - subviews
     
-    private let dateLabel: UILabel = {
+    let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(18)
@@ -33,7 +33,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let timeLabel: UILabel = {
+    let timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
@@ -42,7 +42,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let tempLabel: UILabel = {
+    let tempLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(18)
@@ -80,7 +80,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let tempFieelsValueLabel: UILabel = {
+    let tempFieelsValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
@@ -98,7 +98,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let windSpeedValueLabel: UILabel = {
+    let windSpeedValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
@@ -107,7 +107,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let humidityLabel: UILabel = {
+    private let precipitationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
@@ -116,7 +116,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let humidityValueLabel: UILabel = {
+    let popValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
@@ -134,7 +134,7 @@ class DetailTFHoursTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let cloudinessValueLabel: UILabel = {
+    let cloudinessValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMainFont(14)
@@ -189,8 +189,8 @@ extension DetailTFHoursTableViewCell {
         contentView.addSubview(tempFieelsValueLabel)
         contentView.addSubview(windSpeedLabel)
         contentView.addSubview(windSpeedValueLabel)
-        contentView.addSubview(humidityLabel)
-        contentView.addSubview(humidityValueLabel)
+        contentView.addSubview(precipitationLabel)
+        contentView.addSubview(popValueLabel)
         contentView.addSubview(cloudinessLabel)
         contentView.addSubview(cloudinessValueLabel)
         contentView.addSubview(tempFeelImageView)
@@ -250,13 +250,13 @@ extension DetailTFHoursTableViewCell {
             humidityImageView.widthAnchor.constraint(equalToConstant: 16),
             humidityImageView.heightAnchor.constraint(equalTo: humidityImageView.widthAnchor),
             
-            humidityLabel.leadingAnchor.constraint(equalTo: humidityImageView.trailingAnchor, constant: 5),
-            humidityLabel.topAnchor.constraint(equalTo: windSpeedLabel.bottomAnchor, constant: 12),
-            humidityLabel.heightAnchor.constraint(equalToConstant: 16),
+            precipitationLabel.leadingAnchor.constraint(equalTo: humidityImageView.trailingAnchor, constant: 5),
+            precipitationLabel.topAnchor.constraint(equalTo: windSpeedLabel.bottomAnchor, constant: 12),
+            precipitationLabel.heightAnchor.constraint(equalToConstant: 16),
             
-            humidityValueLabel.topAnchor.constraint(equalTo: windSpeedValueLabel.bottomAnchor, constant: 12),
-            humidityValueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            humidityValueLabel.heightAnchor.constraint(equalToConstant: 16),
+            popValueLabel.topAnchor.constraint(equalTo: windSpeedValueLabel.bottomAnchor, constant: 12),
+            popValueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            popValueLabel.heightAnchor.constraint(equalToConstant: 16),
             
             cloudinessImageView.leadingAnchor.constraint(equalTo: tempLabel.trailingAnchor, constant: 32),
             cloudinessImageView.topAnchor.constraint(equalTo: humidityImageView.bottomAnchor, constant: 12),
@@ -265,11 +265,11 @@ extension DetailTFHoursTableViewCell {
             cloudinessImageView.heightAnchor.constraint(equalTo: cloudinessImageView.widthAnchor),
             
             cloudinessLabel.leadingAnchor.constraint(equalTo: cloudinessImageView.trailingAnchor, constant: 5),
-            cloudinessLabel.topAnchor.constraint(equalTo: humidityLabel.bottomAnchor, constant: 12),
+            cloudinessLabel.topAnchor.constraint(equalTo: precipitationLabel.bottomAnchor, constant: 12),
             cloudinessLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             cloudinessLabel.heightAnchor.constraint(equalToConstant: 16),
             
-            cloudinessValueLabel.topAnchor.constraint(equalTo: humidityValueLabel.bottomAnchor, constant: 12),
+            cloudinessValueLabel.topAnchor.constraint(equalTo: popValueLabel.bottomAnchor, constant: 12),
             cloudinessValueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             cloudinessValueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             cloudinessValueLabel.heightAnchor.constraint(equalToConstant: 16)

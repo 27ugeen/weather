@@ -16,13 +16,12 @@ class DetailDailyViewController: UIViewController {
     private let sunMoonCellID = SunMoonTableViewCell.cellId
     private let airQCellID = AirQTableViewCell.cellId
     
+    var rowIdx = 0
     var model: ForecastModel? {
         didSet {
             tableView.reloadData()
         }
     }
-    
-    var rowIdx = 0
     //MARK: - init
     
     override func viewDidLoad() {
@@ -42,11 +41,11 @@ class DetailDailyViewController: UIViewController {
     
 //MARK: - methods
     
-    private func goToDate(_ idx: Int) {
-        print("idx: \(idx)")
-        
-        
-    }
+//    private func goToDate(_ idx: Int) {
+//        print("idx: \(idx)")
+//        
+//        
+//    }
 }
 //MARK: - setupViews
 extension DetailDailyViewController {

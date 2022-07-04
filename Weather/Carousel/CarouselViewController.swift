@@ -85,6 +85,7 @@ class CarouselViewController: UIViewController {
     
     private func goToTFHDetailPage() {
         let detailTFHVC = DetailTFHoursViewController()
+        detailTFHVC.model = self.forecastModel
         navigationController?.pushViewController(detailTFHVC, animated: true)
     }
     

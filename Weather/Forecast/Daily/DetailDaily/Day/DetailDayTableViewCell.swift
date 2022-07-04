@@ -120,7 +120,7 @@ extension DetailDayTableViewCell: UITableViewDataSource {
             return defCell
         case 4:
             defCell.weatherImageView.image = UIImage(named: "cloud")
-            defCell.weatherCompLabel.text = "Cloudness"
+            defCell.weatherCompLabel.text = "Cloudiness"
             defCell.weatherCompValueLabel.text = "\(m?.dClouds ?? 0)%"
             return defCell
         case 5:

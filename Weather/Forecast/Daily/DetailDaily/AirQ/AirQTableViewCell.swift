@@ -59,7 +59,7 @@ class AirQTableViewCell: UITableViewCell {
     private let airQDescriptLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Air quality is considered satisfactory and air pollution air pollution appears to be insignificant within the norm"
+        label.text = "Air quality is considered satisfactory and air pollution is insignificant within the normal range"
         label.numberOfLines = 0
         label.font = UIFont.setAppMainFont(14)
         label.textColor = UIColor(rgb: 0x9A9696)
