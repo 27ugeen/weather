@@ -182,7 +182,7 @@ extension ForecastHeaderTableViewCell {
             headerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
             headerView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             headerView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 212),
+//            headerView.heightAnchor.constraint(equalToConstant: 212),
             
             dailyTempLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 33),
             dailyTempLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),

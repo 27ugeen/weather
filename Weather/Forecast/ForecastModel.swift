@@ -10,17 +10,25 @@ import Alamofire
 import CoreLocation
 
 enum WeatherURLs: String {
-    //    case current = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid="
     case daily = "https://api.openweathermap.org/data/3.0/onecall?units=metric&appid="
+    case geo = "http://api.openweathermap.org/geo/1.0/direct?limit=1&appid="
+    case city = "http://api.openweathermap.org/geo/1.0/reverse?limit=1&appid="
 }
 
 struct ForecastModel: Decodable {
+    var city: String = ""
+    var country: String = ""
+    
     let daily: [Daily]
     let hourly: [Hourly]
+    let lat: Double
+    let lon: Double
     
     enum CodingKeys: String, CodingKey {
         case daily
         case hourly
+        case lat
+        case lon
         
         case current
     }
@@ -55,6 +63,8 @@ struct ForecastModel: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         daily = try container.decode([Daily].self, forKey: .daily)
         hourly = try container.decode([Hourly].self, forKey: .hourly)
+        lat = try container.decode(Double.self, forKey: .lat)
+        lon = try container.decode(Double.self, forKey: .lon)
         //1=====================current===========================
         let cContainer = try container.nestedContainer(keyedBy: CurrentCodingKeys.self, forKey: .current)
         currentTime = try cContainer.decode(Int.self, forKey: .currentTime)
@@ -199,6 +209,18 @@ struct Hourly: Decodable {
     }
 }
 
+struct CoordinateCityModel: Decodable {
+    let country: String
+    let name: String
+    let lat: Double
+    let lon: Double
+}
+
+struct NameCityModel: Decodable {
+    let country: String
+    let name: String
+}
+
 class ForecastViewModel {
     
     private var apiKey: String {
@@ -220,9 +242,7 @@ class ForecastViewModel {
     func createURLForCurrentWeather(_ coordinate: CLLocationCoordinate2D) -> String {
         let headRL = WeatherURLs.daily.rawValue
         let coordinateParams = "&lat=\(coordinate.latitude)&lon=\(coordinate.longitude)"
-        
         let resultURL = headRL + apiKey + coordinateParams
-        
         return resultURL
     }
     
@@ -236,12 +256,64 @@ class ForecastViewModel {
             request.validate().responseDecodable(of: ForecastModel.self, decoder: decoder) { data in
                 if let uValue = data.value {
                     completition(uValue)
-//                    self.currentWeather = uValue
                     print("All: \(String(describing: uValue))")
-                    print("Weather descript: \(String(describing: uValue.weather[0].descript))")
+//                    print("Weather descript: \(String(describing: uValue.weather[0].descript))")
+                }
+            }
+        }
+    }
+    
+    func createURLForGeo(_ name: String) -> String {
+        let headRL = WeatherURLs.geo.rawValue
+        let coordinateParams = "&q=\(name)"
+        let resultURL = headRL + apiKey + coordinateParams
+        return resultURL
+    }
+    
+    func takeLocFromName(_ name: String, completition: @escaping (CoordinateCityModel) -> Void) {
+        let cUrl = self.createURLForGeo(name)
+        
+        if let url = URL(string: cUrl) {
+            let decoder = JSONDecoder()
+            
+            let request = AF.request(url)
+            
+            request.validate().responseDecodable(of: [CoordinateCityModel].self, decoder: decoder) { data in
+                
+                if let uValue = data.value {
+                    if uValue.isEmpty {
+                        print("No such city found")
+                        return
+                    }
+                    
+                    self.currentWeatherCoordinate = self.createURLForCurrentWeather(CLLocationCoordinate2D(latitude: uValue[0].lat, longitude: uValue[0].lon))
+                    completition(uValue.first!)
+                    print(uValue.first!)
+                }
+            }
+        }
+    }
+    
+    func createURLForCity(_ coord: CLLocationCoordinate2D) -> String {
+        let headRL = WeatherURLs.city.rawValue
+        let coordinateParams = "&lat=\(coord.latitude)&lon=\(coord.longitude)"
+        let resultURL = headRL + apiKey + coordinateParams
+        return resultURL
+    }
+    
+    func takeCityFromLoc(_ coord: CLLocationCoordinate2D, completition: @escaping (NameCityModel) -> Void) {
+        let cUrl = self.createURLForCity(CLLocationCoordinate2D(latitude: coord.latitude, longitude: coord.longitude))
+        
+        if let url = URL(string: cUrl) {
+            let decoder = JSONDecoder()
+            let request = AF.request(url)
+            
+            request.validate().responseDecodable(of: [NameCityModel].self, decoder: decoder) { data in
+                if let uValue = data.value {
+                    completition(uValue.first!)
+                    print(uValue.first!)
                 }
             }
         }
     }
 }
-

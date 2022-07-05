@@ -238,7 +238,11 @@ extension OnboardingViewController {
       //MARK: - current weather
 //      let reqCurrent = AF.request("https://api.openweathermap.org/data/2.5/weather?lat=47.09608&lon=37.54817&appid=205e68368240d2136c5ca99aaf88ec20&units=metric")
 //
-//      reqCurrent.responseJSON { (data) in
+//      let reverse = AF.request("http://api.openweathermap.org/geo/1.0/reverse?lat=51.5098&lon=-0.1180&limit=5&appid=205e68368240d2136c5ca99aaf88ec20")
+      
+//     let geo = AF.request("http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=205e68368240d2136c5ca99aaf88ec20")
+
+//      geo.responseJSON { (data) in
 //      print("current: \(data)")
 //    }
       

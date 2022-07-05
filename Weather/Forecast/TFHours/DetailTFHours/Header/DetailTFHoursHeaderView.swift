@@ -33,7 +33,7 @@ class DetailTFHoursHeaderView: UITableViewHeaderFooterView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.setAppMediumFont(18)
         label.textColor = UIColor(rgb: 0x272722)
-        label.text = "Forecast for 48 hours"
+        label.text = "Forecast for 24 hours"
         return label
     }()
     
@@ -59,15 +59,15 @@ extension DetailTFHoursHeaderView {
     private func setupViews() {
         contentView.addSubview(titleLableView)
         contentView.addSubview(tFHoursCollectionView)
-        
+
         NSLayoutConstraint.activate([
-            titleLableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             titleLableView.topAnchor.constraint(equalTo: contentView.topAnchor),
             
             tFHoursCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            tFHoursCollectionView.topAnchor.constraint(equalTo: titleLableView.bottomAnchor),
+            tFHoursCollectionView.topAnchor.constraint(equalTo: titleLableView.bottomAnchor, constant: 15),
             tFHoursCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            tFHoursCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            tFHoursCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
@@ -75,7 +75,7 @@ extension DetailTFHoursHeaderView {
 extension DetailTFHoursHeaderView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //TODO: - received 48h
-        return model?.hourly.count ?? 8
+        return 24
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -96,7 +96,7 @@ extension DetailTFHoursHeaderView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        return UIEdgeInsets(top: 11, left: 16, bottom: 8, right: 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

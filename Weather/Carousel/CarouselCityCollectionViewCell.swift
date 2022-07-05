@@ -8,7 +8,7 @@
 import UIKit
 
 class CarouselCityCollectionViewCell: UICollectionViewCell {
-    // MARK: - Properties
+    // MARK: - props
     
     static let cellId = "CarouselCityCollectionViewCell"
     
@@ -20,11 +20,7 @@ class CarouselCityCollectionViewCell: UICollectionViewCell {
     var goToTFHDetailAction: (() -> Void)?
     var goToDailyDetailAction: ((Int) -> Void)?
     
-    var model: ForecastModel? {
-        didSet{
-            tableView.reloadData()
-        }
-    }
+    var model: ForecastModel?
     
     //MARK: - init
     
@@ -36,7 +32,7 @@ class CarouselCityCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    //MARK: - Subviews
+    //MARK: - subviews
     
     private let tableView: UITableView = {
         //TODO: - style?
@@ -75,7 +71,6 @@ extension CarouselCityCollectionViewCell {
     }
 }
 //MARK: - UITableViewDataSource
-
 extension CarouselCityCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //TODO: 7-25 days
@@ -103,9 +98,11 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         case 1:
             tFHCell.model = self.model
             tFHCell.forecastTFHoursButton.addTarget(self, action: #selector(forecastTFHoursTupped), for: .touchUpInside)
+            tFHCell.selectionStyle = .none
             return tFHCell
         case 2:
             dailyHeaderCell.rightLabel.attributedText = "\(model?.daily.count ?? 0) days".setUnderlineStyle()
+            dailyHeaderCell.selectionStyle = .none
             return dailyHeaderCell
         default:
             let idx = indexPath.row - 3
@@ -115,11 +112,11 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
             dailyCell.mainForecastLabel.text = "\(m?.dWeather[0].descript ?? "")"
             dailyCell.popLabel.text = "\(Int((m?.dPop ?? 0) * 100))%"
             dailyCell.dailyTempRangeLabel.text = "\(Int(m?.dTempMin.rounded() ?? 0))°-\(Int(m?.dTempMax.rounded() ?? 0))°"
+            dailyCell.selectionStyle = .none
             return dailyCell
         }
     }
 }
-
 //MARK: - UITableViewDelegate
 extension CarouselCityCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

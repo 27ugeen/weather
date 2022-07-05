@@ -22,15 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navigationController = UINavigationController(rootViewController: onBoardingVC)
         
-        
-//        let navigationController = UINavigationController(rootViewController: CarouselViewController().self)
-//        let navigationController = UINavigationController(rootViewController: DetailTFHoursViewController().self)
-//        let navigationController = UINavigationController(rootViewController: DetailDailyViewController().self)
-//        let navigationController = UINavigationController(rootViewController: SettingsViewController(settingsViewModel: SettingsViewModel().self).self)
-//        let navigationController = UINavigationController(rootViewController: MenuViewController().self)
-//        navigationController.isNavigationBarHidden = true
-//        navigationController.navigationBar.tintColor = .black
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

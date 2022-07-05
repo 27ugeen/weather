@@ -75,6 +75,16 @@ class DetailTFHoursHeaderCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let lineImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "line")
+        //        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.backgroundColor = UIColor(rgb: 0x2204EC7)
+        return imageView
+    }()
+    
     let timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -93,11 +103,12 @@ extension DetailTFHoursHeaderCollectionViewCell {
         contentView.addSubview(weatherImageView)
         contentView.addSubview(precipitationLabel)
         contentView.addSubview(rectLabel)
+        contentView.addSubview(lineImageView)
         contentView.addSubview(timeLabel)
         
         NSLayoutConstraint.activate([
             tempLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            tempLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 11),
+            tempLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             
             degreeImageView.leadingAnchor.constraint(equalTo: tempLabel.trailingAnchor, constant: 1),
             degreeImageView.bottomAnchor.constraint(equalTo: tempLabel.topAnchor, constant: 4),
@@ -119,12 +130,17 @@ extension DetailTFHoursHeaderCollectionViewCell {
             
             rectLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             rectLabel.topAnchor.constraint(equalTo: precipitationLabel.bottomAnchor, constant: 9),
-            
             rectLabel.widthAnchor.constraint(equalToConstant: 4),
             rectLabel.heightAnchor.constraint(equalToConstant: 8),
             
+            lineImageView.leadingAnchor.constraint(equalTo: rectLabel.leadingAnchor),
+            lineImageView.topAnchor.constraint(equalTo: rectLabel.topAnchor, constant: 4),
+            lineImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            lineImageView.heightAnchor.constraint(equalToConstant: 0.5),
+            
             timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             timeLabel.topAnchor.constraint(equalTo: rectLabel.bottomAnchor, constant: 8),
+            timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }

@@ -32,7 +32,7 @@ class ForecastTFHoursTableViewCell: UITableViewCell {
     let forecastTFHoursButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setAttributedTitle("Forecast for 48 hours".setUnderlineStyle(), for: .normal)
+        button.setAttributedTitle("Forecast for 24 hours".setUnderlineStyle(), for: .normal)
         button.setTitleColor(UIColor(rgb: 0x272722), for: .normal)
         button.titleLabel?.font = UIFont.setAppMainFont(16)
 //        button.addTarget(self, action: #selector(buttonTupped), for: .touchUpInside)

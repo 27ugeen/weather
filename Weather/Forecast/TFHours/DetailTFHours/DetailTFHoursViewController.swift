@@ -55,7 +55,7 @@ extension DetailTFHoursViewController {
 //MARK: - UITableViewDataSource
 extension DetailTFHoursViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model?.hourly.count ?? 24
+        return 24
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -63,7 +63,7 @@ extension DetailTFHoursViewController: UITableViewDataSource {
         case 0:
             let cell = UITableViewCell()
             cell.selectionStyle = .none
-            cell.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
+            cell.separatorInset = UIEdgeInsets(top: 8, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
             cell.layoutMargins = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
             return cell
         default:
@@ -92,6 +92,6 @@ extension DetailTFHoursViewController: UITableViewDataSource {
 //MARK: - UITableViewDelegate
 extension DetailTFHoursViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 185
+        return 208
     }
 }

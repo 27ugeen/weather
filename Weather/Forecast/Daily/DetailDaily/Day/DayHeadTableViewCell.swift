@@ -104,16 +104,6 @@ class DayHeadTableViewCell: UITableViewCell {
         imageView.tintColor = UIColor(rgb: 0x292626)
         return imageView
     }()
-    
-    private let lineImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "line")
-        //        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = UIColor(rgb: 0x2204EC7)
-        return imageView
-    }()
 }
 //MARK: - setupViews
 extension DayHeadTableViewCell {
