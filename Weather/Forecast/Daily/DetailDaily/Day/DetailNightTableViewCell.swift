@@ -16,7 +16,7 @@ class DetailNightTableViewCell: UITableViewCell {
     private let ordinaryCellID = DayOrdinaryTableViewCell.cellId
     
     var rowIdx = 0
-    var model: ForecastModel? {
+    var model: ForecastStub? {
         didSet {
             tableView.reloadData()
         }

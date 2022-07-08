@@ -11,9 +11,16 @@ import CoreLocation
 class CarouselViewController: UIViewController {
     //MARK: - props
     
-    let viewModel: ForecastViewModel
-    var forecastModel: ForecastModel?
-    var cityModels: [ForecastModel] = []
+    let dataModel: ForecastDataModel
+    let viewModel: CarouselViewModel
+    
+    //    var forecastModel: ForecastModel?
+    
+    var cityModels: [ForecastStub] = [] {
+        didSet {
+            carouselCollectionView.reloadData()
+        }
+    }
     
     private let emptyCellID = CarouselEmptyCollectionViewCell.cellId
     private let cityCellId = CarouselCityCollectionViewCell.cellId
@@ -28,7 +35,8 @@ class CarouselViewController: UIViewController {
     }
     //MARK: - init
     
-    init(viewModel: ForecastViewModel) {
+    init(dataModel: ForecastDataModel, viewModel: CarouselViewModel) {
+        self.dataModel = dataModel
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -42,6 +50,18 @@ class CarouselViewController: UIViewController {
         
         view.backgroundColor = UIColor(rgb: 0xFFFFFF)
         navigationController?.navigationBar.tintColor = .black
+        
+        //        let D = DataBaseManager.shared.getAllDaily()
+        
+        //        viewModel.getAllForecastFromDB() { _ in }
+        
+        
+        
+        //        print("W: \(viewModelStub.hWeather)")
+        //        print("F: \(viewModel.forecast)")
+        //        print("D: \(D[1]?.dTempMax)")
+        //        print("H: \(viewModelStub.hourly)")
+        //        print("C: \(viewModelStub.current)")
         
         fetchData()
         setupNuvButtons()
@@ -78,28 +98,44 @@ class CarouselViewController: UIViewController {
     
     private func fetchData() {
         if isStatusOn {
-            viewModel.decodeModelFromData() { data in
-                
-                self.viewModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)) { model in
-                    self.pageTitle.append("\(model.name), \(model.country.toCountry())")
-                    self.title = self.pageTitle.first
+            
+            self.viewModel.getAllForecastFromDB() { forecasts in
+                if forecasts.isEmpty {
+                    let group = DispatchGroup()
+                    group.enter()
+                    self.dataModel.decodeModelFromData() { data in
+                        self.dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)) { model in
+                            self.pageTitle.append("\(model.name), \(model.country.toCountry())")
+                            self.title = self.pageTitle.first
+                            group.leave()
+                        }
+                        group.enter()
+                        DataBaseManager.shared.addForecastToDB(data)
+                        group.leave()
+                    }
+                    group.notify(queue: .main) {
+                        self.viewModel.getAllForecastFromDB() { forecasts in
+                            self.cityModels = forecasts
+                        }
+                    }
+                } else {
+                    self.cityModels = forecasts
                 }
-                self.forecastModel = data
-                self.cityModels.append(data)
-                self.carouselCollectionView.reloadData()
             }
+            print("F: \(self.viewModel.forecasts.count)")
+            print("C: \(self.cityModels.count)")
         }
     }
     
-    private func goToTFHDetailPage() {
+    private func goToTFHDetailPage(_ pageIdx: Int) {
         let detailTFHVC = DetailTFHoursViewController()
-        detailTFHVC.model = self.forecastModel
+        detailTFHVC.model = self.viewModel.forecasts[pageIdx]
         navigationController?.pushViewController(detailTFHVC, animated: true)
     }
     
-    private func goToDailyDetailPage(_ index: Int) {
+    private func goToDailyDetailPage(_ index: Int, _ pageIdx: Int) {
         let detailDailyVC = DetailDailyViewController()
-        detailDailyVC.model = self.forecastModel
+        detailDailyVC.model = self.viewModel.forecasts[pageIdx]
         detailDailyVC.rowIdx = index
         navigationController?.pushViewController(detailDailyVC, animated: true)
     }
@@ -114,21 +150,23 @@ class CarouselViewController: UIViewController {
             let textField = alertVC.textFields?.first
             
             if let uText = textField?.text {
-                self.viewModel.takeLocFromName(uText) { model in
+                if !self.isStatusOn {
+                    //TODO: - User doesn't work - why??
+                    // UserDefaults.standard.set(true, forKey: "isStatusOn")
+                    self.isStatusOn = true
+                }
+                
+                self.dataModel.takeLocFromName(uText) { model in
                     
-                    self.viewModel.decodeModelFromData() { data in
-                        self.forecastModel = data
-                        self.cityModels.append(data)
+                    self.pageTitle.append("\(model.name), \(model.country.toCountry())")
+                    
+                    self.dataModel.decodeModelFromData() { data in
+                        DataBaseManager.shared.addForecastToDB(data)
                         
-                        self.pageTitle.append("\(model.name), \(model.country.toCountry())")
-                        
-                        if !self.isStatusOn {
-                            //TODO: - User dosrnt work - why??
-                            //                            UserDefaults.standard.set(true, forKey: "isStatusOn")
-                            self.isStatusOn = true
-                            completition()
+                        self.viewModel.getAllForecastFromDB() { forecasts in
+                            print("FFF: \(forecasts.count)")
+                            self.cityModels = forecasts
                         }
-                        self.carouselCollectionView.reloadData()
                     }
                 }
             }
@@ -214,13 +252,15 @@ extension CarouselViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if isStatusOn {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as! CarouselCityCollectionViewCell
-            cell.model = self.cityModels[indexPath.item]
+            cell.model = self.viewModel.forecasts[indexPath.item]
+            
+            let pageIdx = indexPath.item
             
             cell.goToTFHDetailAction = {
-                self.goToTFHDetailPage()
+                self.goToTFHDetailPage(pageIdx)
             }
             cell.goToDailyDetailAction = { idx in
-                self.goToDailyDetailPage(idx)
+                self.goToDailyDetailPage(idx, pageIdx)
             }
             return cell
         } else {
@@ -241,20 +281,20 @@ extension CarouselViewController: UICollectionViewDataSource {
 extension CarouselViewController: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = getCurrentPage() { idx in
-            self.title = self.pageTitle[idx]
+            //            self.title = self.pageTitle[idx]
         }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         currentPage = getCurrentPage() { idx in
-            self.title = self.pageTitle[idx]
+            //            self.title = self.pageTitle[idx]
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         currentPage = getCurrentPage() { idx in
             if self.isStatusOn {
-                self.title = self.pageTitle[idx]
+                //                self.title = self.pageTitle[idx]
             }
         }
     }

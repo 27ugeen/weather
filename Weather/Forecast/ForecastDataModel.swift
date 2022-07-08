@@ -19,10 +19,10 @@ struct ForecastModel: Decodable {
     var city: String = ""
     var country: String = ""
     
-    let daily: [Daily]
-    let hourly: [Hourly]
-    let lat: Double
-    let lon: Double
+    let daily: [DailyModel]
+    let hourly: [HourlyModel]
+    var lat: Double
+    var lon: Double
     
     enum CodingKeys: String, CodingKey {
         case daily
@@ -43,7 +43,7 @@ struct ForecastModel: Decodable {
     let clouds: Int
     let windSpeed: Double
     let windDeg: Int
-    let weather: [Weather]
+    let weather: [WeatherModel]
     
     enum CurrentCodingKeys: String, CodingKey {
         case currentTime = "dt"
@@ -61,8 +61,8 @@ struct ForecastModel: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        daily = try container.decode([Daily].self, forKey: .daily)
-        hourly = try container.decode([Hourly].self, forKey: .hourly)
+        daily = try container.decode([DailyModel].self, forKey: .daily)
+        hourly = try container.decode([HourlyModel].self, forKey: .hourly)
         lat = try container.decode(Double.self, forKey: .lat)
         lon = try container.decode(Double.self, forKey: .lon)
         //1=====================current===========================
@@ -77,11 +77,11 @@ struct ForecastModel: Decodable {
         clouds = try cContainer.decode(Int.self, forKey: .clouds)
         windSpeed = try cContainer.decode(Double.self, forKey: .windSpeed)
         windDeg = try cContainer.decode(Int.self, forKey: .windDeg)
-        weather = try cContainer.decode([Weather].self, forKey: .weather)
+        weather = try cContainer.decode([WeatherModel].self, forKey: .weather)
     }
 }
 
-struct Weather: Decodable {
+struct WeatherModel: Decodable {
     let descript: String
     
     enum CodingKeys: String, CodingKey {
@@ -94,7 +94,7 @@ struct Weather: Decodable {
     }
 }
 
-struct Daily: Decodable {
+struct DailyModel: Decodable {
     let dClouds: Int
     let dTime: Int
     let dMoonPhase: Double
@@ -104,7 +104,7 @@ struct Daily: Decodable {
     let dSunset: Int
     let dPop: Double
     let dUVI: Double
-    let dWeather: [Weather]
+    let dWeather: [WeatherModel]
     let dWindDeg: Int
     let dWindSpeed: Double
     
@@ -159,7 +159,7 @@ struct Daily: Decodable {
         dSunset = try container.decode(Int.self, forKey: .dSunset)
         dPop = try container.decode(Double.self, forKey: .dPop)
         dUVI = try container.decode(Double.self, forKey: .dUVI)
-        dWeather = try container.decode([Weather].self, forKey: .dWeather)
+        dWeather = try container.decode([WeatherModel].self, forKey: .dWeather)
         dWindDeg = try container.decode(Int.self, forKey: .dWindDeg)
         dWindSpeed = try container.decode(Double.self, forKey: .dWindSpeed)
         
@@ -175,7 +175,7 @@ struct Daily: Decodable {
     }
 }
 
-struct Hourly: Decodable {
+struct HourlyModel: Decodable {
     let hClouds: Int
     let hTime: Int
     let hFeelsLike: Double
@@ -183,7 +183,7 @@ struct Hourly: Decodable {
     let hTemp: Double
     let hWindDeg: Int
     let hWindSpeed: Double
-    let hWeather: [Weather]
+    let hWeather: [WeatherModel]
     
     enum CodingKeys: String, CodingKey {
         case hClouds = "clouds"
@@ -205,7 +205,7 @@ struct Hourly: Decodable {
         hTemp = try container.decode(Double.self, forKey: .hTemp)
         hWindDeg = try container.decode(Int.self, forKey: .hWindDeg)
         hWindSpeed = try container.decode(Double.self, forKey: .hWindSpeed)
-        hWeather = try container.decode([Weather].self, forKey: .hWeather)
+        hWeather = try container.decode([WeatherModel].self, forKey: .hWeather)
     }
 }
 
@@ -221,7 +221,7 @@ struct NameCityModel: Decodable {
     let name: String
 }
 
-class ForecastViewModel {
+class ForecastDataModel {
     
     private var apiKey: String {
         get {
@@ -237,17 +237,18 @@ class ForecastViewModel {
     }
     
     var currentWeather: ForecastModel?
-    var currentWeatherCoordinate: String = ""
+    
+    var currentWeatherURL: String = ""
     
     func createURLForCurrentWeather(_ coordinate: CLLocationCoordinate2D) -> String {
         let headRL = WeatherURLs.daily.rawValue
-        let coordinateParams = "&lat=\(coordinate.latitude)&lon=\(coordinate.longitude)"
-        let resultURL = headRL + apiKey + coordinateParams
+        let qStr = "&lat=\(coordinate.latitude)&lon=\(coordinate.longitude)"
+        let resultURL = headRL + apiKey + qStr
         return resultURL
     }
     
     func decodeModelFromData(completition: @escaping (ForecastModel) -> Void) {
-        if let url = URL(string: currentWeatherCoordinate) {
+        if let url = URL(string: currentWeatherURL) {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             
@@ -256,7 +257,7 @@ class ForecastViewModel {
             request.validate().responseDecodable(of: ForecastModel.self, decoder: decoder) { data in
                 if let uValue = data.value {
                     completition(uValue)
-                    print("All: \(String(describing: uValue))")
+//                    print("All: \(String(describing: uValue))")
 //                    print("Weather descript: \(String(describing: uValue.weather[0].descript))")
                 }
             }
@@ -265,8 +266,8 @@ class ForecastViewModel {
     
     func createURLForGeo(_ name: String) -> String {
         let headRL = WeatherURLs.geo.rawValue
-        let coordinateParams = "&q=\(name)"
-        let resultURL = headRL + apiKey + coordinateParams
+        let qStr = "&q=\(name)"
+        let resultURL = headRL + apiKey + qStr
         return resultURL
     }
     
@@ -286,7 +287,7 @@ class ForecastViewModel {
                         return
                     }
                     
-                    self.currentWeatherCoordinate = self.createURLForCurrentWeather(CLLocationCoordinate2D(latitude: uValue[0].lat, longitude: uValue[0].lon))
+                    self.currentWeatherURL = self.createURLForCurrentWeather(CLLocationCoordinate2D(latitude: uValue[0].lat, longitude: uValue[0].lon))
                     completition(uValue.first!)
                     print(uValue.first!)
                 }
@@ -296,8 +297,8 @@ class ForecastViewModel {
     
     func createURLForCity(_ coord: CLLocationCoordinate2D) -> String {
         let headRL = WeatherURLs.city.rawValue
-        let coordinateParams = "&lat=\(coord.latitude)&lon=\(coord.longitude)"
-        let resultURL = headRL + apiKey + coordinateParams
+        let qStr = "&lat=\(coord.latitude)&lon=\(coord.longitude)"
+        let resultURL = headRL + apiKey + qStr
         return resultURL
     }
     

@@ -16,9 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let locationManager = CLLocationManager()
-        let forecastVM = ForecastViewModel()
+        let forecastDM = ForecastDataModel()
+        let carouselVM = CarouselViewModel()
         
-        let onBoardingVC = OnboardingViewController(locationManager: locationManager, viewModel: forecastVM)
+        let onBoardingVC = OnboardingViewController(locationManager: locationManager, dataModel: forecastDM, viewModel: carouselVM)
         
         let navigationController = UINavigationController(rootViewController: onBoardingVC)
         

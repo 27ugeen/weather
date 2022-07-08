@@ -13,7 +13,7 @@ class DetailTFHoursHeaderView: UITableViewHeaderFooterView {
     static let cellId = "DetailTFHoursHeaderView"
     private let collectionCellID = DetailTFHoursHeaderCollectionViewCell.cellId
     
-    var model: ForecastModel?
+    var model: ForecastStub?
     
     //MARK: - init
     

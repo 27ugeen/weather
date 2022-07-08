@@ -12,7 +12,7 @@ class DetailTFHoursViewController: UIViewController {
     private let headerID = DetailTFHoursHeaderView.cellId
     private let detailID = DetailTFHoursTableViewCell.cellId
     
-    var model: ForecastModel?
+    var model: ForecastStub?
     //MARK: - init
     override func viewDidLoad() {
         super.viewDidLoad()

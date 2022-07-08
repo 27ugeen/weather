@@ -14,7 +14,7 @@ class SunMoonTableViewCell: UITableViewCell {
     private let collectionCellID = SunMoonCollectionViewCell.cellId
     
     var rowIdx = 0
-    var model: ForecastModel? {
+    var model: ForecastStub? {
         didSet {
             sunMoonCollectionView.reloadData()
         }

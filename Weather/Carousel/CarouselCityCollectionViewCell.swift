@@ -20,8 +20,11 @@ class CarouselCityCollectionViewCell: UICollectionViewCell {
     var goToTFHDetailAction: (() -> Void)?
     var goToDailyDetailAction: ((Int) -> Void)?
     
-    var model: ForecastModel?
-    
+    var model: ForecastStub? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     //MARK: - init
     
     override init(frame: CGRect) {
@@ -74,6 +77,7 @@ extension CarouselCityCollectionViewCell {
 extension CarouselCityCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //TODO: 7-25 days
+//        print("Days: \(model?.daily.count)")
         return (model?.daily.count ?? 0) + 3
     }
     
@@ -83,17 +87,19 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         let dailyHeaderCell = tableView.dequeueReusableCell(withIdentifier: dailyHeaderID) as! DailyHeaderTableViewCell
         let dailyCell = tableView.dequeueReusableCell(withIdentifier: dailyID) as! ForecastDailyTableViewCell
         
+
         switch indexPath.row {
         case 0:
-            headerCell.presentTempLabel.text = "\(Int(model?.temp ?? 0))°"
+            let hModel = model?.current[0]
+            headerCell.presentTempLabel.text = "\(Int(hModel?.temp ?? 0))°"
             headerCell.dailyTempLabel.text = "\(Int(model?.daily[0].dTempMin ?? 0))°/\( Int(model?.daily[0].dTempMax ?? 0))°"
-            headerCell.cloudinessLabel.text = "\(model?.clouds ?? 0)"
-            headerCell.windSpeedLabel.text = "\(Int(model?.windSpeed.rounded() ?? 0))m/s"
-            headerCell.humidityLabel.text = "\(model?.humidity ?? 0)%"
-            headerCell.weatherDescriptLabel.text = model?.weather[0].descript
-            headerCell.currentDateLabel.text = Double(model?.currentTime ?? 0).dateFormatted("HH:mm, EE d MMMM")
-            headerCell.sunriseLabel.text = Double(model?.sunrise ?? 0).dateFormatted("HH:mm")
-            headerCell.sunsetLabel.text = Double(model?.sunset ?? 0).dateFormatted("HH:mm")
+            headerCell.cloudinessLabel.text = "\(hModel?.clouds ?? 0)"
+            headerCell.windSpeedLabel.text = "\(Int(hModel?.windSpeed.rounded() ?? 0))m/s"
+            headerCell.humidityLabel.text = "\(hModel?.humidity ?? 0)%"
+            headerCell.weatherDescriptLabel.text = hModel?.weather[0].descript
+            headerCell.currentDateLabel.text = Double(hModel?.currentTime ?? 0).dateFormatted("HH:mm, EE d MMMM")
+            headerCell.sunriseLabel.text = Double(hModel?.sunrise ?? 0).dateFormatted("HH:mm")
+            headerCell.sunsetLabel.text = Double(hModel?.sunset ?? 0).dateFormatted("HH:mm")
             return headerCell
         case 1:
             tFHCell.model = self.model

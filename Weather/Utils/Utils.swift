@@ -84,12 +84,6 @@ extension String {
     }
 }
 
-//extension Int {
-//    func toString() -> String {
-//        return String(describing: self)
-//    }
-//}
-
 extension UINavigationController {
     func pushVCFromLeft(controller: UIViewController) {
         let transition = CATransition()
@@ -114,8 +108,6 @@ extension UINavigationController {
 
 extension UIViewController {
     func showAlert(message: String) {
-        //        let alertTitle = "alert_error".localized()
-        //        let alertOk = "alert_ok".localized()
         let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alertVC, animated: true, completion: nil)
@@ -126,9 +118,7 @@ extension Double {
     func dateFormatted(_ format: String) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(self))
         let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "HH:mm, EE d MMMM"
         dateFormatter.dateFormat = format
-        
         return dateFormatter.string(from: date)
     }
 }

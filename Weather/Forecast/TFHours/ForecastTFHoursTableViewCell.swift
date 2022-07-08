@@ -14,7 +14,7 @@ class ForecastTFHoursTableViewCell: UITableViewCell {
     static let cellId = "ForecastTFHoursTableViewCell"
     private let collectionCellID = ForecastTFHoursCollectionViewCell.cellId
     
-    var model: ForecastModel?
+    var model: ForecastStub?
     
     //MARK: - init
     
@@ -86,15 +86,14 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = tFHoursCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! ForecastTFHoursCollectionViewCell
         
-        let m = model?.hourly[indexPath.item]
-        let curTime = Double(model?.currentTime ?? 0).dateFormatted("HH")
-        let cellTime = Double(m?.hTime ?? 0).dateFormatted("HH")
-        let sunrise = Double(model?.sunrise ?? 0).dateFormatted("HH")
-        let sunset = Double(model?.sunset ?? 0).dateFormatted("HH")
+        let hModel = model?.hourly[indexPath.item]
+        let cModel = model?.current[0]
+        
+        let curTime = Double(cModel?.currentTime ?? 0).dateFormatted("HH")
+        let cellTime = Double(hModel?.hTime ?? 0).dateFormatted("HH")
+        let sunrise = Double(cModel?.sunrise ?? 0).dateFormatted("HH")
+        let sunset = Double(cModel?.sunset ?? 0).dateFormatted("HH")
 
-//
-//        print("cur: \(curTime), cell: \(cellTime)")
-//
         if cellTime == curTime {
             cell.wrapperView.backgroundColor = UIColor(rgb: 0x204EC7)
             cell.tempLabel.textColor = .white
@@ -105,7 +104,7 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
             cell.timeLabel.textColor = .black
         }
         
-            switch m?.hWeather[0].descript {
+            switch hModel?.hWeather[0].descript {
             case "clear sky":
                 if cellTime > sunrise && cellTime <= sunset {
                 cell.weatherImageView.image = UIImage(named: "sun")
@@ -128,9 +127,8 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
                 cell.weatherImageView.image = UIImage(named: "scatClouds")
             }
         
-        cell.timeLabel.text = "\(Double(m?.hTime ?? 0).dateFormatted("HH:mm"))"
-        cell.tempLabel.text = "\(Int((m?.hTemp ?? 0).rounded()))"
-        
+        cell.timeLabel.text = "\(Double(hModel?.hTime ?? 0).dateFormatted("HH:mm"))"
+        cell.tempLabel.text = "\(Int((hModel?.hTemp ?? 0).rounded()))"        
         return cell
     }
 }

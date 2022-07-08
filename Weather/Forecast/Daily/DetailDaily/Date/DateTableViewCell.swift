@@ -16,7 +16,7 @@ class DateTableViewCell: UITableViewCell {
     var goToToDayAction: ((Int) -> Void)?
     
     var rowIdx = 0
-    var model: ForecastModel? {
+    var model: ForecastStub? {
         didSet {
             dateCollectionView.reloadData()
         }

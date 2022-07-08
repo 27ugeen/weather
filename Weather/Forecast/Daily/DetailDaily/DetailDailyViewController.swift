@@ -17,7 +17,7 @@ class DetailDailyViewController: UIViewController {
     private let airQCellID = AirQTableViewCell.cellId
     
     var rowIdx = 0
-    var model: ForecastModel? {
+    var model: ForecastStub? {
         didSet {
             tableView.reloadData()
         }
