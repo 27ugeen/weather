@@ -96,37 +96,33 @@ class CarouselViewController: UIViewController {
     
     private func fetchData() {
         if isStatusOn {
-            self.viewModel.getAllForecastFromDB() { forecasts in
-                print("F from didLoad: \(forecasts.count)")
-                self.cityModels = forecasts
-                self.setPagesTitle(forecasts)
-            }
+            //TODO: - need to take out this logic
+            lazy var locationManager = CLLocationManager()
             
-//            self.viewModel.getAllForecastFromDB() { forecasts in
-//                if forecasts.isEmpty {
-//                    let group = DispatchGroup()
-//                    group.enter()
-//                    self.dataModel.decodeModelFromData() { data in
-//                        self.dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)) { model in
-//                            self.pageTitle.append("\(model.name), \(model.country.toCountry())")
-//                            self.title = self.pageTitle[self.currentPage]
-//                            group.leave()
-//                        }
-//                        group.enter()
-//                        DataBaseManager.shared.addForecastToDB(data)
-//                        group.leave()
-//                    }
-//                    group.notify(queue: .main) {
-//                        self.viewModel.getAllForecastFromDB() { forecasts in
-//                            self.cityModels = forecasts
-//                            self.setPagesTitle(forecasts)
-//                        }
-//                    }
-//                } else {
-//                    self.cityModels = forecasts
-//                    self.setPagesTitle(forecasts)
-//                }
-//            }
+            self.viewModel.getAllForecastFromDB() { forecasts in
+                if forecasts.isEmpty {
+                    let group = DispatchGroup()
+                    group.enter()
+                    self.dataModel.decodeModelFromData(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) { data in
+                        self.dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)) { model in
+                            self.pageTitle.append("\(model.name), \(model.country.toCountry())")
+                            group.leave()
+                        }
+                        group.enter()
+                        DataBaseManager.shared.addForecastToDB(data)
+                        group.leave()
+                    }
+                    group.notify(queue: .main) {
+                        self.viewModel.getAllForecastFromDB() { forecasts in
+                            self.cityModels = forecasts
+                            self.setPagesTitle(forecasts)
+                        }
+                    }
+                } else {
+                    self.cityModels = forecasts
+                    self.setPagesTitle(forecasts)
+                }
+            }
         }
     }
     
@@ -154,7 +150,7 @@ class CarouselViewController: UIViewController {
             
             if let uText = textField?.text {
                 if !self.isStatusOn {
-                    //TODO: - User doesn't work - why??
+                    //TODO: - UserDefaults doesn't work for reload - why??
                     UserDefaults.standard.set(true, forKey: "isStatusOn")
                     self.isStatusOn = true
                 }
@@ -290,7 +286,7 @@ extension CarouselViewController: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         currentPage = getCurrentPage() { idx in
-            if self.isStatusOn && !self.pageTitle.isEmpty{
+            if self.isStatusOn && !self.pageTitle.isEmpty {
                 self.title = self.pageTitle[idx]
             }
         }

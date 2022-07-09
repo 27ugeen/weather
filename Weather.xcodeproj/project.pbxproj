@@ -39,7 +39,7 @@
 		11C44539286A1AE90004CD49 /* AirQTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C44538286A1AE90004CD49 /* AirQTableViewCell.swift */; };
 		11E419F528210D19001098D7 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419F428210D19001098D7 /* OnboardingViewController.swift */; };
 		11E419F928211E06001098D7 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11E419F828211E06001098D7 /* Rubik-Regular.ttf */; };
-		11E419FB2821244A001098D7 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419FA2821244A001098D7 /* Utils.swift */; };
+		11E419FB2821244A001098D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419FA2821244A001098D7 /* Extensions.swift */; };
 		11E419FE2821413F001098D7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E419FD2821413F001098D7 /* SettingsViewController.swift */; };
 		11E41A0128214685001098D7 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A0028214685001098D7 /* SettingsTableViewCell.swift */; };
 		11E41A05282182B0001098D7 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E41A04282182B0001098D7 /* SettingsViewModel.swift */; };
@@ -88,7 +88,7 @@
 		11C44538286A1AE90004CD49 /* AirQTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQTableViewCell.swift; sourceTree = "<group>"; };
 		11E419F428210D19001098D7 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		11E419F828211E06001098D7 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
-		11E419FA2821244A001098D7 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		11E419FA2821244A001098D7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		11E419FD2821413F001098D7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		11E41A0028214685001098D7 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		11E41A04282182B0001098D7 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -179,7 +179,6 @@
 				1138984A2867019800369F19 /* Header */,
 				1138984B28670C6B00369F19 /* TFHours */,
 				1138984C28670C7D00369F19 /* Daily */,
-				11309BA0286EE28A00C89643 /* ForecastDataModel.swift */,
 			);
 			path = Forecast;
 			sourceTree = "<group>";
@@ -206,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				117E3931280600DC00EA160C /* AppDelegate.swift */,
+				11D628BC2879FCBE00A031AD /* DataModel */,
 				11BBD3C62875774A0071D9C4 /* DataBase */,
 				117E396A28083FDA00EA160C /* Carousel */,
 				11E419F628210D27001098D7 /* Onboarding */,
@@ -225,10 +225,8 @@
 		117E396A28083FDA00EA160C /* Carousel */ = {
 			isa = PBXGroup;
 			children = (
-				117E3935280600DC00EA160C /* CarouselViewController.swift */,
-				11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */,
-				117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */,
-				1128E6192876F5CD0024428E /* CarouselViewModel.swift */,
+				11D628BD2879FE1200A031AD /* Views */,
+				11D628BE2879FE1D00A031AD /* Model */,
 			);
 			path = Carousel;
 			sourceTree = "<group>";
@@ -291,6 +289,32 @@
 			path = AirQ;
 			sourceTree = "<group>";
 		};
+		11D628BC2879FCBE00A031AD /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				11309BA0286EE28A00C89643 /* ForecastDataModel.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		11D628BD2879FE1200A031AD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				117E3935280600DC00EA160C /* CarouselViewController.swift */,
+				11B654482809653A007A3DD3 /* CarouselCityCollectionViewCell.swift */,
+				117E396B280844F600EA160C /* CarouselEmptyCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		11D628BE2879FE1D00A031AD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1128E6192876F5CD0024428E /* CarouselViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		11E419F628210D27001098D7 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,7 +335,7 @@
 		11E419FC28212451001098D7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				11E419FA2821244A001098D7 /* Utils.swift */,
+				11E419FA2821244A001098D7 /* Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -510,7 +534,7 @@
 				113898502867401800369F19 /* DetailTFHoursTableViewCell.swift in Sources */,
 				1196D7B32868D7CC008924AA /* DetailNightTableViewCell.swift in Sources */,
 				117E3932280600DC00EA160C /* AppDelegate.swift in Sources */,
-				11E419FB2821244A001098D7 /* Utils.swift in Sources */,
+				11E419FB2821244A001098D7 /* Extensions.swift in Sources */,
 				1159A926282B9B2000ECB30E /* ForecastTFHoursCollectionViewCell.swift in Sources */,
 				11E432F12868DCFC0061743E /* SunMoonTableViewCell.swift in Sources */,
 				11E41A09282191E3001098D7 /* SettingsFooterView.swift in Sources */,

@@ -64,7 +64,6 @@ class DataBaseManager {
     }
     
     func addForecastToDB(_ forecast: ForecastModel) {
-        
         backgroundContext.perform { [weak self] in
             guard let self = self else { return }
             
@@ -90,14 +89,14 @@ class DataBaseManager {
                             newSetWeather.descript = forecast.weather[0].descript
                             try self.backgroundContext.save()
                             newSetCurrent.currentWeather = newSetWeather
-//                            print("cWeather has been added!")
+                            //                            print("cWeather has been added!")
                         } else {
                             fatalError("Unable to insert cWeather entity")
                         }
                         
                         try self.backgroundContext.save()
                         newSet.currentForecast = newSetCurrent
-//                        print("Current has been added!")
+                        //                        print("Current has been added!")
                     } else {
                         fatalError("Unable to insert Current entity")
                     }
@@ -129,7 +128,7 @@ class DataBaseManager {
                                 newSetWeather.descript = daily.dWeather[0].descript
                                 try self.backgroundContext.save()
                                 newSetDaily.dailyWeather = newSetWeather
-//                                print("dWeather has been added!")
+                                //                                print("dWeather has been added!")
                             } else {
                                 fatalError("Unable to insert dWeather entity")
                             }
@@ -142,8 +141,8 @@ class DataBaseManager {
                     }
                     
                     for i in 0..<forecast.hourly.count {
-                    if let newSetHourly = NSEntityDescription.insertNewObject(forEntityName: "Hourly", into: self.backgroundContext) as? Hourly {
-                        
+                        if let newSetHourly = NSEntityDescription.insertNewObject(forEntityName: "Hourly", into: self.backgroundContext) as? Hourly {
+                            
                             let hourly = forecast.hourly[i]
                             
                             newSetHourly.hClouds = Int64(hourly.hClouds)
@@ -158,20 +157,20 @@ class DataBaseManager {
                                 newSetWeather.descript = hourly.hWeather[0].descript
                                 try self.backgroundContext.save()
                                 newSetHourly.hourlyWeather = newSetWeather
-//                                print("hWeather has been added!")
+                                //                                print("hWeather has been added!")
                             } else {
                                 fatalError("Unable to insert hWeather entity")
                             }
                             
                             try self.backgroundContext.save()
-                        newSet.addToHourlyForecasts(newSetHourly)
-//                            print("Hourly has been added!")
-                        
-                        
-                    } else {
-                        fatalError("Unable to insert Hourly entity")
+                            newSet.addToHourlyForecasts(newSetHourly)
+                            //                            print("Hourly has been added!")
+                            
+                            
+                        } else {
+                            fatalError("Unable to insert Hourly entity")
+                        }
                     }
-                }
                     try self.backgroundContext.save()
                     print("Forecast has been added!")
                 } else {

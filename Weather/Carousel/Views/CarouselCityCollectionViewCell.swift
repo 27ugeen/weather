@@ -77,7 +77,6 @@ extension CarouselCityCollectionViewCell {
 extension CarouselCityCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //TODO: 7-25 days
-//        print("Days: \(model?.daily.count)")
         return (model?.daily.count ?? 0) + 3
     }
     

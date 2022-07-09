@@ -38,14 +38,6 @@ class DetailDailyViewController: UIViewController {
         tableView.separatorStyle = .none
         return tableView
     }()
-    
-//MARK: - methods
-    
-//    private func goToDate(_ idx: Int) {
-//        print("idx: \(idx)")
-//        
-//        
-//    }
 }
 //MARK: - setupViews
 extension DetailDailyViewController {

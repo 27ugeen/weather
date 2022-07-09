@@ -219,7 +219,7 @@ extension OnboardingViewController {
             case .authorizedWhenInUse:
                 fallthrough
             case .authorizedAlways:
-                self.fetchForecast(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+//                self.fetchForecast(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
                 UserDefaults.standard.set(true, forKey: "isStatusOn")
                 
                 self.goToMainVC()

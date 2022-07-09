@@ -67,7 +67,6 @@ class ForecastTFHoursCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-//        imageView.image = UIImage(named: "sun")
         return imageView
     }()
 }

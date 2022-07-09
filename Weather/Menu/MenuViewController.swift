@@ -66,7 +66,6 @@ class MenuViewController: UIViewController {
         button.contentHorizontalAlignment = .left
         button.titleLabel?.font = UIFont.setAppMainFont(14)
         button.setTitleColor(UIColor(rgb: 0xFDFAFA), for: .normal)
-        //        button.addTarget(self, action: #selector(setStatusButtonPressed), for: .touchUpInside)
         return button
     }()
     
