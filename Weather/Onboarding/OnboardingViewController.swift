@@ -16,6 +16,8 @@ class OnboardingViewController: UIViewController {
     private let dataModel: ForecastDataModel
     private let viewModel: CarouselViewModel
     
+    private let isPermissionAllowed = UserDefaults.standard.bool(forKey: "isStatusOn")
+    
     //MARK: - init
     
     init(locationManager: CLLocationManager, dataModel: ForecastDataModel, viewModel: CarouselViewModel) {
@@ -121,6 +123,11 @@ class OnboardingViewController: UIViewController {
     
     //MARK: - methods
     
+    private func goToMainVC() {
+        let mainVC = CarouselViewController(dataModel: dataModel, viewModel: viewModel)
+        navigationController?.pushViewController(mainVC, animated: true)
+    }
+    
     private func fetchForecast(_ coord: CLLocationCoordinate2D) {
         dataModel.currentWeatherURL = dataModel.createURLForCurrentWeather(coord)
     }
@@ -201,23 +208,25 @@ extension OnboardingViewController {
         locationManager.desiredAccuracy = 1000
         locationManager.startUpdatingLocation()
         
-        
-        switch locationManager.authorizationStatus {
-        case .notDetermined:
-            print("Location access is not determined")
-        case .denied, .restricted:
-            self.denieLocation()
-        case .authorizedWhenInUse:
-            fallthrough
-        case .authorizedAlways:
-            self.fetchForecast(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
-            UserDefaults.standard.set(true, forKey: "isStatusOn")
-            
-            let mainVC = CarouselViewController(dataModel: dataModel, viewModel: viewModel)
-            navigationController?.pushViewController(mainVC, animated: true)
-            print("Location access is allowed")
-        @unknown default:
-            fatalError("Unknown status")
+        if isPermissionAllowed {
+            self.goToMainVC()
+        } else {
+            switch locationManager.authorizationStatus {
+            case .notDetermined:
+                print("Location access is not determined")
+            case .denied, .restricted:
+                self.denieLocation()
+            case .authorizedWhenInUse:
+                fallthrough
+            case .authorizedAlways:
+                self.fetchForecast(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+                UserDefaults.standard.set(true, forKey: "isStatusOn")
+                
+                self.goToMainVC()
+                print("Location access is allowed")
+            @unknown default:
+                fatalError("Unknown status")
+            }
         }
     }
 }

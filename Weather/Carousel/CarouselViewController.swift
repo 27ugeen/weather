@@ -14,8 +14,6 @@ class CarouselViewController: UIViewController {
     let dataModel: ForecastDataModel
     let viewModel: CarouselViewModel
     
-    //    var forecastModel: ForecastModel?
-    
     var cityModels: [ForecastStub] = [] {
         didSet {
             carouselCollectionView.reloadData()
@@ -27,7 +25,11 @@ class CarouselViewController: UIViewController {
     
     private var isStatusOn = UserDefaults.standard.bool(forKey: "isStatusOn")
     
-    private var pageTitle: [String] = []
+    private var pageTitle: [String] = [] {
+        didSet {
+            carouselCollectionView.reloadData()
+        }
+    }
     private var currentPage: Int = 0 {
         didSet {
             pageControl.currentPage = currentPage
@@ -51,18 +53,7 @@ class CarouselViewController: UIViewController {
         view.backgroundColor = UIColor(rgb: 0xFFFFFF)
         navigationController?.navigationBar.tintColor = .black
         
-        //        let D = DataBaseManager.shared.getAllDaily()
-        
-        //        viewModel.getAllForecastFromDB() { _ in }
-        
-        
-        
-        //        print("W: \(viewModelStub.hWeather)")
-        //        print("F: \(viewModel.forecast)")
-        //        print("D: \(D[1]?.dTempMax)")
-        //        print("H: \(viewModelStub.hourly)")
-        //        print("C: \(viewModelStub.current)")
-        
+
         fetchData()
         setupNuvButtons()
         setupViews()
@@ -96,6 +87,14 @@ class CarouselViewController: UIViewController {
     
     //MARK: - methods
     
+    private func setPagesTitle(_ cities: [ForecastStub]) {
+        for (_, city) in cities.enumerated() {
+                dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: city.lat , longitude: city.lon)) { model in
+                    self.pageTitle.append("\(model.name), \(model.country.toCountry())")
+            }
+        }
+    }
+    
     private func fetchData() {
         if isStatusOn {
             
@@ -116,14 +115,14 @@ class CarouselViewController: UIViewController {
                     group.notify(queue: .main) {
                         self.viewModel.getAllForecastFromDB() { forecasts in
                             self.cityModels = forecasts
+                            self.setPagesTitle(forecasts)
                         }
                     }
                 } else {
                     self.cityModels = forecasts
+                    self.setPagesTitle(forecasts)
                 }
             }
-            print("F: \(self.viewModel.forecasts.count)")
-            print("C: \(self.cityModels.count)")
         }
     }
     
@@ -152,21 +151,31 @@ class CarouselViewController: UIViewController {
             if let uText = textField?.text {
                 if !self.isStatusOn {
                     //TODO: - User doesn't work - why??
-                    // UserDefaults.standard.set(true, forKey: "isStatusOn")
+                     UserDefaults.standard.set(true, forKey: "isStatusOn")
                     self.isStatusOn = true
                 }
-                
+                let group = DispatchGroup()
+                group.enter()
                 self.dataModel.takeLocFromName(uText) { model in
                     
-                    self.pageTitle.append("\(model.name), \(model.country.toCountry())")
+                    print("M: \(model)")
                     
-                    self.dataModel.decodeModelFromData() { data in
-                        DataBaseManager.shared.addForecastToDB(data)
-                        
-                        self.viewModel.getAllForecastFromDB() { forecasts in
-                            print("FFF: \(forecasts.count)")
-                            self.cityModels = forecasts
-                        }
+                    self.title = "\(model.name), \(model.country.toCountry())"
+                    
+                    self.dataModel.currentWeatherURL = self.dataModel.createURLForCurrentWeather(CLLocationCoordinate2D(latitude: model.lat, longitude: model.lon))
+                    group.leave()
+                }
+                group.enter()
+                self.dataModel.decodeModelFromData() { data in
+                    DataBaseManager.shared.addForecastToDB(data)
+                    group.leave()
+                }
+                group.notify(queue: .main) {
+                    self.viewModel.getAllForecastFromDB() { forecasts in
+                        //TODO: - why adding more then 1????
+                        print("FFF: \(forecasts.count)")
+//                        self.cityModels.append(forecasts.last!)
+                        self.cityModels = forecasts
                     }
                 }
             }
@@ -269,7 +278,7 @@ extension CarouselViewController: UICollectionViewDataSource {
                 self.addCity() {
                     if self.isStatusOn {
                         self.view.reloadInputViews()
-                        self.title = self.pageTitle.first
+//                        self.title = self.pageTitle.first
                     }
                 }
             }
@@ -281,20 +290,20 @@ extension CarouselViewController: UICollectionViewDataSource {
 extension CarouselViewController: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         currentPage = getCurrentPage() { idx in
-            //            self.title = self.pageTitle[idx]
+            self.title = self.pageTitle[idx]
         }
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         currentPage = getCurrentPage() { idx in
-            //            self.title = self.pageTitle[idx]
+            self.title = self.pageTitle[idx]
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         currentPage = getCurrentPage() { idx in
-            if self.isStatusOn {
-                //                self.title = self.pageTitle[idx]
+            if self.isStatusOn && !self.pageTitle.isEmpty{
+                self.title = self.pageTitle[idx]
             }
         }
     }

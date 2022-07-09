@@ -174,7 +174,7 @@ class DataBaseManager {
                 }
                     
                     try self.backgroundContext.save()
-//                    print("Forecast has been added!")
+                    print("Forecast has been added!")
                 } else {
                     fatalError("Unable to insert Forecast entity")
                 }
