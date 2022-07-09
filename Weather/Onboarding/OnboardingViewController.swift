@@ -35,8 +35,6 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchData()
-        
         checkUserLocationPermissions()
         setupViews()
     }
@@ -129,7 +127,9 @@ class OnboardingViewController: UIViewController {
     }
     
     private func fetchForecast(_ coord: CLLocationCoordinate2D) {
-        dataModel.currentWeatherURL = dataModel.createURLForCurrentWeather(coord)
+        dataModel.decodeModelFromData(coord) { data in
+            DataBaseManager.shared.addForecastToDB(data)
+        }
     }
     
     @objc private func allowLocation() {
@@ -239,32 +239,6 @@ extension OnboardingViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
-        self.fetchForecast(location.coordinate)
-    }
-}
-//MARK: - Alamofire
-extension OnboardingViewController {
-    func fetchData() {
-        // 1
-        //MARK: - 8 days, 48 hours
-        //    let reqEightdays = AF.request("https://api.openweathermap.org/data/3.0/onecall?units=metric&appid=205e68368240d2136c5ca99aaf88ec20&lat=47.09608&lon=37.54817")
-        ////
-        //      reqEightdays.responseJSON { (data) in
-        //      print("8 days: \(data)")
-        //    }
-        //MARK: - current weather
-        //      let reqCurrent = AF.request("https://api.openweathermap.org/data/2.5/weather?lat=47.09608&lon=37.54817&appid=205e68368240d2136c5ca99aaf88ec20&units=metric")
-        //
-        //      let reverse = AF.request("http://api.openweathermap.org/geo/1.0/reverse?lat=51.5098&lon=-0.1180&limit=5&appid=205e68368240d2136c5ca99aaf88ec20")
-        
-        //     let geo = AF.request("http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=205e68368240d2136c5ca99aaf88ec20")
-        
-        //      geo.responseJSON { (data) in
-        //      print("current: \(data)")
-        //    }
-        
-        //      ForecastViewModel().decodeModelFromData()
-        
-        
+//        self.fetchForecast(location.coordinate)
     }
 }

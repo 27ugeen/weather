@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct ForecastStub {
     var city: String = ""
@@ -80,20 +81,104 @@ struct NameCityStub {
 }
 
 class CarouselViewModel {
+    //MARK: - props
     
-//    let dataModel = ForecastDataModel()
-    
-    //    var forecastModel: ForecastModel?
-    
-//    var pageTitle: [String] = []
+    private let dataModel: ForecastDataModel
     
     var forecasts: [ForecastStub] = []
     
-    //    var cityModels: [ForecastModel] = []
+    //MARK: - init
+    
+    init(dataModel: ForecastDataModel) {
+        self.dataModel = dataModel
+    }
+    //MARK: - methods
+    
+    func createCurrentForecastStub(_ model: ForecastModel?, completition: @escaping (ForecastStub) -> Void) {
+        
+        let newCWeather = WeatherStub(descript: model?.weather[0].descript ?? "no CW")
+        
+        let cur = model
+        
+        let newCurrent = CurrentStub(currentTime: Int(cur?.currentTime ?? 0),
+                                     sunrise: Int(cur?.sunrise ?? 0),
+                                     sunset: Int(cur?.sunset ?? 0),
+                                     temp: cur?.temp ?? 0,
+                                     feelsLike: cur?.feelsLike ?? 0,
+                                     humidity: Int(cur?.humidity ?? 0),
+                                     uvi: cur?.uvi ?? 0,
+                                     clouds: Int(cur?.clouds ?? 0),
+                                     windSpeed: cur?.windSpeed ?? 0,
+                                     windDeg: Int(cur?.windDeg ?? 0),
+                                     weather: [newCWeather])
+        
+        let dailyArr = model?.daily
+        
+        var newDailyArr: [DailyStub] = []
+        if let uDailyArr = dailyArr {
+            
+            for (_, dayItem) in uDailyArr.enumerated() {
+            
+                let day = dayItem
+                let newDWeather = WeatherStub(descript: day.dWeather[0].descript)
+                
+                let newD = DailyStub(dClouds: Int(day.dClouds),
+                                     dTime: Int(day.dTime),
+                                     dMoonPhase: day.dMoonPhase,
+                                     dMoonrise: Int(day.dMoonrise),
+                                     dMoonset: Int(day.dMoonset),
+                                     dSunrise: Int(day.dSunrise),
+                                     dSunset: Int(day.dSunset),
+                                     dPop: day.dPop,
+                                     dUVI: day.dPop,
+                                     dWeather: [newDWeather],
+                                     dWindDeg: Int(day.dWindDeg),
+                                     dWindSpeed: day.dWindSpeed,
+                                     dFeelsTemp: day.dFeelsTemp,
+                                     nFeelsTemp: day.nFeelsTemp,
+                                     dTempDay: day.dTempDay,
+                                     dTempMax: day.dTempMax,
+                                     dTempMin: day.dTempMin,
+                                     dTempNight: day.dTempNight)
+                newDailyArr.append(newD)
+            }
+        }
+        
+        let hourlyArr = model?.hourly
+        
+        var newHourlyArr: [HourlyStub] = []
+        if let uHourlyArr = hourlyArr {
+            
+            for (_, hItem) in uHourlyArr.enumerated() {
+                
+                let hour = hItem
+                let newHWeather = WeatherStub(descript: hour.hWeather[0].descript)
+                
+                let newH = HourlyStub(hClouds: Int(hour.hClouds ),
+                                      hTime: Int(hour.hTime),
+                                      hFeelsLike: hour.hFeelsLike,
+                                      hPop: hour.hPop,
+                                      hTemp: hour.hTemp,
+                                      hWindDeg: Int(hour.hWindDeg),
+                                      hWindSpeed: hour.hWindSpeed,
+                                      hWeather: [newHWeather])
+                
+                newHourlyArr.append(newH)
+            }
+        }
+        
+        let newForecast = ForecastStub(lat: model?.lat ?? 0,
+                                       lon: model?.lon ?? 0,
+                                       current: [newCurrent],
+                                       daily: newDailyArr.sorted(by: { $0.dTime < $1.dTime }),
+                                       hourly: newHourlyArr.sorted(by: { $0.hTime < $1.hTime }))
+        forecasts.append(newForecast)
+        completition(newForecast)
+    }
     
     func getAllForecastFromDB(completition: @escaping ([ForecastStub]) -> Void) {
         let forecastArray = DataBaseManager.shared.getAllForecast()
-        
+        forecasts.removeAll()
         for (idx, item) in forecastArray.enumerated() {
             if let uItem = item {
                 
@@ -174,17 +259,17 @@ class CarouselViewModel {
                                                current: [newCurrent],
                                                daily: newDailyArr.sorted(by: { $0.dTime < $1.dTime }),
                                                hourly: newHourlyArr.sorted(by: { $0.hTime < $1.hTime }))
+                
                 forecasts.append(newForecast)
             }
         }
         completition(forecasts)
     }
     
-//    func addForecastToDB(comletition: @escaping () -> Void) {
-//        self.dataModel.decodeModelFromData() { data in
-//            DataBaseManager.shared.addForecastToDB(data)
-//            print(data)
-//            comletition()
-//        }
-//    }
+    func addForecastToDB(_ coord: CLLocationCoordinate2D, comletition: @escaping (ForecastModel) -> Void) {
+        self.dataModel.decodeModelFromData(coord) { data in
+            DataBaseManager.shared.addForecastToDB(data)
+            comletition(data)
+        }
+    }
 }

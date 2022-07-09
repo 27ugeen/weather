@@ -11,6 +11,11 @@ import CoreLocation
 class CarouselViewController: UIViewController {
     //MARK: - props
     
+    private let emptyCellID = CarouselEmptyCollectionViewCell.cellId
+    private let cityCellId = CarouselCityCollectionViewCell.cellId
+    
+    private var isStatusOn = UserDefaults.standard.bool(forKey: "isStatusOn")
+    
     let dataModel: ForecastDataModel
     let viewModel: CarouselViewModel
     
@@ -20,14 +25,9 @@ class CarouselViewController: UIViewController {
         }
     }
     
-    private let emptyCellID = CarouselEmptyCollectionViewCell.cellId
-    private let cityCellId = CarouselCityCollectionViewCell.cellId
-    
-    private var isStatusOn = UserDefaults.standard.bool(forKey: "isStatusOn")
-    
     private var pageTitle: [String] = [] {
         didSet {
-            carouselCollectionView.reloadData()
+            self.title = pageTitle[currentPage]
         }
     }
     private var currentPage: Int = 0 {
@@ -53,7 +53,6 @@ class CarouselViewController: UIViewController {
         view.backgroundColor = UIColor(rgb: 0xFFFFFF)
         navigationController?.navigationBar.tintColor = .black
         
-
         fetchData()
         setupNuvButtons()
         setupViews()
@@ -97,32 +96,37 @@ class CarouselViewController: UIViewController {
     
     private func fetchData() {
         if isStatusOn {
-            
             self.viewModel.getAllForecastFromDB() { forecasts in
-                if forecasts.isEmpty {
-                    let group = DispatchGroup()
-                    group.enter()
-                    self.dataModel.decodeModelFromData() { data in
-                        self.dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)) { model in
-                            self.pageTitle.append("\(model.name), \(model.country.toCountry())")
-                            self.title = self.pageTitle.first
-                            group.leave()
-                        }
-                        group.enter()
-                        DataBaseManager.shared.addForecastToDB(data)
-                        group.leave()
-                    }
-                    group.notify(queue: .main) {
-                        self.viewModel.getAllForecastFromDB() { forecasts in
-                            self.cityModels = forecasts
-                            self.setPagesTitle(forecasts)
-                        }
-                    }
-                } else {
-                    self.cityModels = forecasts
-                    self.setPagesTitle(forecasts)
-                }
+                print("F from didLoad: \(forecasts.count)")
+                self.cityModels = forecasts
+                self.setPagesTitle(forecasts)
             }
+            
+//            self.viewModel.getAllForecastFromDB() { forecasts in
+//                if forecasts.isEmpty {
+//                    let group = DispatchGroup()
+//                    group.enter()
+//                    self.dataModel.decodeModelFromData() { data in
+//                        self.dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)) { model in
+//                            self.pageTitle.append("\(model.name), \(model.country.toCountry())")
+//                            self.title = self.pageTitle[self.currentPage]
+//                            group.leave()
+//                        }
+//                        group.enter()
+//                        DataBaseManager.shared.addForecastToDB(data)
+//                        group.leave()
+//                    }
+//                    group.notify(queue: .main) {
+//                        self.viewModel.getAllForecastFromDB() { forecasts in
+//                            self.cityModels = forecasts
+//                            self.setPagesTitle(forecasts)
+//                        }
+//                    }
+//                } else {
+//                    self.cityModels = forecasts
+//                    self.setPagesTitle(forecasts)
+//                }
+//            }
         }
     }
     
@@ -151,31 +155,16 @@ class CarouselViewController: UIViewController {
             if let uText = textField?.text {
                 if !self.isStatusOn {
                     //TODO: - User doesn't work - why??
-                     UserDefaults.standard.set(true, forKey: "isStatusOn")
+                    UserDefaults.standard.set(true, forKey: "isStatusOn")
                     self.isStatusOn = true
                 }
-                let group = DispatchGroup()
-                group.enter()
-                self.dataModel.takeLocFromName(uText) { model in
-                    
-                    print("M: \(model)")
-                    
-                    self.title = "\(model.name), \(model.country.toCountry())"
-                    
-                    self.dataModel.currentWeatherURL = self.dataModel.createURLForCurrentWeather(CLLocationCoordinate2D(latitude: model.lat, longitude: model.lon))
-                    group.leave()
-                }
-                group.enter()
-                self.dataModel.decodeModelFromData() { data in
-                    DataBaseManager.shared.addForecastToDB(data)
-                    group.leave()
-                }
-                group.notify(queue: .main) {
-                    self.viewModel.getAllForecastFromDB() { forecasts in
-                        //TODO: - why adding more then 1????
-                        print("FFF: \(forecasts.count)")
-//                        self.cityModels.append(forecasts.last!)
-                        self.cityModels = forecasts
+                
+                self.dataModel.takeLocFromName(uText) { city in
+                    self.viewModel.addForecastToDB(CLLocationCoordinate2D(latitude: city[0].lat, longitude: city[0].lon)) { model in
+                        self.viewModel.createCurrentForecastStub(model) { forecast in
+                            self.cityModels.append(forecast)
+                            self.pageTitle.append("\(city[0].name), \(city[0].country.toCountry())")
+                        }
                     }
                 }
             }
@@ -278,7 +267,6 @@ extension CarouselViewController: UICollectionViewDataSource {
                 self.addCity() {
                     if self.isStatusOn {
                         self.view.reloadInputViews()
-//                        self.title = self.pageTitle.first
                     }
                 }
             }

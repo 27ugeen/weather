@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let locationManager = CLLocationManager()
         let forecastDM = ForecastDataModel()
-        let carouselVM = CarouselViewModel()
+        let carouselVM = CarouselViewModel(dataModel: forecastDM)
         
         let onBoardingVC = OnboardingViewController(locationManager: locationManager, dataModel: forecastDM, viewModel: carouselVM)
         

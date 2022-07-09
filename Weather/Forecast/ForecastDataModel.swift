@@ -236,10 +236,6 @@ class ForecastDataModel {
         }
     }
     
-    var currentWeather: ForecastModel?
-    
-    var currentWeatherURL: String = ""
-    
     func createURLForCurrentWeather(_ coordinate: CLLocationCoordinate2D) -> String {
         let headRL = WeatherURLs.daily.rawValue
         let qStr = "&lat=\(coordinate.latitude)&lon=\(coordinate.longitude)"
@@ -247,8 +243,10 @@ class ForecastDataModel {
         return resultURL
     }
     
-    func decodeModelFromData(completition: @escaping (ForecastModel) -> Void) {
-        if let url = URL(string: currentWeatherURL) {
+    func decodeModelFromData(_ coordinate: CLLocationCoordinate2D, completition: @escaping (ForecastModel) -> Void) {
+        let cUrl = createURLForCurrentWeather(coordinate)
+        
+        if let url = URL(string: cUrl) {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             
@@ -257,8 +255,6 @@ class ForecastDataModel {
             request.validate().responseDecodable(of: ForecastModel.self, decoder: decoder) { data in
                 if let uValue = data.value {
                     completition(uValue)
-//                    print("All: \(String(describing: uValue))")
-//                    print("Weather descript: \(String(describing: uValue.weather[0].descript))")
                 }
             }
         }
@@ -271,7 +267,7 @@ class ForecastDataModel {
         return resultURL
     }
     
-    func takeLocFromName(_ name: String, completition: @escaping (CoordinateCityModel) -> Void) {
+    func takeLocFromName(_ name: String, completition: @escaping ([CoordinateCityModel]) -> Void) {
         let cUrl = self.createURLForGeo(name)
         
         if let url = URL(string: cUrl) {
@@ -280,16 +276,12 @@ class ForecastDataModel {
             let request = AF.request(url)
             
             request.validate().responseDecodable(of: [CoordinateCityModel].self, decoder: decoder) { data in
-                
                 if let uValue = data.value {
                     if uValue.isEmpty {
                         print("No such city found")
                         return
                     }
-                    
-                    self.currentWeatherURL = self.createURLForCurrentWeather(CLLocationCoordinate2D(latitude: uValue[0].lat, longitude: uValue[0].lon))
-                    completition(uValue.first!)
-                    print(uValue.first!)
+                    completition(uValue)
                 }
             }
         }
@@ -312,7 +304,6 @@ class ForecastDataModel {
             request.validate().responseDecodable(of: [NameCityModel].self, decoder: decoder) { data in
                 if let uValue = data.value {
                     completition(uValue.first!)
-                    print(uValue.first!)
                 }
             }
         }

@@ -172,7 +172,6 @@ class DataBaseManager {
                         fatalError("Unable to insert Hourly entity")
                     }
                 }
-                    
                     try self.backgroundContext.save()
                     print("Forecast has been added!")
                 } else {
