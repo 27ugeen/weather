@@ -303,7 +303,7 @@ class ForecastDataModel {
             
             request.validate().responseDecodable(of: [NameCityModel].self, decoder: decoder) { data in
                 if let uValue = data.value {
-                    completition(uValue.first!)
+                    completition(uValue.first ?? NameCityModel(country: "UA", name: "Kyiv"))
                 }
             }
         }

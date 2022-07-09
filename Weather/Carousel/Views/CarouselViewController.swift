@@ -104,6 +104,8 @@ class CarouselViewController: UIViewController {
                     let group = DispatchGroup()
                     group.enter()
                     self.dataModel.decodeModelFromData(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) { data in
+                        
+                        print("data from didload: \(data)")
                         self.dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)) { model in
                             self.pageTitle.append("\(model.name), \(model.country.toCountry())")
                             group.leave()
