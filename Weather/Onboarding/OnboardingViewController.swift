@@ -6,8 +6,38 @@
 //
 
 import UIKit
+import CoreLocation
+import Alamofire
 
 class OnboardingViewController: UIViewController {
+    //MARK: - props
+    
+    private let locationManager: CLLocationManager
+    private let dataModel: ForecastDataModel
+    private let viewModel: CarouselViewModel
+    
+    private let isPermissionAllowed = UserDefaults.standard.bool(forKey: "isStatusOn")
+    
+    //MARK: - init
+    
+    init(locationManager: CLLocationManager, dataModel: ForecastDataModel, viewModel: CarouselViewModel) {
+        self.locationManager = locationManager
+        self.dataModel = dataModel
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        nil
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        checkUserLocationPermissions()
+        setupViews()
+    }
     //MARK: - subviews
     
     private let scrollView: UIScrollView = {
@@ -33,7 +63,7 @@ class OnboardingViewController: UIViewController {
     private let infoTopLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Разрешить приложению  Weather использовать данные о местоположении вашего устройства"
+        label.text = "Allow the Weather app to use your device's location data"
         label.numberOfLines = 0
         label.textColor = UIColor(rgb: 0xF8F5F5)
         label.font = UIFont.setAppMainFont(16)
@@ -43,7 +73,7 @@ class OnboardingViewController: UIViewController {
     private let infoMidLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Чтобы получить более точные прогнозы погоды во время движения или путешествия"
+        label.text = "To get more accurate weather forecasts while driving or traveling"
         label.numberOfLines = 0
         label.textColor = UIColor(rgb: 0xFFFFFF)
         label.font = UIFont.setAppMainFont(14)
@@ -53,54 +83,68 @@ class OnboardingViewController: UIViewController {
     private let infoBotLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Вы можете изменить свой выбор в любое время из меню приложения"
+        label.text = "You can change your selection at any time from the application menu"
         label.numberOfLines = 0
         label.textColor = UIColor(rgb: 0xFFFFFF)
         label.font = UIFont.setAppMainFont(14)
         return label
     }()
     
-    private let allowLocationButton: UIButton = {
+    private lazy var allowLocationButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА", for: .normal)
+        button.setTitle("USE THE DEVICE LOCATION", for: .normal)
         button.setTitleColor(UIColor(rgb: 0xFFFFFF), for: .normal)
-        button.backgroundColor = UIColor(rgb: 0xF26E11)
+        button.setBackgroundColor(UIColor(rgb: 0xF26E11), forState: .normal)
+        button.setBackgroundColor(UIColor(rgb: 0xC65607), forState: .highlighted)
+        button.setBackgroundColor(UIColor(rgb: 0xC65607), forState: .selected)
         button.titleLabel?.font = UIFont.setAppMainFont(12)
         button.layer.cornerRadius = 8
         button.clipsToBounds = true
         
-        //        self.addTarget(self, action: #selector(nil), for: .touchUpInside)
+        button.addTarget(self, action: #selector(allowLocation), for: .touchUpInside)
         
         return button
     }()
     
-    private let denieLocationButton: UIButton = {
+    private lazy var denieLocationButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ", for: .normal)
+        button.setTitle("NO, I'LL BE ADDING LOCATIONS", for: .normal)
         button.setTitleColor(UIColor(rgb: 0xFDFBF5), for: .normal)
         button.titleLabel?.font = UIFont.setAppMainFont(16)
         
-        //        self.addTarget(self, action: #selector(nil), for: .touchUpInside)
+        button.addTarget(self, action: #selector(denieLocation), for: .touchUpInside)
         
         return button
     }()
     
+    //MARK: - methods
     
-    
-    //MARK: - loading
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupViews()
+    private func goToMainVC() {
+        let mainVC = CarouselViewController(dataModel: dataModel, viewModel: viewModel)
+        navigationController?.pushViewController(mainVC, animated: true)
     }
     
+    private func fetchForecast(_ coord: CLLocationCoordinate2D) {
+        dataModel.decodeModelFromData(coord) { data in
+            DataBaseManager.shared.addForecastToDB(data)
+        }
+    }
+    
+    @objc private func allowLocation() {
+        locationManager.requestAlwaysAuthorization()
+        self.checkUserLocationPermissions()
+    }
+    
+    @objc private func denieLocation() {
+        UserDefaults.standard.set(false, forKey: "isStatusOn")
+        let mainVC = CarouselViewController(dataModel: dataModel, viewModel: viewModel)
+        navigationController?.pushViewController(mainVC, animated: true)
+        print("Location access denied")
+    }
 }
-
 //MARK: - setupViews
-
 extension OnboardingViewController {
     private func setupViews() {
         view.backgroundColor = UIColor(rgb: 0x204EC7)
@@ -149,10 +193,52 @@ extension OnboardingViewController {
             allowLocationButton.topAnchor.constraint(equalTo: infoBotLabel.bottomAnchor, constant: 40),
             allowLocationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18),
             allowLocationButton.heightAnchor.constraint(equalToConstant: 40),
+            allowLocationButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -36),
             
             denieLocationButton.topAnchor.constraint(equalTo: allowLocationButton.bottomAnchor, constant: 25),
             denieLocationButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18),
             denieLocationButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -77)
         ])
+    }
+}
+//MARK: - check UserLocationPermissions
+extension OnboardingViewController {
+    private func checkUserLocationPermissions() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = 1000
+        locationManager.startUpdatingLocation()
+        
+        if isPermissionAllowed {
+            self.goToMainVC()
+        } else {
+            switch locationManager.authorizationStatus {
+            case .notDetermined:
+                print("Location access is not determined")
+            case .denied, .restricted:
+                self.denieLocation()
+            case .authorizedWhenInUse:
+                fallthrough
+            case .authorizedAlways:
+//                self.fetchForecast(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+                UserDefaults.standard.set(true, forKey: "isStatusOn")
+                
+                self.goToMainVC()
+                print("Location access is allowed")
+            @unknown default:
+                fatalError("Unknown status")
+            }
+        }
+    }
+}
+
+//MARK: - CLLocationManagerDelegate
+extension OnboardingViewController: CLLocationManagerDelegate {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkUserLocationPermissions()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else { return }
+//        self.fetchForecast(location.coordinate)
     }
 }
