@@ -37,10 +37,32 @@ class DataBaseManager {
         var forecastArray: [Forecast]?
         do {
             forecastArray = try persistentContainer.viewContext.fetch(fetchRequestF)
-        } catch let error {
-            print(error)
+        } catch let error as NSError {
+            print(error.localizedDescription)
         }
         return forecastArray ?? []
+    }
+    
+    func updateForecastToDB(_ forecast: ForecastModel) {
+        backgroundContext.perform { [weak self] in
+            guard let self = self else { return }
+            
+            let fetchRequest = Forecast.fetchRequest()
+            
+            do {
+                let fArr = try self.persistentContainer.viewContext.fetch(fetchRequest)
+                fArr.forEach {
+                    if ($0.lon == forecast.lon && $0.lat == forecast.lat) {
+                        self.persistentContainer.viewContext.delete($0)
+                        print("Forecast has been deleted!")
+                    }
+                }
+                try self.persistentContainer.viewContext.save()
+                self.addForecastToDB(forecast)
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func addNameCityToDB(_ nameCity: NameCityModel) {

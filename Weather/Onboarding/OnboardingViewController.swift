@@ -138,9 +138,13 @@ class OnboardingViewController: UIViewController {
     }
     
     @objc private func denieLocation() {
-        UserDefaults.standard.set(false, forKey: "isStatusOn")
-        let mainVC = CarouselViewController(dataModel: dataModel, viewModel: viewModel)
-        navigationController?.pushViewController(mainVC, animated: true)
+        if isPermissionAllowed {
+            self.goToMainVC()
+        } else {
+            UserDefaults.standard.set(false, forKey: "isStatusOn")
+            let mainVC = CarouselViewController(dataModel: dataModel, viewModel: viewModel)
+            navigationController?.pushViewController(mainVC, animated: true)
+        }
         print("Location access denied")
     }
 }
@@ -208,25 +212,19 @@ extension OnboardingViewController {
         locationManager.desiredAccuracy = 1000
         locationManager.startUpdatingLocation()
         
-        if isPermissionAllowed {
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            print("Location access is not determined")
+        case .denied, .restricted:
+            self.denieLocation()
+        case .authorizedAlways, .authorizedWhenInUse:
+            //                self.fetchForecast(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
+            UserDefaults.standard.set(true, forKey: "isStatusOn")
+            
             self.goToMainVC()
-        } else {
-            switch locationManager.authorizationStatus {
-            case .notDetermined:
-                print("Location access is not determined")
-            case .denied, .restricted:
-                self.denieLocation()
-            case .authorizedWhenInUse:
-                fallthrough
-            case .authorizedAlways:
-//                self.fetchForecast(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
-                UserDefaults.standard.set(true, forKey: "isStatusOn")
-                
-                self.goToMainVC()
-                print("Location access is allowed")
-            @unknown default:
-                fatalError("Unknown status")
-            }
+            print("Location access is allowed")
+        @unknown default:
+            fatalError("Unknown status")
         }
     }
 }
