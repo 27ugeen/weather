@@ -54,6 +54,7 @@ class CarouselViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .black
         
         fetchData()
+        checkForNeedUpdate()
         setupNuvButtons()
         setupViews()
     }
@@ -70,6 +71,11 @@ class CarouselViewController: UIViewController {
         collection.isPagingEnabled = true
         collection.dataSource = self
         collection.delegate = self
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshView), for: .valueChanged)
+        collection.refreshControl = refreshControl
+        
         return collection
     }()
     
@@ -104,10 +110,8 @@ class CarouselViewController: UIViewController {
                     let group = DispatchGroup()
                     group.enter()
                     self.dataModel.decodeModelFromData(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) { data in
-                        
-                        print("data from didload: \(data)")
                         self.dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)) { model in
-                            self.pageTitle.append("\(model.name), \(model.country.toCountry())")
+                            
                             group.leave()
                         }
                         group.enter()
@@ -174,6 +178,30 @@ class CarouselViewController: UIViewController {
         alertVC.addAction(actionOk)
         alertVC.addAction(actionCancel)
         self.present(alertVC, animated: true, completion: nil)
+    }
+    
+    private func checkForNeedUpdate() {
+        let cPageTime = self.cityModels[currentPage].current[0].currentTime
+        let cTime = Date.now.timeIntervalSince1970
+        
+        if (Int(cTime) - cPageTime) > 300 {
+            self.refreshView()
+        }
+    }
+    
+    @objc private func refreshView() {
+        print("refreshing!!!")
+        
+        self.dataModel.decodeModelFromData(CLLocationCoordinate2D(latitude: cityModels[currentPage].lat, longitude: cityModels[currentPage].lon)) { model in
+            //TODO: - need to take out this logic
+            DataBaseManager.shared.updateForecastToDB(model)
+            
+            self.viewModel.createCurrentForecastStub(model) { forecast in
+                self.cityModels.remove(at: self.currentPage)
+                self.cityModels.insert(forecast, at: self.currentPage)
+            }
+        }
+        self.carouselCollectionView.refreshControl?.endRefreshing()
     }
     
     @objc private func leftBtnTupped() {
@@ -248,7 +276,7 @@ extension CarouselViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if isStatusOn {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cityCellId, for: indexPath) as! CarouselCityCollectionViewCell
-            cell.model = self.viewModel.forecasts[indexPath.item]
+            cell.model = self.cityModels[indexPath.item]
             
             let pageIdx = indexPath.item
             
