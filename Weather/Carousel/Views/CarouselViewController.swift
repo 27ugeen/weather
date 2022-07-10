@@ -93,9 +93,11 @@ class CarouselViewController: UIViewController {
     //MARK: - methods
     
     private func setPagesTitle(_ cities: [ForecastStub]) {
+        
         for (_, city) in cities.enumerated() {
-                dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: city.lat , longitude: city.lon)) { model in
-                    self.pageTitle.append("\(model.name), \(model.country.toCountry())")
+            dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: city.lat , longitude: city.lon)) { model in
+
+                self.pageTitle.append("\(model.name), \(model.country.toCountry())")
             }
         }
     }
@@ -121,12 +123,12 @@ class CarouselViewController: UIViewController {
                     group.notify(queue: .main) {
                         self.viewModel.getAllForecastFromDB() { forecasts in
                             self.cityModels = forecasts
-                            self.setPagesTitle(forecasts)
+                            self.setPagesTitle(self.cityModels)
                         }
                     }
                 } else {
                     self.cityModels = forecasts
-                    self.setPagesTitle(forecasts)
+                    self.setPagesTitle(self.cityModels)
                 }
             }
         }
@@ -181,19 +183,21 @@ class CarouselViewController: UIViewController {
     }
     
     private func checkForNeedUpdate() {
-        let cPageTime = self.cityModels[currentPage].current[0].currentTime
-        let cTime = Date.now.timeIntervalSince1970
-        
-        if (Int(cTime) - cPageTime) > 300 {
-            self.refreshView()
+        if !self.cityModels.isEmpty {
+            let cPageTime = self.cityModels[currentPage].current[0].currentTime
+            let cTime = Date.now.timeIntervalSince1970
+            
+            if (Int(cTime) - cPageTime) > 300 {
+                self.refreshView()
+            }
         }
     }
     
     @objc private func refreshView() {
         print("refreshing!!!")
         
+        //TODO: - need to take out this logic
         self.dataModel.decodeModelFromData(CLLocationCoordinate2D(latitude: cityModels[currentPage].lat, longitude: cityModels[currentPage].lon)) { model in
-            //TODO: - need to take out this logic
             DataBaseManager.shared.updateForecastToDB(model)
             
             self.viewModel.createCurrentForecastStub(model) { forecast in

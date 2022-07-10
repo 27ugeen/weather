@@ -9,7 +9,14 @@ import Foundation
 import UIKit
 import CoreData
 
-class DataBaseManager {
+protocol DataBaseManagerProtocol {
+    func getAllForecast() -> [Forecast?]
+    func deleteForecastFromDB(_ forecast: ForecastModel)
+    func updateForecastToDB(_ forecast: ForecastModel)
+    func addForecastToDB(_ forecast: ForecastModel)
+}
+
+class DataBaseManager: DataBaseManagerProtocol {
     //MARK: - props
     
     static let shared = DataBaseManager()
@@ -43,7 +50,7 @@ class DataBaseManager {
         return forecastArray ?? []
     }
     
-    func updateForecastToDB(_ forecast: ForecastModel) {
+    func deleteForecastFromDB(_ forecast: ForecastModel) {
         backgroundContext.perform { [weak self] in
             guard let self = self else { return }
             
@@ -58,11 +65,15 @@ class DataBaseManager {
                     }
                 }
                 try self.persistentContainer.viewContext.save()
-                self.addForecastToDB(forecast)
             } catch let error as NSError {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func updateForecastToDB(_ forecast: ForecastModel) {
+        self.deleteForecastFromDB(forecast)
+        self.addForecastToDB(forecast)
     }
     
     func addNameCityToDB(_ nameCity: NameCityModel) {

@@ -221,7 +221,14 @@ struct NameCityModel: Decodable {
     let name: String
 }
 
-class ForecastDataModel {
+protocol ForecastDataModelProtocol {
+    func decodeModelFromData(_ coordinate: CLLocationCoordinate2D, completition: @escaping (ForecastModel) -> Void)
+    func takeLocFromName(_ name: String, completition: @escaping ([CoordinateCityModel]) -> Void)
+    func takeCityFromLoc(_ coord: CLLocationCoordinate2D, completition: @escaping (NameCityModel) -> Void)
+}
+
+class ForecastDataModel: ForecastDataModelProtocol {
+    //MARK: - props
     
     private var apiKey: String {
         get {
@@ -235,6 +242,7 @@ class ForecastDataModel {
             return value
         }
     }
+    //MARK: - methods
     
     func createURLForCurrentWeather(_ coordinate: CLLocationCoordinate2D) -> String {
         let headRL = WeatherURLs.daily.rawValue

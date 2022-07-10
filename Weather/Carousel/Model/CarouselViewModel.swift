@@ -80,7 +80,13 @@ struct NameCityStub {
     let name: String
 }
 
-class CarouselViewModel {
+protocol CarouselViewModelProtocol {
+    func getAllForecastFromDB(completition: @escaping ([ForecastStub]) -> Void)
+    func addForecastToDB(_ coord: CLLocationCoordinate2D, comletition: @escaping (ForecastModel) -> Void)
+//    func deleteForecastFromDB()
+}
+
+class CarouselViewModel: CarouselViewModelProtocol {
     //MARK: - props
     
     private let dataModel: ForecastDataModel
