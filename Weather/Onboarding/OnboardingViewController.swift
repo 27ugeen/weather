@@ -13,16 +13,14 @@ class OnboardingViewController: UIViewController {
     //MARK: - props
     
     private let locationManager: CLLocationManager
-    private let dataModel: ForecastDataModel
     private let viewModel: CarouselViewModel
     
     private let isPermissionAllowed = UserDefaults.standard.bool(forKey: "isStatusOn")
     
     //MARK: - init
     
-    init(locationManager: CLLocationManager, dataModel: ForecastDataModel, viewModel: CarouselViewModel) {
+    init(locationManager: CLLocationManager, viewModel: CarouselViewModel) {
         self.locationManager = locationManager
-        self.dataModel = dataModel
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -122,14 +120,8 @@ class OnboardingViewController: UIViewController {
     //MARK: - methods
     
     private func goToMainVC() {
-        let mainVC = CarouselViewController(dataModel: dataModel, viewModel: viewModel)
+        let mainVC = CarouselViewController(viewModel: viewModel)
         navigationController?.pushViewController(mainVC, animated: true)
-    }
-    
-    private func fetchForecast(_ coord: CLLocationCoordinate2D) {
-        dataModel.decodeModelFromData(coord) { data in
-            DataBaseManager.shared.addForecastToDB(data)
-        }
     }
     
     @objc private func allowLocation() {
@@ -142,7 +134,7 @@ class OnboardingViewController: UIViewController {
             self.goToMainVC()
         } else {
             UserDefaults.standard.set(false, forKey: "isStatusOn")
-            let mainVC = CarouselViewController(dataModel: dataModel, viewModel: viewModel)
+            let mainVC = CarouselViewController(viewModel: viewModel)
             navigationController?.pushViewController(mainVC, animated: true)
         }
         print("Location access denied")
@@ -218,9 +210,7 @@ extension OnboardingViewController {
         case .denied, .restricted:
             self.denieLocation()
         case .authorizedAlways, .authorizedWhenInUse:
-            //                self.fetchForecast(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
             UserDefaults.standard.set(true, forKey: "isStatusOn")
-            
             self.goToMainVC()
             print("Location access is allowed")
         @unknown default:
@@ -236,7 +226,8 @@ extension OnboardingViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else { return }
-//        self.fetchForecast(location.coordinate)
+        guard locations.first != nil else { return }
+        //TODO: - what need to do in this method?
+//        self.goToMainVC()
     }
 }

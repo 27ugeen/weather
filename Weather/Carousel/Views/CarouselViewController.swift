@@ -16,7 +16,6 @@ class CarouselViewController: UIViewController {
     
     private var isStatusOn = UserDefaults.standard.bool(forKey: "isStatusOn")
     
-    let dataModel: ForecastDataModel
     let viewModel: CarouselViewModel
     
     var cityModels: [ForecastStub] = [] {
@@ -37,8 +36,7 @@ class CarouselViewController: UIViewController {
     }
     //MARK: - init
     
-    init(dataModel: ForecastDataModel, viewModel: CarouselViewModel) {
-        self.dataModel = dataModel
+    init(viewModel: CarouselViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -92,16 +90,6 @@ class CarouselViewController: UIViewController {
     
     //MARK: - methods
     
-    private func setPagesTitle(_ cities: [ForecastStub]) {
-        
-        for (_, city) in cities.enumerated() {
-            dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: city.lat , longitude: city.lon)) { model in
-
-                self.pageTitle.append("\(model.name), \(model.country.toCountry())")
-            }
-        }
-    }
-    
     private func fetchData() {
         if isStatusOn {
             //TODO: - need to take out this logic
@@ -109,26 +97,17 @@ class CarouselViewController: UIViewController {
             
             self.viewModel.getAllForecastFromDB() { forecasts in
                 if forecasts.isEmpty {
-                    let group = DispatchGroup()
-                    group.enter()
-                    self.dataModel.decodeModelFromData(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) { data in
-                        self.dataModel.takeCityFromLoc(CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)) { model in
-                            
-                            group.leave()
-                        }
-                        group.enter()
-                        DataBaseManager.shared.addForecastToDB(data)
-                        group.leave()
-                    }
-                    group.notify(queue: .main) {
-                        self.viewModel.getAllForecastFromDB() { forecasts in
-                            self.cityModels = forecasts
-                            self.setPagesTitle(self.cityModels)
+                    self.viewModel.addForecastToDB(locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)) { fModel, cModel in
+                        self.viewModel.createCurrentForecastStub(fModel, cModel) { forecast in
+                            self.cityModels.append(forecast)
+                            self.pageTitle.append("\(forecast.city), \(forecast.country.toCountry())")
                         }
                     }
                 } else {
                     self.cityModels = forecasts
-                    self.setPagesTitle(self.cityModels)
+                    forecasts.forEach {
+                        self.pageTitle.append("\($0.city), \($0.country.toCountry())")
+                    }
                 }
             }
         }
@@ -147,7 +126,7 @@ class CarouselViewController: UIViewController {
         navigationController?.pushViewController(detailDailyVC, animated: true)
     }
     
-    private func addCity(completition: @escaping () -> Void) {
+    private func addCity() {
         let alertVC = UIAlertController(title: "Enter City", message: "Please, enter a name of the city", preferredStyle: .alert)
         alertVC.addTextField { tf in
             tf.placeholder = " City name..."
@@ -163,13 +142,10 @@ class CarouselViewController: UIViewController {
                     self.isStatusOn = true
                 }
                 
-                self.dataModel.takeLocFromName(uText) { city in
-                    self.viewModel.addForecastToDB(CLLocationCoordinate2D(latitude: city[0].lat, longitude: city[0].lon)) { model in
-                        self.viewModel.createCurrentForecastStub(model) { forecast in
-                            self.cityModels.append(forecast)
-                            self.pageTitle.append("\(city[0].name), \(city[0].country.toCountry())")
-                        }
-                    }
+                self.viewModel.getForecastFromCityName(uText) { fModel in
+                    self.cityModels.append(fModel)
+                    self.pageTitle.append("\(fModel.city), \(fModel.country.toCountry())")
+                    
                 }
             }
         }
@@ -188,19 +164,16 @@ class CarouselViewController: UIViewController {
             let cTime = Date.now.timeIntervalSince1970
             
             if (Int(cTime) - cPageTime) > 300 {
+                print("Auto refreshing...")
                 self.refreshView()
             }
         }
     }
     
     @objc private func refreshView() {
-        print("refreshing!!!")
-        
-        //TODO: - need to take out this logic
-        self.dataModel.decodeModelFromData(CLLocationCoordinate2D(latitude: cityModels[currentPage].lat, longitude: cityModels[currentPage].lon)) { model in
-            DataBaseManager.shared.updateForecastToDB(model)
-            
-            self.viewModel.createCurrentForecastStub(model) { forecast in
+        print("Refreshing...")
+        self.viewModel.updateForecast(CLLocationCoordinate2D(latitude: cityModels[currentPage].lat,longitude: cityModels[currentPage].lon)) { fModel, cModel in
+            self.viewModel.createCurrentForecastStub(fModel, cModel) { forecast in
                 self.cityModels.remove(at: self.currentPage)
                 self.cityModels.insert(forecast, at: self.currentPage)
             }
@@ -214,7 +187,7 @@ class CarouselViewController: UIViewController {
     }
     
     @objc private func rightBtnTapped() {
-        self.addCity() {}
+        self.addCity()
     }
 }
 //MARK: - setupNuvButtons
@@ -294,11 +267,7 @@ extension CarouselViewController: UICollectionViewDataSource {
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: emptyCellID, for: indexPath) as! CarouselEmptyCollectionViewCell
             cell.addCityAction = {
-                self.addCity() {
-                    if self.isStatusOn {
-                        self.view.reloadInputViews()
-                    }
-                }
+                self.addCity()
             }
             return cell
         }

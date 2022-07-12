@@ -82,8 +82,8 @@ struct NameCityStub {
 
 protocol CarouselViewModelProtocol {
     func getAllForecastFromDB(completition: @escaping ([ForecastStub]) -> Void)
-    func addForecastToDB(_ coord: CLLocationCoordinate2D, comletition: @escaping (ForecastModel) -> Void)
-//    func deleteForecastFromDB()
+    func addForecastToDB(_ coord: CLLocationCoordinate2D, comletition: @escaping (ForecastModel, NameCityModel) -> Void)
+    func updateForecast(_ coord: CLLocationCoordinate2D, comletition: @escaping (ForecastModel, NameCityModel) -> Void)
 }
 
 class CarouselViewModel: CarouselViewModelProtocol {
@@ -100,11 +100,11 @@ class CarouselViewModel: CarouselViewModelProtocol {
     }
     //MARK: - methods
     
-    func createCurrentForecastStub(_ model: ForecastModel?, completition: @escaping (ForecastStub) -> Void) {
+    func createCurrentForecastStub(_ fModel: ForecastModel?, _ cModel: NameCityModel?, completition: @escaping (ForecastStub) -> Void) {
         
-        let newCWeather = WeatherStub(descript: model?.weather[0].descript ?? "no CW")
+        let newCWeather = WeatherStub(descript: fModel?.weather[0].descript ?? "no CW")
         
-        let cur = model
+        let cur = fModel
         
         let newCurrent = CurrentStub(currentTime: Int(cur?.currentTime ?? 0),
                                      sunrise: Int(cur?.sunrise ?? 0),
@@ -118,7 +118,7 @@ class CarouselViewModel: CarouselViewModelProtocol {
                                      windDeg: Int(cur?.windDeg ?? 0),
                                      weather: [newCWeather])
         
-        let dailyArr = model?.daily
+        let dailyArr = fModel?.daily
         
         var newDailyArr: [DailyStub] = []
         if let uDailyArr = dailyArr {
@@ -150,7 +150,7 @@ class CarouselViewModel: CarouselViewModelProtocol {
             }
         }
         
-        let hourlyArr = model?.hourly
+        let hourlyArr = fModel?.hourly
         
         var newHourlyArr: [HourlyStub] = []
         if let uHourlyArr = hourlyArr {
@@ -173,8 +173,10 @@ class CarouselViewModel: CarouselViewModelProtocol {
             }
         }
         
-        let newForecast = ForecastStub(lat: model?.lat ?? 0,
-                                       lon: model?.lon ?? 0,
+        let newForecast = ForecastStub(city: cModel?.name ?? "",
+                                       country: cModel?.country ?? "",
+                                       lat: fModel?.lat ?? 0,
+                                       lon: fModel?.lon ?? 0,
                                        current: [newCurrent],
                                        daily: newDailyArr.sorted(by: { $0.dTime < $1.dTime }),
                                        hourly: newHourlyArr.sorted(by: { $0.hTime < $1.hTime }))
@@ -260,7 +262,9 @@ class CarouselViewModel: CarouselViewModelProtocol {
                     }
                 }
                 
-                let newForecast = ForecastStub(lat: uItem.lat,
+                let newForecast = ForecastStub(city: uItem.city ?? "nil",
+                                               country: uItem.country ?? "nil",
+                                               lat: uItem.lat,
                                                lon: uItem.lon,
                                                current: [newCurrent],
                                                daily: newDailyArr.sorted(by: { $0.dTime < $1.dTime }),
@@ -272,10 +276,27 @@ class CarouselViewModel: CarouselViewModelProtocol {
         completition(forecasts)
     }
     
-    func addForecastToDB(_ coord: CLLocationCoordinate2D, comletition: @escaping (ForecastModel) -> Void) {
-        self.dataModel.decodeModelFromData(coord) { data in
-            DataBaseManager.shared.addForecastToDB(data)
-            comletition(data)
+    func addForecastToDB(_ coord: CLLocationCoordinate2D, comletition: @escaping (ForecastModel, NameCityModel) -> Void) {
+        self.dataModel.decodeModelFromData(coord) { fModel, cModel  in
+            DataBaseManager.shared.addForecastToDB(fModel, cModel)
+            comletition(fModel, cModel)
+        }
+    }
+    
+    func updateForecast(_ coord: CLLocationCoordinate2D, comletition: @escaping (ForecastModel, NameCityModel) -> Void) {
+        self.dataModel.decodeModelFromData(coord) { fModel, cModel in
+            DataBaseManager.shared.updateForecastToDB(fModel, cModel)
+            comletition(fModel, cModel)
+        }
+    }
+    
+    func getForecastFromCityName(_ text: String, completition: @escaping (ForecastStub) -> Void) {
+        self.dataModel.takeLocFromName(text) { city in
+            self.addForecastToDB(CLLocationCoordinate2D(latitude: city[0].lat, longitude: city[0].lon)) { fModel, cModel in
+                self.createCurrentForecastStub(fModel, cModel) { forecastStub in
+                    completition(forecastStub)
+                }
+            }
         }
     }
 }
