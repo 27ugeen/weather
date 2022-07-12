@@ -12,8 +12,8 @@ import CoreData
 protocol DataBaseManagerProtocol {
     func getAllForecast() -> [Forecast?]
     func deleteForecastFromDB(_ forecast: ForecastModel)
-    func updateForecastToDB(_ forecast: ForecastModel)
-    func addForecastToDB(_ forecast: ForecastModel)
+    func updateForecastToDB(_ forecast: ForecastModel, _ city: NameCityModel)
+    func addForecastToDB(_ forecast: ForecastModel, _ city: NameCityModel)
 }
 
 class DataBaseManager: DataBaseManagerProtocol {
@@ -71,32 +71,12 @@ class DataBaseManager: DataBaseManagerProtocol {
         }
     }
     
-    func updateForecastToDB(_ forecast: ForecastModel) {
+    func updateForecastToDB(_ forecast: ForecastModel, _ city: NameCityModel) {
         self.deleteForecastFromDB(forecast)
-        self.addForecastToDB(forecast)
+        self.addForecastToDB(forecast, city)
     }
     
-    func addNameCityToDB(_ nameCity: NameCityModel) {
-        backgroundContext.perform { [weak self] in
-            guard let self = self else { return }
-            
-            do {
-                if let newSet  = NSEntityDescription.insertNewObject(forEntityName: "NameCity", into: self.backgroundContext) as? NameCity {
-                    newSet.country = nameCity.country
-                    newSet.name = nameCity.name
-                    
-                    try self.backgroundContext.save()
-                } else {
-                    fatalError("Unable to insert NameCity entity")
-                }
-                
-            } catch let error as NSError {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func addForecastToDB(_ forecast: ForecastModel) {
+    func addForecastToDB(_ forecast: ForecastModel, _ city: NameCityModel) {
         backgroundContext.perform { [weak self] in
             guard let self = self else { return }
             
@@ -104,6 +84,8 @@ class DataBaseManager: DataBaseManagerProtocol {
                 if let newSet = NSEntityDescription.insertNewObject(forEntityName: "Forecast", into: self.backgroundContext) as? Forecast {
                     newSet.lon = forecast.lon
                     newSet.lat = forecast.lat
+                    newSet.city = city.name
+                    newSet.country = city.country
                     
                     if let newSetCurrent = NSEntityDescription.insertNewObject(forEntityName: "Current", into: self.backgroundContext) as? Current {
                         
