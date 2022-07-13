@@ -73,9 +73,9 @@ extension DetailTFHoursViewController: UITableViewDataSource {
             
             cell.dateLabel.text = "\(Double(m?.hTime ?? 0).dateFormatted("EEE dd/MM"))"
             cell.timeLabel.text = "\(Double(m?.hTime ?? 0).dateFormatted("HH:mm"))"
-            cell.tempLabel.text = "\(Int((m?.hTemp ?? 0).rounded()))"
-            cell.tempFieelsValueLabel.text = "\(Int((m?.hFeelsLike ?? 0).rounded()))"
-            cell.windSpeedValueLabel.text = "\(Int(m?.hWindSpeed.rounded() ?? 0))m/s, \(Double(m?.hWindDeg ?? 0).direction)"
+            cell.tempLabel.text = "\(Int((m?.hTemp ?? 0).rounded()).toSetTempUnits())"
+            cell.tempFieelsValueLabel.text = "\(Int((m?.hFeelsLike ?? 0).rounded()).toSetTempUnits())"
+            cell.windSpeedValueLabel.text = "\(Int(m?.hWindSpeed ?? 0).toSetSpeedUnits()), \(Double(m?.hWindDeg ?? 0).direction)"
             cell.popValueLabel.text = "\(Int((m?.hPop ?? 0) * 100))%"
             cell.cloudinessValueLabel.text = "\(m?.hClouds ?? 0)%"
             

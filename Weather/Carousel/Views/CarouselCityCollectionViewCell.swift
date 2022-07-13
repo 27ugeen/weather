@@ -86,14 +86,13 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         let dailyHeaderCell = tableView.dequeueReusableCell(withIdentifier: dailyHeaderID) as! DailyHeaderTableViewCell
         let dailyCell = tableView.dequeueReusableCell(withIdentifier: dailyID) as! ForecastDailyTableViewCell
         
-
         switch indexPath.row {
         case 0:
             let hModel = model?.current[0]
-            headerCell.presentTempLabel.text = "\(Int(hModel?.temp ?? 0))°"
-            headerCell.dailyTempLabel.text = "\(Int(model?.daily[0].dTempMin ?? 0))°/\( Int(model?.daily[0].dTempMax ?? 0))°"
+            headerCell.presentTempLabel.text = "\(Int(hModel?.temp ?? 0).toSetTempUnits())°"
+            headerCell.dailyTempLabel.text = "\(Int(model?.daily[0].dTempMin ?? 0).toSetTempUnits())°/\( Int(model?.daily[0].dTempMax ?? 0).toSetTempUnits())°"
             headerCell.cloudinessLabel.text = "\(hModel?.clouds ?? 0)"
-            headerCell.windSpeedLabel.text = "\(Int(hModel?.windSpeed.rounded() ?? 0))m/s"
+            headerCell.windSpeedLabel.text = Int(hModel?.windSpeed ?? 0).toSetSpeedUnits()
             headerCell.humidityLabel.text = "\(hModel?.humidity ?? 0)%"
             headerCell.weatherDescriptLabel.text = hModel?.weather[0].descript
             headerCell.currentDateLabel.text = Double(hModel?.currentTime ?? 0).dateFormatted("HH:mm, EE d MMMM")
@@ -112,11 +111,10 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         default:
             let idx = indexPath.row - 3
             let m = model?.daily[idx]
-            
             dailyCell.dateLabel.text = "\(Double(m?.dTime ?? 0).dateFormatted("dd/MM"))"
             dailyCell.mainForecastLabel.text = "\(m?.dWeather[0].descript ?? "")"
             dailyCell.popLabel.text = "\(Int((m?.dPop ?? 0) * 100))%"
-            dailyCell.dailyTempRangeLabel.text = "\(Int(m?.dTempMin.rounded() ?? 0))°-\(Int(m?.dTempMax.rounded() ?? 0))°"
+            dailyCell.dailyTempRangeLabel.text = "\(Int(m?.dTempMin.rounded() ?? 0).toSetTempUnits())°-\(Int(m?.dTempMax.rounded() ?? 0).toSetTempUnits())°"
             dailyCell.selectionStyle = .none
             return dailyCell
         }

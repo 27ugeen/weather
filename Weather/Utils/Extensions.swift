@@ -162,3 +162,26 @@ extension Int {
         }
     }
 }
+
+extension Int {
+    func toSetTempUnits() -> Int {
+        let isTempMetric = UserDefaults.standard.bool(forKey: "Temperature")
+        switch isTempMetric {
+        case true:
+            return self
+        case false:
+            return Int(Double(self) * 1.8) + 32
+        }
+    }
+    
+    func toSetSpeedUnits() -> String {
+        let isSpeedMetrics = UserDefaults.standard.bool(forKey: "Wind speed")
+        switch isSpeedMetrics {
+        case true:
+            return "\(Int(Double(self).rounded()))m/s"
+        case false:
+            return "\(Int((Double(self) * 2.2369).rounded()))mph"
+        }
+
+    }
+}

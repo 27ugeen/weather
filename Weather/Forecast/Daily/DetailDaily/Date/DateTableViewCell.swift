@@ -88,8 +88,6 @@ extension DateTableViewCell: UICollectionViewDataSource {
         if indexPath.row == rowIdx {
             cell.dateButton.backgroundColor = UIColor(rgb: 0x204EC7)
             cell.dateButton.setTitleColor(.white, for: .normal)
-            //TODO: -
-//            dateCollectionView.scrollToItem(at: indexPath as IndexPath, at: .left, animated: true)
         } else {
             cell.dateButton.backgroundColor = UIColor(rgb: 0xFFFFFF)
             cell.dateButton.setTitleColor(.black, for: .normal)

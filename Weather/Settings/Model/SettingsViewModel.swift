@@ -17,7 +17,7 @@ struct Settings {
 class SettingsViewModel {
     //MARK: - props
     let settings: [Settings] = [
-        Settings(settingsName: "Temperature", settingsValueOn: "C", settingsValueOff: "F"),
+        Settings(settingsName: "Temperature", settingsValueOn: "F", settingsValueOff: "C"),
         Settings(settingsName: "Wind speed", settingsValueOn: "Mi", settingsValueOff: "Km"),
         Settings(settingsName: "Time format", settingsValueOn: "12", settingsValueOff: "24"),
         Settings(settingsName: "Notification", settingsValueOn: "On", settingsValueOff: "Off")
