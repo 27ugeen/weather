@@ -56,6 +56,10 @@ class CarouselViewController: UIViewController {
         setupNuvButtons()
         setupViews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.carouselCollectionView.reloadData()
+    }
     //MARK: - Subviews
     
     private lazy var carouselCollectionView: UICollectionView = {

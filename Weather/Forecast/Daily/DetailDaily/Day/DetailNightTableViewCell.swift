@@ -95,14 +95,14 @@ extension DetailNightTableViewCell: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             headCell.dayLabel.text = "Night"
-            headCell.tempLabel.text = "\(Int(m?.dTempNight.rounded() ?? 0))"
+            headCell.tempLabel.text = "\(Int(m?.dTempNight.rounded() ?? 0).toSetTempUnits())"
             headCell.mainForecastLabel.text = "\(m?.dWeather[0].descript ?? "clear")"
-            headCell.tempFieelsValueLabel.text = "\(Int(m?.nFeelsTemp.rounded() ?? 0))"
+            headCell.tempFieelsValueLabel.text = "\(Int(m?.nFeelsTemp.rounded() ?? 0).toSetTempUnits())"
             return headCell
         case 1:
             defCell.weatherImageView.image = UIImage(named: "windSpeed")
             defCell.weatherCompLabel.text = "Wind"
-            defCell.weatherCompValueLabel.text = "\(Int(m?.dWindSpeed.rounded() ?? 0))m/s, \(Double(m?.dWindDeg ?? 0).direction)"
+            defCell.weatherCompValueLabel.text = "\(Int(m?.dWindSpeed ?? 0).toSetSpeedUnits()), \(Double(m?.dWindDeg ?? 0).direction)"
             return defCell
         case 2:
             defCell.weatherImageView.image = UIImage(named: "sun")

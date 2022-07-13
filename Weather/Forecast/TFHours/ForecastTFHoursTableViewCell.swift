@@ -128,7 +128,7 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
             }
         
         cell.timeLabel.text = "\(Double(hModel?.hTime ?? 0).dateFormatted("HH:mm"))"
-        cell.tempLabel.text = "\(Int((hModel?.hTemp ?? 0).rounded()))"        
+        cell.tempLabel.text = "\(Int((hModel?.hTemp ?? 0).rounded()).toSetTempUnits())"        
         return cell
     }
 }
