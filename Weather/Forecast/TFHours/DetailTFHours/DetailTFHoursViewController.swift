@@ -72,7 +72,7 @@ extension DetailTFHoursViewController: UITableViewDataSource {
             let m = model?.hourly[indexPath.row]
             
             cell.dateLabel.text = "\(Double(m?.hTime ?? 0).dateFormatted("EEE dd/MM"))"
-            cell.timeLabel.text = "\(Double(m?.hTime ?? 0).dateFormatted("HH:mm"))"
+            cell.timeLabel.text = "\(Double(m?.hTime ?? 0).dateFormatted("HH:mm".toSetTimeUnits("short")))"
             cell.tempLabel.text = "\(Int((m?.hTemp ?? 0).rounded()).toSetTempUnits())"
             cell.tempFieelsValueLabel.text = "\(Int((m?.hFeelsLike ?? 0).rounded()).toSetTempUnits())"
             cell.windSpeedValueLabel.text = "\(Int(m?.hWindSpeed ?? 0).toSetSpeedUnits()), \(Double(m?.hWindDeg ?? 0).direction)"

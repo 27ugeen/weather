@@ -138,15 +138,15 @@ extension SunMoonTableViewCell: UICollectionViewDataSource {
             cell.sunMoonImageView.image = UIImage(named: "sun")
             cell.sunriseLabel.text = "Sunrise"
             cell.sunsetLabel.text = "Sunset"
-            cell.sunriseValueLabel.text = "\(Double(m?.dSunrise ?? 0).dateFormatted("HH:mm"))"
-            cell.sunsetValueLabel.text = "\(Double(m?.dSunset ?? 0).dateFormatted("HH:mm"))"
+            cell.sunriseValueLabel.text = "\(Double(m?.dSunrise ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long")))"
+            cell.sunsetValueLabel.text = "\(Double(m?.dSunset ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long")))"
             cell.dayLengthLabel.text = dLength
         case 1:
             cell.sunMoonImageView.image = UIImage(named: "moon")
             cell.sunriseLabel.text = "Moonrise"
             cell.sunsetLabel.text = "Moonset"
-            cell.sunriseValueLabel.text = "\(Double(m?.dMoonrise ?? 0).dateFormatted("HH:mm"))"
-            cell.sunsetValueLabel.text = "\(Double(m?.dMoonset ?? 0).dateFormatted("HH:mm"))"
+            cell.sunriseValueLabel.text = "\(Double(m?.dMoonrise ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long")))"
+            cell.sunsetValueLabel.text = "\(Double(m?.dMoonset ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long")))"
             cell.dayLengthLabel.text = "\(nLength)"
         default:
             break
