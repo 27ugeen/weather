@@ -231,13 +231,13 @@ protocol ForecastDataModelProtocol {
 class ForecastDataModel: ForecastDataModelProtocol {
     //MARK: - props
     
-    private var apiKey: String {
+    private var apiKey: Data {
         get {
             guard let filePath = Bundle.main.path(forResource: "Info", ofType: "plist") else {
                 fatalError("Couldn't find file 'Info.plist'.")
             }
             let plist = NSDictionary(contentsOfFile: filePath)
-            guard let value = plist?.object(forKey: "API_KEY") as? String else {
+            guard let value = plist?.object(forKey: "API_KEY") as? Data else {
                 fatalError("Couldn't find key 'API_KEY' in 'Info.plist'.")
             }
             return value
@@ -245,24 +245,32 @@ class ForecastDataModel: ForecastDataModelProtocol {
     }
     //MARK: - methods
     
+    private func encodeApiKey(_ key: Data) -> String {
+        let key = String(data: key, encoding: .utf8)
+        return key ?? ""
+    }
+    
     private func createURLForCity(_ coord: CLLocationCoordinate2D) -> String {
         let headRL = WeatherURLs.city.rawValue
+        let cApiKey = self.encodeApiKey(apiKey)
         let qStr = "&lat=\(coord.latitude)&lon=\(coord.longitude)"
-        let resultURL = headRL + apiKey + qStr
+        let resultURL = headRL + cApiKey + qStr
         return resultURL
     }
     
     private func createURLForGeo(_ name: String) -> String {
         let headRL = WeatherURLs.geo.rawValue
+        let cApiKey = self.encodeApiKey(apiKey)
         let qStr = "&q=\(name)"
-        let resultURL = headRL + apiKey + qStr
+        let resultURL = headRL + cApiKey + qStr
         return resultURL
     }
     
     private func createURLForCurrentWeather(_ coordinate: CLLocationCoordinate2D) -> String {
         let headRL = WeatherURLs.daily.rawValue
+        let cApiKey = self.encodeApiKey(apiKey)
         let qStr = "&lat=\(coordinate.latitude)&lon=\(coordinate.longitude)"
-        let resultURL = headRL + apiKey + qStr
+        let resultURL = headRL + cApiKey + qStr
         return resultURL
     }
     
