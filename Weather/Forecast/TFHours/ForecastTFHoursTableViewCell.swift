@@ -127,7 +127,7 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
                 cell.weatherImageView.image = UIImage(named: "scatClouds")
             }
         
-        cell.timeLabel.text = "\(Double(hModel?.hTime ?? 0).dateFormatted("HH:mm"))"
+        cell.timeLabel.text = "\(Double(hModel?.hTime ?? 0).dateFormatted("HH:mm".toSetTimeUnits("short")))"
         cell.tempLabel.text = "\(Int((hModel?.hTemp ?? 0).rounded()).toSetTempUnits())"        
         return cell
     }

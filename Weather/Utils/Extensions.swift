@@ -185,3 +185,18 @@ extension Int {
 
     }
 }
+
+extension String {
+    func toSetTimeUnits(_ length: String?) -> String {
+        let isTimeMetric = UserDefaults.standard.bool(forKey: "Time format")
+        switch isTimeMetric {
+        case true:
+            return self
+        case false:
+            if length == "long" {
+            return "\(self.replacingOccurrences(of: "HH:mm", with: "h:mm a"))"
+            }
+            return "\(self.replacingOccurrences(of: "HH:mm", with: "h a"))"
+        }
+    }
+}

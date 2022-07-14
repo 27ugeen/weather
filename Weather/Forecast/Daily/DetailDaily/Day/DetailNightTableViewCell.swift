@@ -15,7 +15,7 @@ class DetailNightTableViewCell: UITableViewCell {
     private let headCellID = DayHeadTableViewCell.cellId
     private let ordinaryCellID = DayOrdinaryTableViewCell.cellId
     
-    var rowIdx = 0
+    var rowIdx: Int?
     var model: ForecastStub? {
         didSet {
             tableView.reloadData()
@@ -75,7 +75,7 @@ extension DetailNightTableViewCell: UITableViewDataSource {
         let headCell = tableView.dequeueReusableCell(withIdentifier: headCellID) as! DayHeadTableViewCell
         let defCell = tableView.dequeueReusableCell(withIdentifier: ordinaryCellID) as! DayOrdinaryTableViewCell
         
-        let m = model?.daily[rowIdx]
+        let m = model?.daily[rowIdx ?? 0]
         
         switch m?.dWeather[0].descript {
         case "clear sky":

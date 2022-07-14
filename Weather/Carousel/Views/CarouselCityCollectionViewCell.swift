@@ -95,9 +95,9 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
             headerCell.windSpeedLabel.text = Int(hModel?.windSpeed ?? 0).toSetSpeedUnits()
             headerCell.humidityLabel.text = "\(hModel?.humidity ?? 0)%"
             headerCell.weatherDescriptLabel.text = hModel?.weather[0].descript
-            headerCell.currentDateLabel.text = Double(hModel?.currentTime ?? 0).dateFormatted("HH:mm, EE d MMMM")
-            headerCell.sunriseLabel.text = Double(hModel?.sunrise ?? 0).dateFormatted("HH:mm")
-            headerCell.sunsetLabel.text = Double(hModel?.sunset ?? 0).dateFormatted("HH:mm")
+            headerCell.currentDateLabel.text = Double(hModel?.currentTime ?? 0).dateFormatted("HH:mm, EE d MMMM".toSetTimeUnits("long"))
+            headerCell.sunriseLabel.text = Double(hModel?.sunrise ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long"))
+            headerCell.sunsetLabel.text = Double(hModel?.sunset ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long"))
             return headerCell
         case 1:
             tFHCell.model = self.model
