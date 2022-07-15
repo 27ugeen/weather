@@ -79,7 +79,9 @@ extension DateTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dateCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! DateCollectionViewCell
-        let day = "\(Double(model?.daily[indexPath.row].dTime ?? 0).dateFormatted("dd/MM EE"))"
+        let localOffset = TimeZone.current.secondsFromGMT()
+        let timeOffset = (model?.timezoneOffset ?? 0) - localOffset
+        let day = "\(Double((model?.daily[indexPath.row].dTime ?? 0) + timeOffset).dateFormatted("dd/MM EE"))"
         
         cell.dateButton.setTitle(day, for: .normal)
         cell.dateButton.tag = indexPath.row

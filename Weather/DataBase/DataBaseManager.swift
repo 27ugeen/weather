@@ -86,6 +86,7 @@ class DataBaseManager: DataBaseManagerProtocol {
                     newSet.lat = forecast.lat
                     newSet.city = city.name
                     newSet.country = city.country
+                    newSet.timezoneOffset = Int64(forecast.timezoneOffset)
                     
                     if let newSetCurrent = NSEntityDescription.insertNewObject(forEntityName: "Current", into: self.backgroundContext) as? Current {
                         
