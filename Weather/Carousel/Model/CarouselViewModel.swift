@@ -13,6 +13,7 @@ struct ForecastStub {
     var country: String = ""
     let lat: Double
     let lon: Double
+    let timezoneOffset: Int
     let current: [CurrentStub]
     var daily: [DailyStub]
     let hourly: [HourlyStub]
@@ -177,6 +178,7 @@ class CarouselViewModel: CarouselViewModelProtocol {
                                        country: cModel?.country ?? "",
                                        lat: fModel?.lat ?? 0,
                                        lon: fModel?.lon ?? 0,
+                                       timezoneOffset: fModel?.timezoneOffset ?? 0,
                                        current: [newCurrent],
                                        daily: newDailyArr.sorted(by: { $0.dTime < $1.dTime }),
                                        hourly: newHourlyArr.sorted(by: { $0.hTime < $1.hTime }))
@@ -266,6 +268,7 @@ class CarouselViewModel: CarouselViewModelProtocol {
                                                country: uItem.country ?? "nil",
                                                lat: uItem.lat,
                                                lon: uItem.lon,
+                                               timezoneOffset: Int(uItem.timezoneOffset),
                                                current: [newCurrent],
                                                daily: newDailyArr.sorted(by: { $0.dTime < $1.dTime }),
                                                hourly: newHourlyArr.sorted(by: { $0.hTime < $1.hTime }))

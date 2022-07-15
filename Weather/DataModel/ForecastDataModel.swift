@@ -23,12 +23,14 @@ struct ForecastModel: Decodable {
     let hourly: [HourlyModel]
     var lat: Double
     var lon: Double
+    let timezoneOffset: Int
     
     enum CodingKeys: String, CodingKey {
         case daily
         case hourly
         case lat
         case lon
+        case timezoneOffset = "timezone_offset"
         
         case current
     }
@@ -65,6 +67,7 @@ struct ForecastModel: Decodable {
         hourly = try container.decode([HourlyModel].self, forKey: .hourly)
         lat = try container.decode(Double.self, forKey: .lat)
         lon = try container.decode(Double.self, forKey: .lon)
+        timezoneOffset = try container.decode(Int.self, forKey: .timezoneOffset)
         //1=====================current===========================
         let cContainer = try container.nestedContainer(keyedBy: CurrentCodingKeys.self, forKey: .current)
         currentTime = try cContainer.decode(Int.self, forKey: .currentTime)

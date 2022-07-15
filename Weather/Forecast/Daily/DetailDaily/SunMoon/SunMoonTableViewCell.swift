@@ -130,23 +130,27 @@ extension SunMoonTableViewCell: UICollectionViewDataSource {
         let cell = sunMoonCollectionView.dequeueReusableCell(withReuseIdentifier: collectionCellID, for: indexPath) as! SunMoonCollectionViewCell
         
         let m = model?.daily[rowIdx]
-        let dLength = self.secToHHmm((m?.dSunset ?? 0), (m?.dSunrise ?? 0))
-        let nLength = self.secToHHmm((m?.dMoonset ?? 0), (m?.dMoonrise ?? 0))
+        
+        let localOffset = TimeZone.current.secondsFromGMT()
+        let timeOffset = (model?.timezoneOffset ?? 0) - localOffset
+        
+        let dLength = self.secToHHmm(((m?.dSunset ?? 0) + timeOffset), ((m?.dSunrise ?? 0) + timeOffset))
+        let nLength = self.secToHHmm(((m?.dMoonset ?? 0) + timeOffset), ((m?.dMoonrise ?? 0) + timeOffset))
         
         switch indexPath.item {
         case 0:
             cell.sunMoonImageView.image = UIImage(named: "sun")
             cell.sunriseLabel.text = "Sunrise"
             cell.sunsetLabel.text = "Sunset"
-            cell.sunriseValueLabel.text = "\(Double(m?.dSunrise ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long")))"
-            cell.sunsetValueLabel.text = "\(Double(m?.dSunset ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long")))"
+            cell.sunriseValueLabel.text = "\(Double((m?.dSunrise ?? 0) + timeOffset).dateFormatted("HH:mm".toSetTimeUnits("long")))"
+            cell.sunsetValueLabel.text = "\(Double((m?.dSunset ?? 0) + timeOffset).dateFormatted("HH:mm".toSetTimeUnits("long")))"
             cell.dayLengthLabel.text = dLength
         case 1:
             cell.sunMoonImageView.image = UIImage(named: "moon")
             cell.sunriseLabel.text = "Moonrise"
             cell.sunsetLabel.text = "Moonset"
-            cell.sunriseValueLabel.text = "\(Double(m?.dMoonrise ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long")))"
-            cell.sunsetValueLabel.text = "\(Double(m?.dMoonset ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long")))"
+            cell.sunriseValueLabel.text = "\(Double((m?.dMoonrise ?? 0) + timeOffset).dateFormatted("HH:mm".toSetTimeUnits("long")))"
+            cell.sunsetValueLabel.text = "\(Double((m?.dMoonset ?? 0) + timeOffset).dateFormatted("HH:mm".toSetTimeUnits("long")))"
             cell.dayLengthLabel.text = "\(nLength)"
         default:
             break

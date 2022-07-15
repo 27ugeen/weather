@@ -83,7 +83,10 @@ extension DetailTFHoursHeaderView: UICollectionViewDataSource {
         
         let m = model?.hourly[indexPath.item]
         
-        cell.timeLabel.text = "\(Double(m?.hTime ?? 0).dateFormatted("HH:mm".toSetTimeUnits("short")))"
+        let localOffset = TimeZone.current.secondsFromGMT()
+        let timeOffset = (model?.timezoneOffset ?? 0) - localOffset
+        
+        cell.timeLabel.text = "\(Double((m?.hTime ?? 0) + timeOffset).dateFormatted("HH:mm".toSetTimeUnits("short")))"
         cell.tempLabel.text = "\(Int((m?.hTemp ?? 0).rounded()).toSetTempUnits())"
         cell.precipitationLabel.text = "\(Int((m?.hPop ?? 0) * 100))%"
         return cell

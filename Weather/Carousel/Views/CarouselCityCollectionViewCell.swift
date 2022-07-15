@@ -86,6 +86,9 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         let dailyHeaderCell = tableView.dequeueReusableCell(withIdentifier: dailyHeaderID) as! DailyHeaderTableViewCell
         let dailyCell = tableView.dequeueReusableCell(withIdentifier: dailyID) as! ForecastDailyTableViewCell
         
+        let localOffset = TimeZone.current.secondsFromGMT()
+        let timeOffset = (model?.timezoneOffset ?? 0) - localOffset
+        
         switch indexPath.row {
         case 0:
             let hModel = model?.current[0]
@@ -95,9 +98,9 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
             headerCell.windSpeedLabel.text = Int(hModel?.windSpeed ?? 0).toSetSpeedUnits()
             headerCell.humidityLabel.text = "\(hModel?.humidity ?? 0)%"
             headerCell.weatherDescriptLabel.text = hModel?.weather[0].descript
-            headerCell.currentDateLabel.text = Double(hModel?.currentTime ?? 0).dateFormatted("HH:mm, EE d MMMM".toSetTimeUnits("long"))
-            headerCell.sunriseLabel.text = Double(hModel?.sunrise ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long"))
-            headerCell.sunsetLabel.text = Double(hModel?.sunset ?? 0).dateFormatted("HH:mm".toSetTimeUnits("long"))
+            headerCell.currentDateLabel.text = Double((hModel?.currentTime ?? 0) + timeOffset).dateFormatted("HH:mm, EE d MMMM".toSetTimeUnits("long"))
+            headerCell.sunriseLabel.text = Double((hModel?.sunrise ?? 0) + timeOffset).dateFormatted("HH:mm".toSetTimeUnits("long"))
+            headerCell.sunsetLabel.text = Double((hModel?.sunset ?? 0) + timeOffset).dateFormatted("HH:mm".toSetTimeUnits("long"))
             return headerCell
         case 1:
             tFHCell.model = self.model
@@ -111,7 +114,7 @@ extension CarouselCityCollectionViewCell: UITableViewDataSource {
         default:
             let idx = indexPath.row - 3
             let m = model?.daily[idx]
-            dailyCell.dateLabel.text = "\(Double(m?.dTime ?? 0).dateFormatted("dd/MM"))"
+            dailyCell.dateLabel.text = "\(Double((m?.dTime ?? 0) + timeOffset).dateFormatted("dd/MM"))"
             dailyCell.mainForecastLabel.text = "\(m?.dWeather[0].descript ?? "")"
             dailyCell.popLabel.text = "\(Int((m?.dPop ?? 0) * 100))%"
             dailyCell.dailyTempRangeLabel.text = "\(Int(m?.dTempMin.rounded() ?? 0).toSetTempUnits())°-\(Int(m?.dTempMax.rounded() ?? 0).toSetTempUnits())°"

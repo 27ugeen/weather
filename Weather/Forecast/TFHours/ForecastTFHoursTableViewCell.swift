@@ -89,10 +89,13 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
         let hModel = model?.hourly[indexPath.item]
         let cModel = model?.current[0]
         
-        let curTime = Double(cModel?.currentTime ?? 0).dateFormatted("HH")
-        let cellTime = Double(hModel?.hTime ?? 0).dateFormatted("HH")
-        let sunrise = Double(cModel?.sunrise ?? 0).dateFormatted("HH")
-        let sunset = Double(cModel?.sunset ?? 0).dateFormatted("HH")
+        let localOffset = TimeZone.current.secondsFromGMT()
+        let timeOffset = (model?.timezoneOffset ?? 0) - localOffset
+        
+        let curTime = Double((cModel?.currentTime ?? 0) + timeOffset).dateFormatted("HH")
+        let cellTime = Double((hModel?.hTime ?? 0) + timeOffset).dateFormatted("HH")
+        let sunrise = Double((cModel?.sunrise ?? 0) + timeOffset).dateFormatted("HH")
+        let sunset = Double((cModel?.sunset ?? 0) + timeOffset).dateFormatted("HH")
 
         if cellTime == curTime {
             cell.wrapperView.backgroundColor = UIColor(rgb: 0x204EC7)
@@ -114,7 +117,11 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
             case "scattered clouds":
                 cell.weatherImageView.image = UIImage(named: "scatClouds")
             case "few clouds":
+                if cellTime > sunrise && cellTime <= sunset {
                 cell.weatherImageView.image = UIImage(named: "fewClouds")
+                } else {
+                cell.weatherImageView.image = UIImage(named: "scatClouds")
+                }
             case "heavy intensity rain":
                 cell.weatherImageView.image = UIImage(named: "heavyRain")
             case "moderate rain":
@@ -127,7 +134,7 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDataSource {
                 cell.weatherImageView.image = UIImage(named: "scatClouds")
             }
         
-        cell.timeLabel.text = "\(Double(hModel?.hTime ?? 0).dateFormatted("HH:mm".toSetTimeUnits("short")))"
+        cell.timeLabel.text = "\(Double((hModel?.hTime ?? 0) + timeOffset).dateFormatted("HH:mm".toSetTimeUnits("short")))"
         cell.tempLabel.text = "\(Int((hModel?.hTemp ?? 0).rounded()).toSetTempUnits())"        
         return cell
     }
