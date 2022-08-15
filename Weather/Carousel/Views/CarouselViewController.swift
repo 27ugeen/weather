@@ -48,7 +48,7 @@ class CarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        view.backgroundColor = UIColor(rgb: 0x204EC7)
         navigationController?.navigationBar.tintColor = .black
         
         fetchData()
@@ -62,6 +62,13 @@ class CarouselViewController: UIViewController {
     }
     //MARK: - Subviews
     
+    private lazy var wrapperView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        return view
+    }()
+    
     private lazy var carouselCollectionView: UICollectionView = {
         let carouselLayout = UICollectionViewFlowLayout()
         carouselLayout.scrollDirection = .horizontal
@@ -73,7 +80,7 @@ class CarouselViewController: UIViewController {
         collection.isPagingEnabled = true
         collection.dataSource = self
         collection.delegate = self
-        
+        guard self.cityModels.count > 0 else { return collection }
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshView), for: .valueChanged)
         collection.refreshControl = refreshControl
@@ -221,17 +228,24 @@ extension CarouselViewController {
         carouselCollectionView.register(CarouselEmptyCollectionViewCell.self, forCellWithReuseIdentifier: emptyCellID)
         carouselCollectionView.register(CarouselCityCollectionViewCell.self, forCellWithReuseIdentifier: cityCellId)
         
-        view.addSubview(carouselCollectionView)
-        view.addSubview(pageControl)
+        view.addSubview(wrapperView)
+        
+        wrapperView.addSubview(pageControl)
+        wrapperView.addSubview(carouselCollectionView)
         
         NSLayoutConstraint.activate([
-            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            wrapperView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            wrapperView.topAnchor.constraint(equalTo: view.topAnchor),
+            wrapperView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            wrapperView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            carouselCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            pageControl.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
+            pageControl.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 91),
+            
+            carouselCollectionView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor),
             carouselCollectionView.topAnchor.constraint(equalTo: pageControl.bottomAnchor),
-            carouselCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            carouselCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            carouselCollectionView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor),
+            carouselCollectionView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor, constant: 12)
         ])
     }
 }

@@ -23,10 +23,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navigationController = UINavigationController(rootViewController: onBoardingVC)
         
+        
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         return true
+    }
+    
+    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
+        guard let window = self.window else { return }
+        let navigationController = UINavigationController(rootViewController: vc)
+        window.rootViewController = navigationController
+        // add animation
+        UIView.transition(with: window,
+                          duration: 0.42,
+                          options: .transitionFlipFromLeft,
+                          animations: nil,
+                          completion: nil)
     }
 }
 
