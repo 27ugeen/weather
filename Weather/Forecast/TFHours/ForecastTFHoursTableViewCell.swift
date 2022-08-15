@@ -14,7 +14,11 @@ class ForecastTFHoursTableViewCell: UITableViewCell {
     static let cellId = "ForecastTFHoursTableViewCell"
     private let collectionCellID = ForecastTFHoursCollectionViewCell.cellId
     
-    var model: ForecastStub?
+    var model: ForecastStub? {
+        didSet {
+            tFHoursCollectionView.reloadData()
+        }
+    }
     
     //MARK: - init
     

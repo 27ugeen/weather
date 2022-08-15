@@ -128,6 +128,11 @@ extension MenuViewController {
         
         NSLayoutConstraint.activate([
             
+//            view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            view.topAnchor.constraint(equalTo: view.topAnchor),
+//            view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            view.widthAnchor.constraint(equalToConstant: 200),
+            
             titleImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             titleImageView.widthAnchor.constraint(equalToConstant: 25),

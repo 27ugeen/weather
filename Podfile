@@ -8,5 +8,6 @@ target 'Weather' do
   # Pods for Weather
    pod 'CustomUISwitch', '~> 0.0'
    pod 'Alamofire', '~> 5.6.1'
+   pod 'BonsaiController'
 
 end

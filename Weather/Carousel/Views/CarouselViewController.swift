@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import BonsaiController
 
 class CarouselViewController: UIViewController {
     //MARK: - props
@@ -69,11 +70,11 @@ class CarouselViewController: UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: carouselLayout)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.showsHorizontalScrollIndicator = false
-        collection.backgroundColor = .clear
+        collection.backgroundColor = UIColor(rgb: 0x204EC7)
         collection.isPagingEnabled = true
         collection.dataSource = self
         collection.delegate = self
-        
+        guard self.cityModels.count > 0 else { return collection }
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshView), for: .valueChanged)
         collection.refreshControl = refreshControl
@@ -88,6 +89,7 @@ class CarouselViewController: UIViewController {
         pageControl.currentPageIndicatorTintColor = .black
         pageControl.backgroundStyle = .automatic
         pageControl.preferredIndicatorImage = UIImage(systemName: "circle")
+        pageControl.addTarget(self, action: #selector(dotTapped), for: .touchUpInside)
         
         return pageControl
     }()
@@ -174,6 +176,11 @@ class CarouselViewController: UIViewController {
         }
     }
     
+    @objc private func dotTapped(_ sender: UIPageControl) {
+        print("SP: \(sender.currentPage)")
+        self.carouselCollectionView.scrollToItem(at: IndexPath(row: sender.currentPage, section: 0), at: .right, animated: true)
+    }
+    
     @objc private func refreshView() {
         print("Refreshing...")
         self.viewModel.updateForecast(CLLocationCoordinate2D(latitude: cityModels[currentPage].lat,longitude: cityModels[currentPage].lon)) { fModel, cModel in
@@ -219,9 +226,9 @@ extension CarouselViewController {
             pageControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             
             carouselCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            carouselCollectionView.topAnchor.constraint(equalTo: pageControl.bottomAnchor),
+            carouselCollectionView.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 5),
             carouselCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            carouselCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            carouselCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 }
@@ -302,7 +309,7 @@ extension CarouselViewController: UICollectionViewDelegate {
 //MARK: - UICollectionViewDelegateFlowLayout
 extension CarouselViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height - 29)
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

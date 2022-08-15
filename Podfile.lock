@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (5.6.1)
+  - BonsaiController (6.0.0)
   - CustomUISwitch (0.0.1)
 
 DEPENDENCIES:
   - Alamofire (~> 5.6.1)
+  - BonsaiController
   - CustomUISwitch (~> 0.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - BonsaiController
     - CustomUISwitch
 
 SPEC CHECKSUMS:
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  BonsaiController: 63410fc39bc5b3a9df5b329dbc848b6b27edf663
   CustomUISwitch: 2076af90de425af11cc7631dda40bc441e707b0f
 
-PODFILE CHECKSUM: 46a2ecf846b4d0eb081ef5e18a46407b8ef000e0
+PODFILE CHECKSUM: 639e8b679da105fad2a9b270d4906b53a216c913
 
 COCOAPODS: 1.11.3
