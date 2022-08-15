@@ -88,6 +88,7 @@ class CarouselViewController: UIViewController {
         pageControl.currentPageIndicatorTintColor = .black
         pageControl.backgroundStyle = .automatic
         pageControl.preferredIndicatorImage = UIImage(systemName: "circle")
+        pageControl.addTarget(self, action: #selector(dotTapped), for: .touchUpInside)
         
         return pageControl
     }()
@@ -131,7 +132,9 @@ class CarouselViewController: UIViewController {
     }
     
     private func addCity() {
-        let alertVC = UIAlertController(title: "Enter City", message: "Please, enter a name of the city", preferredStyle: .alert)
+        let alertVC = UIAlertController(title: "Enter City",
+                                        message: "Please, enter a name of the city",
+                                        preferredStyle: .alert)
         alertVC.addTextField { tf in
             tf.placeholder = " City name..."
             
@@ -174,9 +177,16 @@ class CarouselViewController: UIViewController {
         }
     }
     
+    @objc private func dotTapped(_ sender: UIPageControl) {
+        self.carouselCollectionView.scrollToItem(at: IndexPath(row: sender.currentPage, section: 0),
+                                                 at: .right,
+                                                 animated: true)
+    }
+    
     @objc private func refreshView() {
         print("Refreshing...")
-        self.viewModel.updateForecast(CLLocationCoordinate2D(latitude: cityModels[currentPage].lat,longitude: cityModels[currentPage].lon)) { fModel, cModel in
+        self.viewModel.updateForecast(CLLocationCoordinate2D(latitude: cityModels[currentPage].lat,
+                                                             longitude: cityModels[currentPage].lon)) { fModel, cModel in
             self.viewModel.createCurrentForecastStub(fModel, cModel) { forecast in
                 self.cityModels.remove(at: self.currentPage)
                 self.cityModels.insert(forecast, at: self.currentPage)
