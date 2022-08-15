@@ -72,8 +72,13 @@ class DataBaseManager: DataBaseManagerProtocol {
     }
     
     func updateForecastToDB(_ forecast: ForecastModel, _ city: NameCityModel) {
+        let group = DispatchGroup()
+        group.enter()
         self.deleteForecastFromDB(forecast)
-        self.addForecastToDB(forecast, city)
+        group.leave()
+        group.notify(queue: .global(qos: .default)) {
+            self.addForecastToDB(forecast, city)
+        }
     }
     
     func addForecastToDB(_ forecast: ForecastModel, _ city: NameCityModel) {
