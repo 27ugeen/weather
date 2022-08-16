@@ -1,4 +1,4 @@
-# Weather app.
+# Weather forecast app.
 
 Gets data from "OpenWeather API".
 
