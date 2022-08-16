@@ -123,10 +123,6 @@ class OnboardingViewController: UIViewController {
         let mainVC = CarouselViewController(viewModel: viewModel)
         
         (UIApplication.shared.delegate as? AppDelegate)?.changeRootViewController(mainVC)
-        
-//        self.navigationItem.backBarButtonItem = .none
-//        self.navigationItem.backButtonTitle = ""
-//        navigationController?.pushViewController(mainVC, animated: true)
     }
     
     @objc private func allowLocation() {

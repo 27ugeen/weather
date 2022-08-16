@@ -105,7 +105,6 @@ extension ForecastDailyTableViewCell {
             wrapperView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 5),
             wrapperView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             wrapperView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -5),
-            //            wrapperView.heightAnchor.constraint(equalToConstant: 56),
             
             dateLabel.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 10),
             dateLabel.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 6),

@@ -70,9 +70,7 @@ extension ForecastTFHoursTableViewCell {
             tFHoursCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             tFHoursCollectionView.topAnchor.constraint(equalTo: forecastTFHoursButton.bottomAnchor, constant: 10),
             tFHoursCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            tFHoursCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            //TODO: -
-//            tFHoursCollectionView.heightAnchor.constraint(equalToConstant: 83)
+            tFHoursCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
@@ -155,19 +153,6 @@ extension ForecastTFHoursTableViewCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 8
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //TODO: - doesnt work... ???
-//        let cell: ForecastTFHoursCollectionViewCell  = tFHoursCollectionView.cellForItem(at: indexPath) as! ForecastTFHoursCollectionViewCell
-//
-//        if cell.wrapperView.backgroundColor == nil {
-//            cell.wrapperView.backgroundColor = .blue
-//        } else {
-//            cell.wrapperView.backgroundColor = nil
-//        }
-//        collectionView.reloadData()
-//        print(cell.timeLabel.text)
     }
 }
 

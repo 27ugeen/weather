@@ -75,7 +75,6 @@ class MenuViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "location")
         imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
-        //        imageView.image?.withTintColor(.white, renderingMode: .alwaysTemplate)
         imageView.tintColor = .white
         return imageView
     }()

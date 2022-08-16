@@ -23,11 +23,9 @@ class DetailTFHoursViewController: UIViewController {
     }
     //MARK: - subviews
     private let tableView: UITableView = {
-        //TODO: - style?
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = UIColor(rgb: 0xFFFFFF)
-        //        tableView.separatorStyle = .singleLine
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         tableView.separatorColor = UIColor(rgb: 0x204EC7)
         return tableView

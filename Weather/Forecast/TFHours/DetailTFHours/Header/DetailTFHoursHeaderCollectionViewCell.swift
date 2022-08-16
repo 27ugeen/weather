@@ -80,7 +80,6 @@ class DetailTFHoursHeaderCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "line")
-        //        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         imageView.backgroundColor = UIColor(rgb: 0x2204EC7)
         return imageView
     }()
