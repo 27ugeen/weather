@@ -121,7 +121,12 @@ class OnboardingViewController: UIViewController {
     
     private func goToMainVC() {
         let mainVC = CarouselViewController(viewModel: viewModel)
-        navigationController?.pushViewController(mainVC, animated: true)
+        
+        (UIApplication.shared.delegate as? AppDelegate)?.changeRootViewController(mainVC)
+        
+//        self.navigationItem.backBarButtonItem = .none
+//        self.navigationItem.backButtonTitle = ""
+//        navigationController?.pushViewController(mainVC, animated: true)
     }
     
     @objc private func allowLocation() {
@@ -134,8 +139,7 @@ class OnboardingViewController: UIViewController {
             self.goToMainVC()
         } else {
             UserDefaults.standard.set(false, forKey: "isStatusOn")
-            let mainVC = CarouselViewController(viewModel: viewModel)
-            navigationController?.pushViewController(mainVC, animated: true)
+            self.goToMainVC()
         }
         print("Location access denied")
     }
