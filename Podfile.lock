@@ -1,0 +1,20 @@
+PODS:
+  - Alamofire (5.6.1)
+  - CustomUISwitch (0.0.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.6.1)
+  - CustomUISwitch
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - CustomUISwitch
+
+SPEC CHECKSUMS:
+  Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  CustomUISwitch: 2076af90de425af11cc7631dda40bc441e707b0f
+
+PODFILE CHECKSUM: 328e70f84002663e1272abb0cc17f54da6b82e7a
+
+COCOAPODS: 1.11.3
